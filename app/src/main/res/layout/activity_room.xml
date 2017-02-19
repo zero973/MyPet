@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/room"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButtonFood"
+        android:background="@drawable/chicken"
+        android:contentDescription="@string/fish"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButtonAchievement"
+        android:background="@drawable/school"
+        android:contentDescription="@string/achieve"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageButtonHealth"
+        android:layout_toEndOf="@+id/imageButtonHealth" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButtonHealth"
+        android:background="@drawable/heart"
+        android:contentDescription="@string/health"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageButtonFood"
+        android:layout_toEndOf="@+id/imageButtonFood" />
+
+    <TextView
+        android:text="Привет !"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewNamePet"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/imageButtonAchievement"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

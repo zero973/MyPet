@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Мой любимый питомец</string>
+
+    <string name="fish">fish</string>
+    <string name="health">health</string>
+    <string name="achieve">achieve</string>
+
+    <string-array name="words_1_lvl">
+        <item>лес</item>
+        <item>село</item>
+        <item>куча</item>
+        <item>клён</item>
+        <item>зуб</item>
+        <item>окно</item>
+        <item>очки</item>
+        <item>кот</item>
+        <item>ход</item>
+        <item>жизнь</item>
+        <item>еда</item>
+        <item>вода</item>
+        <item>жар</item>
+        <item>рожь</item>
+        <item>глаз</item>
+        <item>стол</item>
+        <item>стул</item>
+        <item>ёжик</item>
+        <item>нож</item>
+    </string-array>
+    <string-array name="words_2_lvl">
+        <item>молот</item>
+        <item>чемодан</item>
+        <item>кровать</item>
+        <item>молоко</item>
+        <item>облако</item>
+        <item>носок</item>
+        <item>вилка</item>
+        <item>ложка</item>
+        <item>валенок</item>
+        <item>ребёнок</item>
+        <item>дверь</item>
+        <item>цыплёнок</item>
+        <item>цыган</item>
+        <item>дождь</item>
+        <item>фартук</item>
+        <item>фрукт</item>
+        <item>овощь</item>
+        <item>болезнь</item>
+        <item>яблоко</item>
+        <item>вариант</item>
+    </string-array>
+
+    <string-array name="mathExamplesDiscriminant">
+        <item>x^2-8x+12=0</item>
+        <item>x^2-10x+21=0</item>
+        <item>x^2-5x=14</item>
+        <item>x^2-15=2x</item>
+        <item>5x^2+20x=0</item>
+        <item>3x^2+18x=0</item>
+        <item>x^2+4x=5</item>
+        <item>x^2-7x=8</item>
+        <item>x^2+3x=10</item>
+        <item>x^2+18=9x</item>
+    </string-array>
+    <integer-array name="mathExamplesDiscriminantAnswers">
+        <item>6</item>
+        <item>7</item>
+        <item>7</item>
+        <item>5</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>8</item>
+        <item>2</item>
+        <item>6</item>
+    </integer-array>
+</resources>

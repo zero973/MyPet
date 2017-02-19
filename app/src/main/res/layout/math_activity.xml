@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/StartButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/TextFieldChislo1" />
+
+    <TextView
+        android:text="+ -"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextZnak1"
+        android:layout_alignBaseline="@+id/TextFieldChislo1"
+        android:layout_alignBottom="@+id/TextFieldChislo1"
+        android:layout_toRightOf="@+id/TextFieldChislo1"
+        android:layout_toEndOf="@+id/TextFieldChislo1"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
+
+    <TextView
+        android:text="000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextFieldChislo2"
+        android:layout_alignBaseline="@+id/TextZnak1"
+        android:layout_alignBottom="@+id/TextZnak1"
+        android:layout_toRightOf="@+id/TextZnak1"
+        android:layout_toEndOf="@+id/TextZnak1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
+
+    <TextView
+        android:text="000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:id="@+id/TextFieldChislo3"
+        android:layout_below="@+id/TextFieldChislo1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="="
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:layout_alignBaseline="@+id/TextFieldChislo2"
+        android:layout_alignBottom="@+id/TextFieldChislo2"
+        android:layout_toRightOf="@+id/TextFieldChislo2"
+        android:layout_toEndOf="@+id/TextFieldChislo2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:ems="10"
+        android:id="@+id/Answer1"
+        android:layout_alignBaseline="@+id/textView15"
+        android:layout_alignBottom="@+id/textView15"
+        android:layout_toRightOf="@+id/textView15"
+        android:layout_toEndOf="@+id/textView15"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
+
+    <TextView
+        android:text="+ -"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/TextFieldChislo3"
+        android:layout_alignLeft="@+id/TextZnak1"
+        android:layout_alignStart="@+id/TextZnak1"
+        android:id="@+id/TextZnak2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextFieldChislo4"
+        android:layout_alignBaseline="@+id/TextZnak2"
+        android:layout_alignBottom="@+id/TextZnak2"
+        android:layout_alignLeft="@+id/TextFieldChislo2"
+        android:layout_alignStart="@+id/TextFieldChislo2"
+        android:text="000" />
+
+    <TextView
+        android:text="="
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:layout_alignBaseline="@+id/TextFieldChislo4"
+        android:layout_alignBottom="@+id/TextFieldChislo4"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:ems="10"
+        android:id="@+id/Answer2"
+        android:layout_alignBaseline="@+id/textView16"
+        android:layout_alignBottom="@+id/textView16"
+        android:layout_alignLeft="@+id/Answer1"
+        android:layout_alignStart="@+id/Answer1" />
+
+    <TextView
+        android:text="Вводите только цифры и не оставляйте поля пустыми!!!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:id="@+id/textView"
+        android:layout_below="@+id/textViewRightAnswers"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Правильных ответов: 0 из 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewRightAnswers"
+        android:layout_below="@+id/buttonCheckAnswers"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:text="Следующий уровень"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/StartButton"
+        android:layout_marginTop="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Проверить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCheckAnswers"
+        android:layout_below="@+id/Answer2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>
