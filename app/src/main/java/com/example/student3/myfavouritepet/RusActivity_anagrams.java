@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +46,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
         CheckWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (countRightAnswers == 20) {
+                if (countRightAnswers >= 20) {
                     indexWord = 0;
                     countTry = 0;
                     countRightAnswers = 0;
@@ -53,20 +54,17 @@ public class RusActivity_anagrams extends AppCompatActivity {
                     GoPlayAnagram();
                 }
                 else {
-                    if (countTry > 3) {
-                        if (trueWord == UserWord.getText().toString()) {
-                            countRightAnswers++;
-                            CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
-                            GoPlayAnagram();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Неправильный ответ, подумай ещё!", Toast.LENGTH_SHORT).show();
-                        }
+                    Log.d("Правильный ответ", trueWord);
+                    if (trueWord.toLowerCase().equals(UserWord.getText().toString().toLowerCase())) {
+                        countRightAnswers++;
+                        CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
+                    GoPlayAnagram();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Правильный ответ: " + trueWord, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Неправильный ответ, подумай ещё!", Toast.LENGTH_SHORT).show();
                     }
-                    countTry++;
-                    CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
                 }
+                countTry++;
+                CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
             }
         });
     }
@@ -121,6 +119,8 @@ public class RusActivity_anagrams extends AppCompatActivity {
             }else
                 i--;
         }
+        if (result.equals(word))
+            GenerateWord(word);
         return result;
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class GameSchool extends AppCompatActivity {
@@ -14,6 +15,7 @@ public class GameSchool extends AppCompatActivity {
     Button Fizika;
     Button Russkiy;
     Button English;
+    RelativeLayout room;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

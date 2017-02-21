@@ -3,6 +3,7 @@ package com.example.student3.myfavouritepet;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,11 +14,11 @@ import android.widget.Toast;
 
 public class Room extends Activity{
 
-    public String name, gender, roomColor;
+    public String name, kind, roomColor;
     RelativeLayout room;
     SharedPreferences sPref;
 
-    ImageButton IBFood, IBHealth, IBAchievement;
+    ImageButton IBFood, IBHealth, IBAchievement, IBPet;
     TextView tvPetName;
 
 
@@ -32,9 +33,9 @@ public class Room extends Activity{
         IBFood = (ImageButton)findViewById(R.id.imageButtonFood);
         IBHealth = (ImageButton)findViewById(R.id.imageButtonHealth);
         IBAchievement = (ImageButton)findViewById(R.id.imageButtonAchievement);
+        IBPet = (ImageButton)findViewById(R.id.imageButtonPet);
         tvPetName = (TextView)findViewById(R.id.textViewNamePet);
-        Log.d("В комнате","Имя питомца: "+name);
-        tvPetName.setText("Привет, "+name+"!");
+        tvPetName.setText(name);
 
         IBFood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,28 +58,17 @@ public class Room extends Activity{
         });
     }
 
-    void loadDataOnsPref() {
-        sPref = getPreferences(MODE_PRIVATE);
-        name = sPref.getString("PetName", "");
-        gender = sPref.getString("Gender", "");
-        roomColor = sPref.getString("RoomColor", "");
-    }
-
     void loadData(){
-        Log.d("В комнате", "загружаю данные");
-        Intent intent = getIntent();
-        name = intent.getStringExtra("petName");
-        gender = intent.getStringExtra("Gender");
-        roomColor = intent.getStringExtra("RoomColor");
-        Log.d("Цвет комнаты: ", roomColor);
-        Log.d("В комнате", "загрузил данные");
+        name = Helper.Name;
+        kind = Helper.Kind;
+        roomColor = Helper.Color;
     }
 
     void saveData() {
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString("PetName", name);
-        ed.putString("Gender", gender);
+        ed.putString("Kind", kind);
         ed.putString("RoomColor", roomColor);
         ed.commit();
     }
@@ -89,8 +79,26 @@ public class Room extends Activity{
             room.setBackgroundColor(getResources().getColor(R.color.roomColorBlue));
         }else if(roomColor.equals("Розовый")){
             room.setBackgroundColor(getResources().getColor(R.color.roomColorPink));
-        }else {
-            Toast.makeText(this ,"Не удалось загрузить цвет", Toast.LENGTH_SHORT).show();
+        }else if (roomColor.equals("Красный")){
+            room.setBackgroundColor(getResources().getColor(R.color.roomColorRed));
+        }else if (roomColor.equals("Зелёный")){
+            room.setBackgroundColor(getResources().getColor(R.color.roomColorGreen));
+        }else if (roomColor.equals("Жёлтый")){
+            room.setBackgroundColor(getResources().getColor(R.color.MathBut));
+        }else if (roomColor.equals("Коричневый")){
+            room.setBackgroundColor(getResources().getColor(R.color.roomColorBrown));
+        }else if (roomColor.equals("Оранжевый")){
+            room.setBackgroundColor(getResources().getColor(R.color.roomColorOrange));
+        }else{
+            room.setBackgroundColor(getResources().getColor(R.color.roomColorBlue));
         }
+
+        /*if(kind.equals("Собака")){
+            IBPet.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.petdog));
+        }else if (kind.equals("Кошка")){
+            IBPet.setBackgroundResource(R.drawable.petcat);  Caused by: java.lang.NullPointerException
+        }else {
+            IBPet.setBackgroundResource(R.drawable.petparrot);
+        }*/
     }
 }

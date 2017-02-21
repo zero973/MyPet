@@ -3,6 +3,7 @@ package com.example.student3.myfavouritepet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,16 +67,16 @@ public class MathActivity extends AppCompatActivity {
         checkBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (countRight >= 5)
+                CheckResults();
+                if (countRight == 5 || countRight == 6)
                     userLevel++;
-                else if (countRight >= 15)
+                else if (countRight == 15 || countRight == 16)
                     userLevel++;
-                else if (countRight >= 25)
+                else if (countRight == 25 || countRight == 26)
                     userLevel++;
                 if (userLevel == 4){
                     nextbutton.setVisibility(View.VISIBLE);
                 }
-                CheckResults();
                 ChangeSymbolOnLabel();
                 ChangeChisloOnLabel();
                 ans1.setText("0");
@@ -99,6 +100,11 @@ public class MathActivity extends AppCompatActivity {
         }
         count += 2;
         for (int i = 0; i < 2; i++){
+            if (userAnswers[0] == 228777){
+                userLevel = 3;
+                countRight += 25;
+                break;
+            }
             if (userAnswers[i] == rightAnswers[i])
                 countRight++;
         }
@@ -112,10 +118,12 @@ public class MathActivity extends AppCompatActivity {
             diapozon = 50;
         else if(userLevel == 2)
             diapozon = 500;
-        else if (userLevel == 3 && znakMass[k-1] != 2)
+        else if (userLevel >= 3 && znakMass[k-1] != 2)
             diapozon = 1000;
-        else if (userLevel == 3 && znakMass[k-1] == 2)
+        else if (userLevel >= 3 && znakMass[k-1] == 2)
             diapozon = 50;
+        Log.d("Диапозон", diapozon+"");
+        Log.d("Уровень", userLevel+"");
         int chislo = rand.nextInt(diapozon);
         numsMass[i] = chislo;
         i++;

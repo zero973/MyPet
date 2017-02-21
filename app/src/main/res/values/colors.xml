@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorAccent">#3e50f1</color>
+    <color name="colorPrimary">#3e50f1</color>
+    <color name="black">#060606</color>
+    <color name="roomColorGreen">#08f750</color>
+    <color name="roomColorBrown">#a36202</color>
+    <color name="roomColorOrange">#fd7804</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="roomColorBlue">#0000ff</color>
+    <color name="roomColorRed">#f13828</color>
+    <color name="roomColorBlue">#00aaff</color>
     <color name="roomColorPink">#ffcad6</color>
+    <color name="schoolColor">#6ea8f4</color>
+    <color name="WhiteColor">#ffffff</color>
+    <color name="MathBut">#fcff7c</color>
 </resources>

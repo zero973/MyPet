@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameSchool"></activity>
+        <activity android:name=".GameSchool" android:label="Школа"></activity>
         <activity android:name=".Room" android:label="Комната"></activity>
         <activity android:name=".MathActivity" android:label="Математика"></activity>
         <activity android:name=".PhisActivity" android:label="Физика"></activity>

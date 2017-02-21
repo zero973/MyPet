@@ -62,9 +62,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="0"
+        android:inputType="phone"
         android:ems="10"
+        android:text="0"
         android:id="@+id/Answer1"
         android:layout_alignBaseline="@+id/textView15"
         android:layout_alignBottom="@+id/textView15"
@@ -105,9 +105,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="0"
+        android:inputType="phone"
         android:ems="10"
+        android:text="0"
         android:id="@+id/Answer2"
         android:layout_alignBaseline="@+id/textView16"
         android:layout_alignBottom="@+id/textView16"
@@ -115,10 +115,12 @@
         android:layout_alignStart="@+id/Answer1" />
 
     <TextView
-        android:text="Вводите только цифры и не оставляйте поля пустыми!!!"
+        android:text="Не оставляй поля пустыми и не вводи посторонние символы!!!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         android:id="@+id/textView"
         android:layout_below="@+id/textViewRightAnswers"
         android:layout_centerHorizontal="true" />
@@ -150,4 +152,5 @@
         android:layout_below="@+id/Answer2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
+
 </RelativeLayout>

@@ -13,33 +13,13 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text=""
+        android:text="xxx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView18"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp"
         android:id="@+id/textViewExampleDescrim" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:layout_below="@+id/textViewExampleDescrim"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:id="@+id/editTextUserAnswerDescrim" />
-
-    <Button
-        android:text="Продолжить"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextUserAnswerDescrim"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="73dp"
-        android:id="@+id/buttonCheckDescrim" />
 
     <TextView
         android:text="Правильных ответов 0 из 0"
@@ -52,4 +32,24 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:text="0"
+        android:ems="10"
+        android:layout_marginTop="42dp"
+        android:id="@+id/editTextUserAnswerDescrim"
+        android:layout_below="@+id/textViewExampleDescrim"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Продолжить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCheckDescrim"
+        android:layout_marginTop="59dp"
+        android:layout_below="@+id/editTextUserAnswerDescrim"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

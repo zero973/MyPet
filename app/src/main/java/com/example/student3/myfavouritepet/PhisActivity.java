@@ -74,8 +74,7 @@ public class PhisActivity extends AppCompatActivity {
                 if (ck26.isChecked() == true && ck27.isChecked() == false)
                     i++;
                 if (i == 6) {
-                    goNextLevelFiz.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(), "Доступен переход на следующий уровень", Toast.LENGTH_SHORT);
+                    goNextLevelFiz.setVisibility(View.VISIBLE);
                 }
                 tw.setText("Правильных ответов: " + i + " из 6");
                 clear();

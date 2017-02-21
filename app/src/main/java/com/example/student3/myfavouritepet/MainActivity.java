@@ -16,8 +16,8 @@ public class MainActivity extends Activity {
 
     public String name;
 
-    String[] GenderMass = {"Мужской", "Женский"}, roomColors = {"Синий", "Розовый"};
-    Spinner SpinnerMale, SpinnerRoomColor;
+    String[] KindsMass = {"Собака", "Кошка", "Попугай"}, roomColors = {"Синий", "Розовый", "Зелёный", "Красный", "Жёлтый", "Коричневый", "Оранжевый"};
+    Spinner SpinnerKind, SpinnerRoomColor;
     EditText EditTextName;
     Button butGoGame;
     SharedPreferences sPref;
@@ -27,25 +27,26 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Адаптер для спиннера с полом
-        ArrayAdapter<String> adapterMale = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, GenderMass);
-        adapterMale.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterKind = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, KindsMass);
+        adapterKind.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Адаптер спиннера с цветом комнаты
         ArrayAdapter<String> adapterRoomColor = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomColors);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         EditTextName = (EditText) findViewById(R.id.editTextName);
         butGoGame = (Button) findViewById(R.id.buttonGoGame);
-        SpinnerMale = (Spinner) findViewById(R.id.choosedMale);
-        SpinnerMale.setAdapter(adapterMale);
+        SpinnerKind = (Spinner) findViewById(R.id.choosedKindAnimal);
+        SpinnerKind.setAdapter(adapterKind);
         SpinnerRoomColor = (Spinner) findViewById(R.id.choosedRoomColor);
         SpinnerRoomColor.setAdapter(adapterRoomColor);
 
-        sPref = getPreferences(MODE_PRIVATE);
-        name = sPref.getString("PetName", "");
-        Log.d("Имя питомца", name);
+        try{
+            sPref = getPreferences(MODE_PRIVATE);
+            name = sPref.getString("PetName", "");
+            Log.d("Имя питомца", name);
+        }catch (Exception e){}
         try {
             if (!name.equals("")) {
                 SendData();
-                Log.d("Перехрод в", "Комнату");
                 Intent intent = new Intent(MainActivity.this, Room.class);
                 startActivity(intent);
             }
@@ -57,26 +58,31 @@ public class MainActivity extends Activity {
         butGoGame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String text = EditTextName.getText().toString();
-                    if(text.compareTo("") == 0){
-                        Log.d("Проблема", "Имя питомца не введено");
+                    name = EditTextName.getText().toString();
+                    if(name.compareTo("") == 0){
                         Toast.makeText(getApplicationContext(), "Введите имя питомца!", Toast.LENGTH_LONG);
                     }else {
+                        saveData();
                         SendData();
                         Intent intent = new Intent(MainActivity.this, Room.class);
                         startActivity(intent);
                     }
-        }});
+                }
+        });
     }
 
     void SendData(){
-        Log.d("SendData","Отправляю");
-        Intent intent = new Intent(MainActivity.this, Room.class);
-        intent.putExtra("petName", name);
-        intent.putExtra("Gender", GenderMass[SpinnerMale.getSelectedItemPosition()]);
-        intent.putExtra("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-        Log.d("SendData","Отправленный цвет: " + roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-        startActivity(intent);
-        Log.d("SendData","Выполнено");
+        Helper.Name = name;
+        Helper.Color = roomColors[SpinnerRoomColor.getSelectedItemPosition()];
+        Helper.Kind = KindsMass[SpinnerKind.getSelectedItemPosition()];
+    }
+
+    void saveData() {
+        sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString("PetName", name);
+        ed.putString("Kind", KindsMass[SpinnerKind.getSelectedItemPosition()]);
+        ed.putString("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+        ed.commit();
     }
 }
