@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:text="Продолжить"
         android:textStyle="italic"
-        android:textColor="@color/WhiteColor"
+        android:textColor="@color/black"
+        android:padding="2pt"
         android:background="@drawable/beautiful_button"
         android:id="@+id/buttonGoGame"
         android:layout_marginTop="72dp"
@@ -49,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Вид"
+        android:text="Питомец"
         android:textStyle="italic"
         android:id="@+id/textView2"
         android:layout_marginTop="33dp"
@@ -68,15 +69,6 @@
         android:layout_below="@+id/textView4"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/choosedKindAnimal"
-        android:textStyle="italic"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignLeft="@+id/editTextName"
-        android:layout_alignStart="@+id/editTextName" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -99,5 +91,14 @@
         android:layout_above="@+id/buttonGoGame"
         android:layout_toRightOf="@+id/textView3"
         android:layout_toEndOf="@+id/textView3" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/choosedKindAnimal"
+        android:textStyle="italic"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
 
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.student3.myfavouritepet;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -56,7 +58,19 @@ public class MathActivityDescrim extends AppCompatActivity {
             trueAnswer = trueAnswers[index];
             index++;
         }else {
-            index = 0;
+            AlertDialog.Builder builder = new AlertDialog.Builder(MathActivityDescrim.this);
+            builder.setTitle("Игра окончена!")
+                    .setMessage("Правильных ответов: " + countRightAnswers + " из " + countTry)
+                    .setCancelable(false)
+                    .setNegativeButton("Закончить игру",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    finish();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     }
 }

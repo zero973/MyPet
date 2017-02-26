@@ -73,4 +73,93 @@
         <item>2</item>
         <item>6</item>
     </integer-array>
+
+    <string-array name="phisQuestions">
+        <item>U/I =</item>
+        <item>E кинетическая =</item>
+        <item>F Архимеда = </item>
+        <item>Q = </item>
+        <item>F тяжести</item>
+        <item>I*U = </item>
+        <item>μ*m*g = </item>
+        <item>F Лоренса = </item>
+    </string-array>
+
+    <string-array name="phisQuestions_Answers">
+        <item>R</item>
+        <item>m*u*u/2</item>
+        <item>p*g*v</item>
+        <item>I*U*t(сек)</item>
+        <item>m*g</item>
+        <item>P</item>
+        <item>F трения</item>
+        <item>B*I*l</item>
+    </string-array>
+
+    <string-array name="rusQuestions_How_True">
+        <item>Иметь ввиду</item>
+        <item>Прецендент</item>
+        <item>Щевель</item>
+        <item>Вобщем</item>
+    </string-array>
+
+    <string-array name="rusQuestions_Answers_How_True">
+        <item>Иметь в виду</item>
+        <item>Прецедент</item>
+        <item>Щавель</item>
+        <item>В общем</item>
+    </string-array>
+
+    <string-array name="rusQuestions_Udarenie">
+        <item>ЗвОнит</item>
+        <item>ИскрА</item>
+        <item>БармЕн</item>
+        <item>ТортЫ</item>
+    </string-array>
+
+    <string-array name="rusQuestions_Answers_Udarenie">
+        <item>ЗвонИт</item>
+        <item>Искра</item>
+        <item>БАрмен</item>
+        <item>ТОрты</item>
+    </string-array>
+
+    <string-array name="phisTasks">
+        <item>Сила тока равна 10А, а напряжение равно 20В. Чему равно сопротивление на цепи?</item>
+        <item>1 литр воды нагревают с 0°C до 50°C. Чему равно кол-во затраченной энергии?</item>
+        <item>Кол-во теплоты, выделяемое электронагревателем за 10 минут равно 50 кДж. Напряжение равно 500 В. Найдите силу тока.</item>
+        <item>Масса тела равна 20 кг, а его объём равен 2 м^3. Найдите плотность тела.</item>
+        <item>Тело массой 10 кг движется с ускорением 1 м/с^2 и прошло 10 метров. Чему равна совершённая работа?</item>
+        <item>Тело массой 1 кг подбросили вверх со скоростью 4 м/с. Чему равна кинетическая энергия тела в момент броска?</item>
+    </string-array>
+
+    <string-array name="phisTasks_Answers">
+        <item>2</item>
+        <item>210000</item>
+        <item>10</item>
+        <item>10</item>
+        <item>100</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="englishQuestions">
+        <item>Как переводится идиома \"let sleeping dogs lie\"?</item>
+        <item>Как переводится слово \"важный\"?</item>
+        <item>Что НЕ является игрушкой</item>
+        <item>Как переводится фразовый глагол \"to stand by\"?</item>
+    </string-array>
+
+    <string-array name="englishQuestions_Answers">
+        <item>Не трать время напрасно</item>
+        <item>difficult</item>
+        <item>doll</item>
+        <item>Стоять около</item>
+    </string-array>
+
+    <string-array name="englishQuestions_True_Answers">
+        <item>Не нарывайся на неприятности</item>
+        <item>important</item>
+        <item>bed</item>
+        <item>Быть в готовности</item>
+    </string-array>
 </resources>

@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:text="Реши задачу"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:id="@+id/textView18"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Продолжить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCheckExamplePhis"
+        android:background="@drawable/beautiful_button"
+        android:layout_marginTop="33dp"
+        android:padding="3pt"
+        android:layout_below="@+id/editTextUserAnswerExamplePhis"
+        android:layout_alignRight="@+id/textView18"
+        android:layout_alignEnd="@+id/textView18" />
+
+    <TextView
+        android:text="Правильных ответов 0 из 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewCountRightAnswersExamplePhis"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/buttonCheckExamplePhis"
+        android:layout_alignLeft="@+id/textViewExampleExamplePhis"
+        android:layout_alignStart="@+id/textViewExampleExamplePhis" />
+
+    <TextView
+        android:text="Задание"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="49dp"
+        android:id="@+id/textViewExampleExamplePhis"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:text=""
+        android:hint="Примерный ответ: 478"
+        android:ems="10"
+        android:id="@+id/editTextUserAnswerExamplePhis"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

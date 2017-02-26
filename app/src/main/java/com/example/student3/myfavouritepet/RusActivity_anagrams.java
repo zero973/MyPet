@@ -24,7 +24,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
     String trueWord;
     String[] words1, words2;
 
-    byte level = 1, countRightAnswers = 0;
+    byte level = 1, countRightAnswers = 0, countTryFalse = 0;
     int indexWord = 0, countTry = 0;
 
     @Override
@@ -46,7 +46,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
         CheckWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (countRightAnswers >= 20) {
+                if (countRightAnswers >= 18) {
                     indexWord = 0;
                     countTry = 0;
                     countRightAnswers = 0;
@@ -54,12 +54,17 @@ public class RusActivity_anagrams extends AppCompatActivity {
                     GoPlayAnagram();
                 }
                 else {
-                    Log.d("Правильный ответ", trueWord);
                     if (trueWord.toLowerCase().equals(UserWord.getText().toString().toLowerCase())) {
                         countRightAnswers++;
                         CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
                     GoPlayAnagram();
-                    } else {
+                    } else if (countTryFalse == 3){
+                        UserWord.setText(trueWord);
+                        Toast.makeText(getApplicationContext(), "Правильный ответ: " + trueWord, Toast.LENGTH_SHORT).show();
+                        countTryFalse = 0;
+                    }
+                    else {
+                        countTryFalse++;
                         Toast.makeText(getApplicationContext(), "Неправильный ответ, подумай ещё!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -91,14 +96,13 @@ public class RusActivity_anagrams extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
-                                    Intent intent = new Intent(RusActivity_anagrams.this, MainActivity.class);
-                                    startActivity(intent);
+                                    finish();
                                 }
                             });
             AlertDialog alert = builder.create();
             alert.show();
         }
-        anagramma.setText(GenerateWord(trueWord));
+        anagramma.setText(ToUpperText(GenerateWord(trueWord)));
         CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
         UserLevel.setText("Уровень: " + level);
         indexWord++;
@@ -121,6 +125,16 @@ public class RusActivity_anagrams extends AppCompatActivity {
         }
         if (result.equals(word))
             GenerateWord(word);
+        return result;
+    }
+
+    String ToUpperText(String word){
+        String result = "";
+        word = word.toUpperCase();
+        for (int i = 0; i < word.length(); i++){
+            char c = word.charAt(i);
+            result += c + " ";
+        }
         return result;
     }
 }

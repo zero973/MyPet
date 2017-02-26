@@ -2,28 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.student3.myfavouritepet">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/home"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        android:permission="android.permission.WRITE_EXTERNAL_STORAGE">
+        <activity android:name=".Room" android:label="Мой любимый питомец">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".GameSchool" android:label="Школа"></activity>
-        <activity android:name=".Room" android:label="Комната"></activity>
+        <activity android:name=".MainActivity" android:label="Создание питомца"></activity>
         <activity android:name=".MathActivity" android:label="Математика"></activity>
-        <activity android:name=".PhisActivity" android:label="Физика"></activity>
-        <activity android:name=".RusActivity" android:label="Русский язык"></activity>
+        <activity android:name=".PhisActivityFirstLevel" android:label="Физика"></activity>
+        <activity android:name=".RusActivityGrammatica" android:label="Грамматика"></activity>
         <activity android:name=".EnglishActivity" android:label="Английский язык"></activity>
-        <activity android:name=".RusActivity_anagrams" android:label="Русский язык"></activity>
+        <activity android:name=".RusActivity_anagrams" android:label="Анаграммы"></activity>
         <activity android:name=".MathActivityDescrim" android:label="Математика"></activity>
-        <activity android:name=".PhisActivityTasks" android:label="Физика"></activity>
+        <activity android:name=".PhisActivityTasks" android:label="Задачи"></activity>
+        <activity android:name=".RusActivity" android:label="Русский язык"></activity>
+        <activity android:name=".PhisActivity" android:label="Физика"></activity>
+        <activity android:name=".RusActivity_Udarenie" android:label="Ударение"></activity>
+        <activity android:name=".MathActivityExamples" android:label="Математика"></activity>
+
     </application>
 
 </manifest>

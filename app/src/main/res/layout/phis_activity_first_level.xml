@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Задача"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:id="@+id/textViewQuestionPhis" />
+
+    <CheckBox
+        android:text="Ответ 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/checkBox1"
+        android:layout_toRightOf="@+id/buttonCheckFizika"
+        android:layout_toEndOf="@+id/buttonCheckFizika"
+        android:id="@+id/checkBox2" />
+
+    <Button
+        android:text="Продолжить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:padding="2pt"
+        android:background="@drawable/beautiful_button"
+        android:id="@+id/buttonCheckFizika"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Правильных ответов: 0 из 8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:id="@+id/textViewCountRightAnswersPhisFirstLevel"
+        android:layout_below="@+id/buttonCheckFizika"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
+    <CheckBox
+        android:text="Ответ 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/checkBox1"
+        android:layout_below="@+id/textViewQuestionPhis"
+        android:layout_toLeftOf="@+id/buttonCheckFizika"
+        android:layout_toStartOf="@+id/buttonCheckFizika" />
+
+</RelativeLayout>
