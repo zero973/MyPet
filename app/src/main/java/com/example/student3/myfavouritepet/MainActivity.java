@@ -49,7 +49,9 @@ public class MainActivity extends Activity {
                 public void onClick(View view) {
                     name = EditTextName.getText().toString();
                     if(name.compareTo("") == 0){
-                        Toast.makeText(getApplicationContext(), "Введите имя питомца!", Toast.LENGTH_LONG).show();
+                        name = "Иван";
+                        writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                        finish();
                     }else {
                         writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
                         finish();

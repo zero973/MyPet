@@ -50,7 +50,6 @@ public class MathActivityExamples extends AppCompatActivity {
         ans1 = (EditText)findViewById(R.id.Answer1);
         ans2 = (EditText)findViewById(R.id.Answer2);
         ChangeSymbolOnLabel();
-        ChangeChisloOnLabel();
 
         checkBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,23 +61,7 @@ public class MathActivityExamples extends AppCompatActivity {
                     userLevel++;
                 else if (countRight == 25 || countRight == 26)
                     userLevel++;
-                if (userLevel == 4){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MathActivityExamples.this);
-                    builder.setTitle("Игра окончена!")
-                            .setMessage("Правильных ответов: " + countRight + " из " + count)
-                            .setCancelable(false)
-                            .setNegativeButton("Закончить игру",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                            finish();
-                                        }
-                                    });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
                 ChangeSymbolOnLabel();
-                ChangeChisloOnLabel();
                 ans1.setText("0");
                 ans2.setText("0");
             }
@@ -149,12 +132,9 @@ public class MathActivityExamples extends AppCompatActivity {
 
     void ChangeSymbolOnLabel(){
         t5.setText(GenerateZnak());
-        t6.setText(GenerateZnak());
-    }
-
-    void ChangeChisloOnLabel(){
         t1.setText(String.valueOf(GenerateNum()));
         t2.setText(String.valueOf(GenerateNum()));
+        t6.setText(GenerateZnak());
         t3.setText(String.valueOf(GenerateNum()));
         t4.setText(String.valueOf(GenerateNum()));
     }
@@ -165,6 +145,7 @@ public class MathActivityExamples extends AppCompatActivity {
         {
             case 0: result = f1 + f2; break;
             case 1: result = f1 - f2; break;
+            case 2: result = f1 * f2; break;
         }
         rightAnswers[j] = result;
         j++;

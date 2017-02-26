@@ -23,7 +23,7 @@ import java.io.OutputStreamWriter;
 public class Room extends Activity{
 
     String name = "250801", kind, roomColor;
-    //int money;
+    int money = 9999999;
     RelativeLayout room;
 
     ImageButton IBFood, IBHealth, IBAchievement, IBPet;
