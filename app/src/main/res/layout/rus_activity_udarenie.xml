@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Как поставить ударение?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:id="@+id/textViewQuestionRusUdarenie" />
+
+
+    <CheckBox
+        android:text="Ответ 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxRus1Udarenie"
+        android:layout_below="@+id/textViewQuestionRusUdarenie"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="58dp" />
+
+    <CheckBox
+        android:text="Ответ 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxRus2Udarenie"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_alignBaseline="@+id/checkBoxRus1Udarenie"
+        android:layout_alignBottom="@+id/checkBoxRus1Udarenie"
+        android:layout_alignLeft="@+id/textViewQuestionRusUdarenie"
+        android:layout_alignStart="@+id/textViewQuestionRusUdarenie" />
+
+    <TextView
+        android:text="Правильных ответов: 0 из 4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewCountRightAnswersRusFirstLevelUdarenie"
+        android:layout_below="@+id/buttonCheckRusUdarenie"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
+
+    <Button
+        android:text="Продолжить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2pt"
+        android:background="@drawable/beautiful_button"
+        android:id="@+id/buttonCheckRusUdarenie"
+        android:layout_marginTop="69dp"
+        android:layout_below="@+id/checkBoxRus2Udarenie"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
