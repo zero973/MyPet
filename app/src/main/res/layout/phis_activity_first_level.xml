@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
         android:text="Задача"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:textColor="@color/WhiteColor"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:id="@+id/textViewQuestionPhis" />
 
     <CheckBox
+        android:textColor="@color/WhiteColor"
         android:text="Ответ 2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,6 +25,7 @@
         android:id="@+id/checkBox2" />
 
     <Button
+        android:textColor="@color/WhiteColor"
         android:text="Продолжить"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +37,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:textColor="@color/WhiteColor"
         android:text="Правильных ответов: 0 из 8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,6 +48,7 @@
         android:layout_alignEnd="@+id/textView" />
 
     <CheckBox
+        android:textColor="@color/WhiteColor"
         android:text="Ответ 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

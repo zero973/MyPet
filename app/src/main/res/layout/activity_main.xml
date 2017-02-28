@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.student3.myfavouritepet.MainActivity">
+    tools:context="com.example.student3.myfavouritepet.MainActivity"
+    android:background="@color/roomColorRed">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,16 +18,17 @@
         android:textStyle="italic"
         android:textSize="24sp"
         android:id="@+id/textView4"
+        android:textColor="@color/WhiteColor"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp" />
 
     <Button
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Продолжить"
         android:textStyle="italic"
-        android:textColor="@color/black"
         android:padding="2pt"
         android:background="@drawable/beautiful_button"
         android:id="@+id/buttonGoGame"
@@ -35,18 +37,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Цвет комнаты"
-        android:textStyle="italic"
-        android:id="@+id/textView3"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -59,6 +50,7 @@
         android:layout_toStartOf="@+id/buttonGoGame" />
 
     <TextView
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -71,6 +63,8 @@
         android:layout_alignStart="@+id/textView2" />
 
     <EditText
+        android:textColorHint="@color/WhiteColor"
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editTextName"
@@ -84,6 +78,7 @@
         android:layout_toEndOf="@+id/textView" />
 
     <Spinner
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="italic"
@@ -93,6 +88,7 @@
         android:layout_toEndOf="@+id/textView3" />
 
     <Spinner
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/choosedKindAnimal"
@@ -100,5 +96,18 @@
         android:layout_alignTop="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
         android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:textColor="@color/WhiteColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Цвет комнаты"
+        android:textStyle="italic"
+        android:id="@+id/textView3"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
 </RelativeLayout>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
+
+        android:textColor="@color/WhiteColor"
         android:text="Разгадай анаграмму"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,6 +16,7 @@
         android:layout_marginTop="32dp" />
 
     <TextView
+        android:textColor="@color/WhiteColor"
         android:text="Правильных ответов: 0 из 0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,6 +27,7 @@
         android:layout_alignStart="@+id/textViewLevelAnagrams" />
 
     <TextView
+        android:textColor="@color/WhiteColor"
         android:text="Анаграмма"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,15 +38,18 @@
         android:layout_marginTop="44dp" />
 
     <Button
+        android:textColor="@color/WhiteColor"
         android:text="Проверить"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:background="@drawable/beautiful_button"
         android:id="@+id/buttonCheckUserWord"
         android:layout_below="@+id/editTextUserWord"
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:textColor="@color/WhiteColor"
         android:text="Уровень: 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

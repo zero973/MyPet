@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
         android:text="Выбери задание"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:textColor="@color/WhiteColor"
         android:textStyle="italic"
         android:textSize="24sp"
-        android:textColor="@color/black"
         android:id="@+id/textView20"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -20,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/buttonExamplesPhis"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/buttonQuestionsPhis"
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
         android:id="@+id/buttonQuestionsPhis"
+        android:textColor="@color/WhiteColor"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/textView20"
         android:layout_centerHorizontal="true" />

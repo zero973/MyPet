@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
         android:text="000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/StartButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
-        android:id="@+id/TextFieldChislo1" />
+        android:id="@+id/TextFieldChislo1"
+        android:textColor="@color/WhiteColor" />
 
     <TextView
         android:text="+ -"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/TextZnak1"
+        android:textColor="@color/WhiteColor"
         android:layout_alignBaseline="@+id/TextFieldChislo1"
         android:layout_alignBottom="@+id/TextFieldChislo1"
         android:layout_toRightOf="@+id/TextFieldChislo1"
@@ -29,6 +31,7 @@
         android:text="000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/TextFieldChislo2"
         android:layout_alignBaseline="@+id/TextZnak1"
         android:layout_alignBottom="@+id/TextZnak1"
@@ -39,6 +42,7 @@
 
     <TextView
         android:text="000"
+        android:textColor="@color/WhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
@@ -52,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView15"
+        android:textColor="@color/WhiteColor"
         android:layout_alignBaseline="@+id/TextFieldChislo2"
         android:layout_alignBottom="@+id/TextFieldChislo2"
         android:layout_toRightOf="@+id/TextFieldChislo2"
@@ -66,6 +71,7 @@
         android:ems="10"
         android:text="0"
         android:id="@+id/Answer1"
+        android:textColor="@color/WhiteColor"
         android:layout_alignBaseline="@+id/textView15"
         android:layout_alignBottom="@+id/textView15"
         android:layout_toRightOf="@+id/textView15"
@@ -77,6 +83,7 @@
         android:text="+ -"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/WhiteColor"
         android:layout_alignBottom="@+id/TextFieldChislo3"
         android:layout_alignLeft="@+id/TextZnak1"
         android:layout_alignStart="@+id/TextZnak1"
@@ -86,6 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/TextFieldChislo4"
+        android:textColor="@color/WhiteColor"
         android:layout_alignBaseline="@+id/TextZnak2"
         android:layout_alignBottom="@+id/TextZnak2"
         android:layout_alignLeft="@+id/TextFieldChislo2"
@@ -97,6 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView16"
+        android:textColor="@color/WhiteColor"
         android:layout_alignBaseline="@+id/TextFieldChislo4"
         android:layout_alignBottom="@+id/TextFieldChislo4"
         android:layout_alignLeft="@+id/textView15"
@@ -107,6 +116,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
+        android:textColor="@color/WhiteColor"
         android:text="0"
         android:id="@+id/Answer2"
         android:layout_alignBaseline="@+id/textView16"
@@ -121,6 +131,7 @@
         android:id="@+id/textViewRightAnswers"
         android:layout_below="@+id/buttonCheckAnswers"
         android:layout_alignParentLeft="true"
+        android:textColor="@color/WhiteColor"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp" />
 
@@ -132,6 +143,7 @@
         android:padding="2pt"
         android:id="@+id/buttonCheckAnswers"
         android:layout_below="@+id/Answer2"
+        android:textColor="@color/WhiteColor"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 

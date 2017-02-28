@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
         android:text="Найди больший из кореней"
@@ -9,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:textStyle="italic"
-        android:textColor="@color/black"
+        android:textColor="@color/WhiteColor"
         android:textSize="20sp"
         android:id="@+id/textView18"
         android:layout_alignParentTop="true"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView18"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
+        android:textColor="@color/WhiteColor"
         android:textSize="15sp"
         android:layout_marginTop="51dp"
         android:id="@+id/textViewExampleDescrim" />
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
         android:id="@+id/textViewCountRightAnswersDescrim"
+        android:textColor="@color/WhiteColor"
         android:layout_below="@+id/buttonCheckDescrim"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -45,6 +47,7 @@
         android:text="0"
         android:ems="10"
         android:layout_marginTop="42dp"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/editTextUserAnswerDescrim"
         android:layout_below="@+id/textViewExampleDescrim"
         android:layout_centerHorizontal="true" />
@@ -53,6 +56,7 @@
         android:text="Продолжить"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/buttonCheckDescrim"
         android:background="@drawable/beautiful_button"
         android:layout_marginTop="59dp"

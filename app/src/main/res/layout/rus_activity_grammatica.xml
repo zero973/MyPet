@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
         android:text="Как правильно?"
@@ -11,12 +12,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:textStyle="italic"
-        android:textColor="@color/black"
+        android:textColor="@color/WhiteColor"
         android:textSize="20sp"
         android:id="@+id/textViewQuestionRus" />
 
 
     <TextView
+        android:textColor="@color/WhiteColor"
         android:text="Правильных ответов: 0 из 4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,6 +29,7 @@
         android:layout_marginTop="56dp" />
 
     <CheckBox
+        android:textColor="@color/WhiteColor"
         android:text="Ответ 2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,6 +42,7 @@
         android:layout_toEndOf="@+id/textViewCountRightAnswersRusFirstLevel" />
 
     <Button
+        android:textColor="@color/WhiteColor"
         android:text="Продолжить"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,6 +54,7 @@
         android:layout_centerHorizontal="true" />
 
     <CheckBox
+        android:textColor="@color/WhiteColor"
         android:text="Ответ 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
