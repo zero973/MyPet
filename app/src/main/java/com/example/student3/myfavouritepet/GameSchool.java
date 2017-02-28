@@ -15,6 +15,7 @@ public class GameSchool extends AppCompatActivity {
     Button Fizika;
     Button Russkiy;
     Button English;
+    Button Tatar;
     RelativeLayout room;
 
     @Override
@@ -26,6 +27,7 @@ public class GameSchool extends AppCompatActivity {
         Fizika = (Button)findViewById(R.id.butPhis);
         Russkiy = (Button)findViewById(R.id.butRus);
         English = (Button)findViewById(R.id.butEnglish);
+        Tatar = (Button)findViewById(R.id.buttonTatar);
 
         Matem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +57,14 @@ public class GameSchool extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameSchool.this, EnglishActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Tatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameSchool.this, TatarActivity.class);
                 startActivity(intent);
             }
         });

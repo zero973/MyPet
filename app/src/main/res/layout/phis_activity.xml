@@ -4,194 +4,35 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="U/I ="
+        android:text="Выбери задание"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView5" />
-
-    <CheckBox
-        android:text="P"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox28"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/checkBox17" />
-
-    <CheckBox
-        android:text="R"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox28"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:text="mgh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:id="@+id/checkBox18" />
-
-    <CheckBox
-        android:text="muu/2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/checkBox17"
-        android:layout_alignLeft="@+id/checkBox18"
-        android:layout_alignStart="@+id/checkBox18"
-        android:id="@+id/checkBox19" />
-
-    <CheckBox
-        android:text="wR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox21"
-        android:layout_below="@+id/checkBox20"
-        android:layout_alignLeft="@+id/checkBox20"
-        android:layout_alignStart="@+id/checkBox20" />
-
-    <TextView
-        android:text="E кинетическая ="
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView6"
+        android:layout_marginTop="36dp"
+        android:textStyle="italic"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:id="@+id/textView20"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="F = "
+    <Button
+        android:text="Задачи"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="44dp"
-        android:layout_marginEnd="44dp"
-        android:id="@+id/textView7"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <CheckBox
-        android:text="pgv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox20"
-        android:layout_below="@+id/textView7"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7" />
-
-    <TextView
-        android:text="Q = "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox17"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp"
-        android:id="@+id/textView8" />
-
-    <CheckBox
-        android:text="IUt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox22"
-        android:layout_below="@+id/textView8"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:text="cm(t2-t1)"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox23"
-        android:layout_below="@+id/checkBox22"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:text="N"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox24"
-        android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9"
-        android:id="@+id/checkBox25" />
-
-    <CheckBox
-        android:text="F"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox24"
-        android:layout_above="@+id/checkBox23"
-        android:layout_alignLeft="@+id/checkBox25"
-        android:layout_alignStart="@+id/checkBox25" />
-
-    <TextView
-        android:text="ma = "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView9"
-        android:layout_above="@+id/checkBox24"
-        android:layout_alignLeft="@+id/checkBox19"
-        android:layout_alignStart="@+id/checkBox19" />
-
-    <TextView
-        android:text="IU = "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView10"
-        android:layout_above="@+id/checkBox24"
-        android:layout_alignLeft="@+id/checkBox21"
-        android:layout_alignStart="@+id/checkBox21" />
-
-    <CheckBox
-        android:text="P"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView10"
-        android:layout_alignLeft="@+id/textView10"
-        android:layout_alignStart="@+id/textView10"
-        android:id="@+id/checkBox26" />
-
-    <CheckBox
-        android:text="A"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox26"
-        android:layout_alignLeft="@+id/checkBox26"
-        android:layout_alignStart="@+id/checkBox26"
-        android:id="@+id/checkBox27" />
+        android:layout_marginTop="39dp"
+        android:id="@+id/buttonExamplesPhis"
+        android:background="@drawable/beautiful_button"
+        android:layout_below="@+id/buttonQuestionsPhis"
+        android:layout_alignLeft="@+id/buttonQuestionsPhis"
+        android:layout_alignStart="@+id/buttonQuestionsPhis" />
 
     <Button
-        android:text="Проверить"
+        android:text="Вопросы"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox25"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:id="@+id/buttonCheckFizika" />
-
-    <TextView
-        android:text="Правильных ответов: 0 из 6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:id="@+id/textView11"
-        android:layout_below="@+id/buttonCheckFizika"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8" />
-
-    <Button
-        android:text="Следующий уровень"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:id="@+id/buttonGoNextLevelFizika"
-        android:layout_below="@+id/textView11"
+        android:layout_marginTop="41dp"
+        android:id="@+id/buttonQuestionsPhis"
+        android:background="@drawable/beautiful_button"
+        android:layout_below="@+id/textView20"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

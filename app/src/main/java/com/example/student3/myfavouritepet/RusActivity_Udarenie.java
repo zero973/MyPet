@@ -13,33 +13,30 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class EnglishActivity extends AppCompatActivity {
+public class RusActivity_Udarenie extends AppCompatActivity {
 
     byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB;
     Random random = new Random();
     String[] answers = new String[4];
-    String[] questions = new String[4];
-    String[] trueAnswers = new String[4];
+    String[] mass = new String[4];
 
-    TextView tvCountRight, tvQuestion;
+    TextView tvQuestion, tvCountRight;
     Button checkBut;
     CheckBox cb1;
     CheckBox cb2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.english_activity);
-        tvCountRight = (TextView)findViewById(R.id.textViewCountRightAnswersEnglish);
-        tvQuestion = (TextView)findViewById(R.id.textViewQuestionEnglish);
-        checkBut = (Button) findViewById(R.id.buttonCheckEnglish);
-        cb1 = (CheckBox) findViewById(R.id.checkBoxEnglish1);
-        cb2 = (CheckBox) findViewById(R.id.checkBoxEnglish2);
+        setContentView(R.layout.rus_activity_udarenie);
+        tvQuestion = (TextView) findViewById(R.id.textViewQuestionRusUdarenie);
+        tvCountRight = (TextView)findViewById(R.id.textViewCountRightAnswersRusFirstLevelUdarenie);
+        checkBut = (Button) findViewById(R.id.buttonCheckRusUdarenie);
+        cb1 = (CheckBox) findViewById(R.id.checkBoxRus1Udarenie);
+        cb2 = (CheckBox) findViewById(R.id.checkBoxRus2Udarenie);
 
-        questions = getResources().getStringArray(R.array.englishQuestions);
-        answers = getResources().getStringArray(R.array.englishQuestions_Answers);
-        trueAnswers = getResources().getStringArray(R.array.englishQuestions_True_Answers);
+        mass = getResources().getStringArray(R.array.rusQuestions_Udarenie);
+        answers = getResources().getStringArray(R.array.rusQuestions_Answers_Udarenie);
 
         Play();
 
@@ -84,7 +81,7 @@ public class EnglishActivity extends AppCompatActivity {
         cb2.setChecked(false);
         if (index == 4) {
             index = 0;
-            AlertDialog.Builder builder = new AlertDialog.Builder(EnglishActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(RusActivity_Udarenie.this);
             builder.setTitle("Игра окончена!")
                     .setMessage("Правильных ответов: " + countRightAnswers + " из 4")
                     .setCancelable(false)
@@ -98,15 +95,14 @@ public class EnglishActivity extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
-        tvQuestion.setText(questions[index]);
         byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - первый чекбокс неверный
         if (v == 0) {
-            cb2.setText(answers[index]);
-            cb1.setText(trueAnswers[index]);
+            cb1.setText(answers[index]);
+            cb2.setText(mass[index]);
         }
         else{
-            cb2.setText(trueAnswers[index]);
-            cb1.setText(answers[index]);
+            cb1.setText(mass[index]);
+            cb2.setText(answers[index]);
         }
         index++;
         numTrueCB = v;

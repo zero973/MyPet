@@ -93,12 +93,12 @@ public class Room extends Activity{
             room.setBackgroundColor(getResources().getColor(R.color.roomColorBlue));
         }
 
-        if(kind.equals("Собака")){
+        /*if(kind.equals("Собака")){
             IBPet.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.petdog));
         }else if (kind.equals("Кошка")){
-            IBPet.setBackgroundResource(R.drawable.petcat);
+            IBPet.setBackgroundResource(R.drawable.petcat);  Caused by: java.lang.NullPointerException
         }else {
             IBPet.setBackgroundResource(R.drawable.petparrot);
-        }
+        }*/
     }
 }

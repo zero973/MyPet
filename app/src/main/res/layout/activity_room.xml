@@ -41,7 +41,7 @@
 
 
     <TextView
-        android:text="Айнур"
+        android:text="Никто"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewNamePet"
@@ -59,8 +59,23 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/petdog"
+        android:background="@null"
         android:id="@+id/imageButtonPet"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Сменить питомца"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp"
+        android:id="@+id/buttonChangePet"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"
+        android:background="@drawable/beautiful_button"
+        android:padding="2pt"
+        android:textColor="@color/WhiteColor"
+        android:textStyle="italic"/>
 </RelativeLayout>

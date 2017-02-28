@@ -28,7 +28,7 @@
         android:id="@+id/butMath"
         android:textStyle="italic|bold"
         android:typeface="serif"
-        android:background="@null"
+        android:background="@color/MathBut"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />

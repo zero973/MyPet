@@ -12,11 +12,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 public class MainActivity extends Activity {
 
     public String name;
 
-    String[] KindsMass = {"Собака", "Кошка", "Попугай"}, roomColors = {"Синий", "Розовый", "Зелёный", "Красный", "Жёлтый", "Коричневый", "Оранжевый"};
+    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синий", "Розовый", "Зелёный", "Красный", "Жёлтый", "Коричневый", "Оранжевый"};
     Spinner SpinnerKind, SpinnerRoomColor;
     EditText EditTextName;
     Button butGoGame;
@@ -39,50 +44,35 @@ public class MainActivity extends Activity {
         SpinnerRoomColor = (Spinner) findViewById(R.id.choosedRoomColor);
         SpinnerRoomColor.setAdapter(adapterRoomColor);
 
-        try{
-            sPref = getPreferences(MODE_PRIVATE);
-            name = sPref.getString("PetName", "");
-            Log.d("Имя питомца", name);
-        }catch (Exception e){}
-        try {
-            if (!name.equals("")) {
-                SendData();
-                Intent intent = new Intent(MainActivity.this, Room.class);
-                startActivity(intent);
-            }
-        }
-        catch (Exception e){
-            Log.e("Ошибка", e.toString());
-        }
-
         butGoGame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     name = EditTextName.getText().toString();
                     if(name.compareTo("") == 0){
-                        Toast.makeText(getApplicationContext(), "Введите имя питомца!", Toast.LENGTH_LONG);
+                        name = "Иван";
+                        writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                        finish();
                     }else {
-                        saveData();
-                        SendData();
-                        Intent intent = new Intent(MainActivity.this, Room.class);
-                        startActivity(intent);
+                        writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                        finish();
                     }
                 }
         });
     }
 
-    void SendData(){
-        Helper.Name = name;
-        Helper.Color = roomColors[SpinnerRoomColor.getSelectedItemPosition()];
-        Helper.Kind = KindsMass[SpinnerKind.getSelectedItemPosition()];
-    }
-
-    void saveData() {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString("PetName", name);
-        ed.putString("Kind", KindsMass[SpinnerKind.getSelectedItemPosition()]);
-        ed.putString("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-        ed.commit();
+    void writeFile(String fileName, String petName, String kind, String color) {
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
+            // пишем данные
+            bw.write(String.format("%s\n%s\n%s", petName, kind, color));
+            // закрываем поток
+            bw.close();
+            Log.d("Успех", "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

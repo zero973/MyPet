@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Как правильно?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:id="@+id/textViewQuestionRus" />
+
+
+    <TextView
+        android:text="Правильных ответов: 0 из 4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewCountRightAnswersRusFirstLevel"
+        android:layout_below="@+id/buttonCheckRus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
+
+    <CheckBox
+        android:text="Ответ 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxRus2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_alignBaseline="@+id/checkBoxRus1"
+        android:layout_alignBottom="@+id/checkBoxRus1"
+        android:layout_toRightOf="@+id/textViewCountRightAnswersRusFirstLevel"
+        android:layout_toEndOf="@+id/textViewCountRightAnswersRusFirstLevel" />
+
+    <Button
+        android:text="Продолжить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2pt"
+        android:background="@drawable/beautiful_button"
+        android:id="@+id/buttonCheckRus"
+        android:layout_marginTop="72dp"
+        android:layout_below="@+id/checkBoxRus2"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:text="Ответ 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxRus1"
+        android:layout_marginTop="58dp"
+        android:layout_below="@+id/textViewQuestionRus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+</RelativeLayout>

@@ -10,36 +10,35 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
-public class EnglishActivity extends AppCompatActivity {
+public class PhisActivityFirstLevel extends AppCompatActivity {
 
     byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB;
     Random random = new Random();
-    String[] answers = new String[4];
-    String[] questions = new String[4];
-    String[] trueAnswers = new String[4];
+    String[] questions = new String[8], answers = new String[8];
+    String[] mass = {"m*a", "m*g", "a*t", "a/t", "F/a", "F/m", "m/V", "p/F", "F/p", "V*p", "k*x", "k/x", "F*S"};
+    String trueAnswer;
 
-    TextView tvCountRight, tvQuestion;
+    TextView tvQuestion, tvCountRight;
     Button checkBut;
     CheckBox cb1;
     CheckBox cb2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.english_activity);
-        tvCountRight = (TextView)findViewById(R.id.textViewCountRightAnswersEnglish);
-        tvQuestion = (TextView)findViewById(R.id.textViewQuestionEnglish);
-        checkBut = (Button) findViewById(R.id.buttonCheckEnglish);
-        cb1 = (CheckBox) findViewById(R.id.checkBoxEnglish1);
-        cb2 = (CheckBox) findViewById(R.id.checkBoxEnglish2);
+        setContentView(R.layout.phis_activity_first_level);
+        tvQuestion = (TextView) findViewById(R.id.textViewQuestionPhis);
+        tvCountRight = (TextView)findViewById(R.id.textViewCountRightAnswersPhisFirstLevel);
+        checkBut = (Button) findViewById(R.id.buttonCheckFizika);
+        cb1 = (CheckBox) findViewById(R.id.checkBox1);
+        cb2 = (CheckBox) findViewById(R.id.checkBox2);
 
-        questions = getResources().getStringArray(R.array.englishQuestions);
-        answers = getResources().getStringArray(R.array.englishQuestions_Answers);
-        trueAnswers = getResources().getStringArray(R.array.englishQuestions_True_Answers);
+        questions = getResources().getStringArray(R.array.phisQuestions);
+        answers = getResources().getStringArray(R.array.phisQuestions_Answers);
 
         Play();
 
@@ -69,7 +68,7 @@ public class EnglishActivity extends AppCompatActivity {
                 }
                 if (numTrueCB == numUserCB) {
                     countRightAnswers++;
-                    tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 4");
+                    tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 8");
                     Play();
                 }
                 else {
@@ -82,11 +81,11 @@ public class EnglishActivity extends AppCompatActivity {
     void Play(){
         cb1.setChecked(false);
         cb2.setChecked(false);
-        if (index == 4) {
+        if (index == 8) {
             index = 0;
-            AlertDialog.Builder builder = new AlertDialog.Builder(EnglishActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(PhisActivityFirstLevel.this);
             builder.setTitle("Игра окончена!")
-                    .setMessage("Правильных ответов: " + countRightAnswers + " из 4")
+                    .setMessage("Правильных ответов: " + countRightAnswers + " из 8")
                     .setCancelable(false)
                     .setNegativeButton("Закончить игру",
                             new DialogInterface.OnClickListener() {
@@ -98,17 +97,26 @@ public class EnglishActivity extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
-        tvQuestion.setText(questions[index]);
-        byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - первый чекбокс неверный
+        trueAnswer = answers[index];
+        byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - неверный
         if (v == 0) {
-            cb2.setText(answers[index]);
-            cb1.setText(trueAnswers[index]);
+            cb1.setText(trueAnswer);
+            cb2.setText(Generate());
         }
         else{
-            cb2.setText(trueAnswers[index]);
-            cb1.setText(answers[index]);
+            cb1.setText(Generate());
+            cb2.setText(trueAnswer);
         }
+        tvQuestion.setText(questions[index]);
         index++;
         numTrueCB = v;
+    }
+
+    String Generate(){
+        int variant = random.nextInt(13);
+        if (mass[variant] != answers[index])
+            return mass[variant];
+        else
+            return Generate();
     }
 }
