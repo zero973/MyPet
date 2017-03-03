@@ -58,6 +58,7 @@ public class MathActivityExamples extends AppCompatActivity {
                     ans1.setText("");
                 if (ans2.getText().toString().equals(""))
                     ans2.setText("0");
+                ans1.setTextColor(Color.parseColor("#000000"));
             }
         });
 
@@ -68,6 +69,7 @@ public class MathActivityExamples extends AppCompatActivity {
                     ans2.setText("");
                 if (ans1.getText().toString().equals(""))
                     ans1.setText("0");
+                ans2.setTextColor(Color.parseColor("#000000"));
             }
         });
 
@@ -118,6 +120,9 @@ public class MathActivityExamples extends AppCompatActivity {
             if (userAnswers[i] == rightAnswers[i])
                 countRight++;
             else {
+                TextResult.setText("Правильных ответов " + countRight + " из " + count);
+                k = 0; i = 0; j = 0;
+                countRight--;
                 falseExample = i;
                 return false;
             }
