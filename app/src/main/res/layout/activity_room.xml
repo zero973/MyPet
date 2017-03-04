@@ -72,10 +72,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="55dp"
         android:id="@+id/buttonChangePet"
+        android:shadowRadius="5"
         android:shadowDx="1"
         android:shadowColor="@color/black"
         android:background="@drawable/beautiful_button"
-        android:padding="2pt"
+        android:padding="4pt"
         android:textColor="@color/WhiteColor"
         android:textStyle="italic"/>
 </RelativeLayout>

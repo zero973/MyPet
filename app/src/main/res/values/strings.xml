@@ -80,20 +80,20 @@
         <item>F Архимеда = </item>
         <item>Q = </item>
         <item>F тяжести</item>
-        <item>I*U = </item>
-        <item>μ*m*g = </item>
+        <item>I÷U = </item>
+        <item>μmg = </item>
         <item>F Лоренса = </item>
     </string-array>
 
     <string-array name="phisQuestions_Answers">
         <item>R</item>
-        <item>m*u*u/2</item>
-        <item>p*g*v</item>
-        <item>I*U*t(сек)</item>
-        <item>m*g</item>
+        <item>muu/2</item>
+        <item>pgv</item>
+        <item>IUt(сек)</item>
+        <item>mg</item>
         <item>P</item>
         <item>F трения</item>
-        <item>B*I*l</item>
+        <item>BIl</item>
     </string-array>
 
     <string-array name="rusQuestions_How_True">

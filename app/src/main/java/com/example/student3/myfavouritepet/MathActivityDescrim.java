@@ -47,7 +47,7 @@ public class MathActivityDescrim extends AppCompatActivity {
                     countTry++;
                     Toast.makeText(getApplicationContext(), "Неправильный  ответ!", Toast.LENGTH_SHORT).show();
                 }
-                tvCountRightAnswersDescrim.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
+                tvCountRightAnswersDescrim.setText("Правильных ответов: " + countRightAnswers + " из 20");
             }
         });
     }
@@ -60,7 +60,7 @@ public class MathActivityDescrim extends AppCompatActivity {
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(MathActivityDescrim.this);
             builder.setTitle("Игра окончена!")
-                    .setMessage("Правильных ответов: " + countRightAnswers + " из " + countTry)
+                    .setMessage("Правильных ответов: " + countRightAnswers + " из 20")
                     .setCancelable(false)
                     .setNegativeButton("Закончить игру",
                             new DialogInterface.OnClickListener() {

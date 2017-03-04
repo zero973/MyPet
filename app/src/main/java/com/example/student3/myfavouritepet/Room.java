@@ -1,9 +1,7 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,14 +9,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 public class Room extends Activity{
 
@@ -104,7 +98,8 @@ public class Room extends Activity{
             room.setBackgroundColor(getResources().getColor(R.color.roomColorBrown));
         }else if (roomColor.equals("Оранжевый")) {
             room.setBackgroundColor(getResources().getColor(R.color.roomColorOrange));
-        }
+        }else if (roomColor.equals("Фиолетовый"))
+            room.setBackgroundColor(getResources().getColor(R.color.roomColorPurple));
 
         if(kind.equals("Собака")){
             IBPet.setBackgroundResource(R.drawable.petdog);

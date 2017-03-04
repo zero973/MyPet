@@ -39,7 +39,6 @@ public class RusActivity_anagrams extends AppCompatActivity {
 
         words1 = getResources().getStringArray(R.array.words_1_lvl);
         words2 = getResources().getStringArray(R.array.words_2_lvl);
-        Toast.makeText(this, "Для перехода на следующий уровень наберите 15 правильных ответов", Toast.LENGTH_SHORT);
 
         GoPlayAnagram();
 
@@ -56,7 +55,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
                 else {
                     if (trueWord.toLowerCase().equals(UserWord.getText().toString().toLowerCase())) {
                         countRightAnswers++;
-                        CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
+                        CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из 20");
                     GoPlayAnagram();
                     } else if (countTryFalse == 3){
                         UserWord.setText(trueWord);
@@ -69,7 +68,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
                     }
                 }
                 countTry++;
-                CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
+                CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из 20");
             }
         });
     }
@@ -103,7 +102,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
             alert.show();
         }
         anagramma.setText(ToUpperText(GenerateWord(trueWord)));
-        CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
+        CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из 20");
         UserLevel.setText("Уровень: " + level);
         indexWord++;
     }

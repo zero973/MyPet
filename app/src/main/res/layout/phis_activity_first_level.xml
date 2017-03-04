@@ -10,27 +10,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:textSize="10pt"
         android:id="@+id/textViewQuestionPhis" />
-
-    <CheckBox
-        android:text="Ответ 2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkBox1"
-        android:layout_toRightOf="@+id/buttonCheckFizika"
-        android:layout_toEndOf="@+id/buttonCheckFizika"
-        android:id="@+id/checkBox2" />
-
-    <Button
-        android:text="Продолжить"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
-        android:padding="2pt"
-        android:background="@drawable/beautiful_button"
-        android:id="@+id/buttonCheckFizika"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Правильных ответов: 0 из 8"
@@ -46,10 +29,31 @@
         android:text="Ответ 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="43dp"
         android:id="@+id/checkBox1"
         android:layout_below="@+id/textViewQuestionPhis"
-        android:layout_toLeftOf="@+id/buttonCheckFizika"
-        android:layout_toStartOf="@+id/buttonCheckFizika" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Продолжить"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:textStyle="italic"
+        android:padding="4pt"
+        android:background="@drawable/beautiful_button"
+        android:id="@+id/buttonCheckFizika"
+        android:layout_below="@+id/checkBox2"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:text="Ответ 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox2"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/checkBox1"
+        android:layout_alignLeft="@+id/checkBox1"
+        android:layout_alignStart="@+id/checkBox1" />
 
 </RelativeLayout>

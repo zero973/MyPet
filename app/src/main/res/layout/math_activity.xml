@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
         android:id="@+id/buttonExamplesMath"
+        android:textStyle="italic"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/textView20"
         android:layout_centerHorizontal="true" />
@@ -30,8 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:padding="2pt"
+        android:padding="4pt"
         android:id="@+id/buttonDiscriminant"
+        android:textStyle="italic"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/buttonExamplesMath"
         android:layout_centerHorizontal="true" />

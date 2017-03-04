@@ -22,12 +22,13 @@
         android:layout_below="@+id/textView18"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textStyle="italic"
+        android:textSize="18sp"
         android:layout_marginTop="51dp"
         android:id="@+id/textViewExampleDescrim" />
 
     <TextView
-        android:text="Правильных ответов 0 из 0"
+        android:text="Правильных ответов 0 из 20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
@@ -54,9 +55,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonCheckDescrim"
+        android:textStyle="italic"
         android:background="@drawable/beautiful_button"
         android:layout_marginTop="59dp"
-        android:padding="3pt"
+        android:padding="4pt"
         android:layout_below="@+id/editTextUserAnswerDescrim"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

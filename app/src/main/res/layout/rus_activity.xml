@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView20"
         android:layout_centerHorizontal="true"
-        android:padding="3pt"
+        android:padding="4pt"
         android:layout_marginTop="33dp"
         android:id="@+id/buttonGramm"
         android:textStyle="italic"
@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/beautiful_button"
         android:textStyle="italic"
-        android:padding="3pt"
+        android:padding="4pt"
         android:layout_marginTop="45dp"
         android:id="@+id/buttonUdarenie" />
 
@@ -47,7 +47,7 @@
         android:layout_marginTop="136dp"
         android:background="@drawable/beautiful_button"
         android:textStyle="italic"
-        android:padding="3pt"
+        android:padding="4pt"
         android:id="@+id/buttonAnagrams"
         android:layout_below="@+id/buttonGramm"
         android:layout_centerHorizontal="true" />

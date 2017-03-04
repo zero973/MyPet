@@ -129,22 +129,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/beautiful_button"
-        android:padding="2pt"
+        android:padding="4pt"
         android:id="@+id/buttonCheckAnswers"
+        android:textStyle="italic"
         android:layout_below="@+id/Answer2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
-
-    <TextView
-        android:text="Не оставляй поля пустыми и не вводи посторонние символы!!!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:textStyle="bold"
-        android:textColor="@color/roomColorRed"
-        android:id="@+id/textView"
-        android:layout_below="@+id/textViewRightAnswers"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
 </RelativeLayout>

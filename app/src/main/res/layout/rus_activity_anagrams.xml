@@ -4,16 +4,19 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Разгадай анаграмму"
+        android:text="Составь слово из букв"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView19"
+        android:textSize="8pt"
+        android:textStyle="italic"
+        android:textColor="@color/black"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp" />
 
     <TextView
-        android:text="Правильных ответов: 0 из 0"
+        android:text="Правильных ответов: 0 из 20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewCountRightAnswers"
@@ -28,6 +31,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textViewWord"
         android:textStyle="bold"
+        android:textSize="23dp"
+        android:textColor="@color/black"
         android:layout_below="@+id/textView19"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp" />
@@ -38,6 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:id="@+id/buttonCheckUserWord"
+        android:padding="4pt"
+        android:textStyle="italic"
+        android:background="@drawable/beautiful_button"
         android:layout_below="@+id/editTextUserWord"
         android:layout_centerHorizontal="true" />
 
