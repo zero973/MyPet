@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/schoolColor">
 
     <TextView
         android:text="Правильных ответов: 0 из 4"
@@ -10,6 +11,7 @@
         android:id="@+id/textViewCountRightAnswersEnglish"
         android:layout_below="@+id/buttonCheckEnglish"
         android:layout_alignParentLeft="true"
+        android:textColor="@color/WhiteColor"
         android:layout_alignParentStart="true"
         android:layout_marginTop="56dp" />
 
@@ -19,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:textStyle="italic"
-        android:textColor="@color/black"
+        android:textColor="@color/WhiteColor"
         android:textSize="20sp"
         android:id="@+id/textViewQuestionEnglish"
         android:layout_alignParentTop="true"
@@ -30,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/checkBoxEnglish2"
+        android:textColor="@color/WhiteColor"
         android:layout_below="@+id/checkBoxEnglish1"
         android:layout_alignLeft="@+id/checkBoxEnglish1"
         android:layout_alignStart="@+id/checkBoxEnglish1"
@@ -40,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/checkBoxEnglish1"
+        android:textColor="@color/WhiteColor"
         android:layout_marginTop="41dp"
         android:layout_below="@+id/textViewQuestionEnglish"
         android:layout_alignParentLeft="true"
@@ -51,6 +55,7 @@
         android:layout_height="wrap_content"
         android:padding="4pt"
         android:background="@drawable/beautiful_button"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/buttonCheckEnglish"
         android:layout_below="@+id/checkBoxEnglish2"
         android:layout_centerHorizontal="true"
