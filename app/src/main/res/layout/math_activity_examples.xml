@@ -5,15 +5,6 @@
     android:background="@null">
 
     <TextView
-        android:text="000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:id="@+id/TextFieldChislo1"/>
-
-    <TextView
         android:text="+ -"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,16 +27,6 @@
         android:layout_toEndOf="@+id/TextZnak1"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp" />
-
-    <TextView
-        android:text="000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:id="@+id/TextFieldChislo3"
-        android:layout_below="@+id/TextFieldChislo1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="="
@@ -73,56 +54,38 @@
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp" />
 
-    <TextView
-        android:text="+ -"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/TextFieldChislo3"
-        android:layout_alignLeft="@+id/TextZnak1"
-        android:layout_alignStart="@+id/TextZnak1"
-        android:id="@+id/TextZnak2" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TextFieldChislo4"
-        android:layout_alignBaseline="@+id/TextZnak2"
-        android:layout_alignBottom="@+id/TextZnak2"
-        android:layout_alignLeft="@+id/TextFieldChislo2"
-        android:layout_alignStart="@+id/TextFieldChislo2"
-        android:text="000" />
-
-    <TextView
-        android:text="="
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView16"
-        android:layout_alignBaseline="@+id/TextFieldChislo4"
-        android:layout_alignBottom="@+id/TextFieldChislo4"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:text="0"
-        android:id="@+id/Answer2"
-        android:layout_alignBaseline="@+id/textView16"
-        android:layout_alignBottom="@+id/textView16"
-        android:layout_alignLeft="@+id/Answer1"
-        android:layout_alignStart="@+id/Answer1" />
 
     <TextView
         android:text="Правильных ответов: 0 из 0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewRightAnswers"
+        android:layout_marginTop="51dp"
         android:layout_below="@+id/buttonCheckAnswers"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Реши пример"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:id="@+id/textView6"
+        android:textSize="12pt"
+        android:textStyle="italic"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:text="000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:id="@+id/TextFieldChislo1"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Проверить"
@@ -132,7 +95,7 @@
         android:padding="4pt"
         android:id="@+id/buttonCheckAnswers"
         android:textStyle="italic"
-        android:layout_below="@+id/Answer2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/Answer1"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

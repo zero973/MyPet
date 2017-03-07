@@ -53,13 +53,9 @@
         android:text="Уровень: 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="37dp"
         android:id="@+id/textViewLevelAnagrams"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_below="@+id/buttonCheckUserWord"
-        android:layout_toLeftOf="@+id/textView19"
-        android:layout_toStartOf="@+id/textView19" />
+        android:layout_below="@+id/buttonCheckUserWord"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -68,7 +64,7 @@
         android:text=""
         android:ems="10"
         android:id="@+id/editTextUserWord"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="39dp"
         android:layout_below="@+id/textViewWord"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

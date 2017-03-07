@@ -13,7 +13,7 @@
         <item>зуб</item>
         <item>окно</item>
         <item>очки</item>
-        <item>кот</item>
+        <item>нота</item>
         <item>ход</item>
         <item>жизнь</item>
         <item>еда</item>
@@ -21,9 +21,9 @@
         <item>жар</item>
         <item>рожь</item>
         <item>глаз</item>
-        <item>стол</item>
+        <item>меч</item>
         <item>стул</item>
-        <item>ёжик</item>
+        <item>мяч</item>
         <item>нож</item>
     </string-array>
     <string-array name="words_2_lvl">
@@ -75,12 +75,12 @@
     </integer-array>
 
     <string-array name="phisQuestions">
-        <item>U/I =</item>
+        <item>U÷I =</item>
         <item>E кинетическая =</item>
         <item>F Архимеда = </item>
         <item>Q = </item>
         <item>F тяжести</item>
-        <item>I÷U = </item>
+        <item>IU = </item>
         <item>μmg = </item>
         <item>F Лоренса = </item>
     </string-array>

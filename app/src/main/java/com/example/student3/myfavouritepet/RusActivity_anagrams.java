@@ -68,6 +68,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
                     }
                 }
                 countTry++;
+                UserWord.setText("");
                 CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из 20");
             }
         });
@@ -101,7 +102,10 @@ public class RusActivity_anagrams extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
-        anagramma.setText(ToUpperText(GenerateWord(trueWord)));
+        String slovo = GenerateWord(trueWord);
+        while (slovo.equals(trueWord))
+            slovo = GenerateWord(trueWord);
+        anagramma.setText(ToUpperText(slovo));
         CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из 20");
         UserLevel.setText("Уровень: " + level);
         indexWord++;

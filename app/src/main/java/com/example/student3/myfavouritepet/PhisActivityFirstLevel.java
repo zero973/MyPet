@@ -19,7 +19,7 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
     byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB;
     Random random = new Random();
     String[] questions = new String[8], answers = new String[8];
-    String[] mass = {"m*a", "m*g", "a*t", "a/t", "F/a", "F/m", "m/V", "p/F", "F/p", "V*p", "k*x", "k/x", "F*S"};
+    String[] mass = {"m*a", "m*g", "a*t", "a÷t", "F÷a", "F÷m", "m÷V", "p÷F", "F÷p", "V*p", "k*x", "k÷x", "F*S"};
     String trueAnswer;
 
     TextView tvQuestion, tvCountRight;
@@ -64,7 +64,7 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
                 if (cb1.isChecked() == true)
                     numUserCB = 0;
                 else {
-                    numUserCB = 1;
+                    numUserCB = 1;//Какой чекбокс выбрали
                 }
                 if (numTrueCB == numUserCB) {
                     countRightAnswers++;
@@ -96,20 +96,20 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
                             });
             AlertDialog alert = builder.create();
             alert.show();
+        }else {
+            trueAnswer = answers[index];
+            byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - неверный
+            if (v == 0) {
+                cb1.setText(trueAnswer);
+                cb2.setText(Generate());
+            } else {
+                cb1.setText(Generate());
+                cb2.setText(trueAnswer);
+            }
+            tvQuestion.setText(questions[index]);
+            index++;
+            numTrueCB = v;
         }
-        trueAnswer = answers[index];
-        byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - неверный
-        if (v == 0) {
-            cb1.setText(trueAnswer);
-            cb2.setText(Generate());
-        }
-        else{
-            cb1.setText(Generate());
-            cb2.setText(trueAnswer);
-        }
-        tvQuestion.setText(questions[index]);
-        index++;
-        numTrueCB = v;
     }
 
     String Generate(){
