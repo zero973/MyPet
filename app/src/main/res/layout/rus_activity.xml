@@ -3,6 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/bacgroundrus"/>
 
     <TextView
         android:text="Выбери задание"
@@ -11,10 +15,13 @@
         android:layout_marginTop="24dp"
         android:textStyle="italic"
         android:textSize="24sp"
-        android:textColor="@color/black"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/textView20"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"/>
 
     <Button
         android:text="Грамматика"
@@ -26,7 +33,11 @@
         android:layout_marginTop="33dp"
         android:id="@+id/buttonGramm"
         android:textStyle="italic"
-        android:background="@drawable/beautiful_button" />
+        android:background="@drawable/beautiful_button"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"
+        android:textColor="@color/WhiteColor"/>
 
     <Button
         android:text="Ударение"
@@ -38,7 +49,11 @@
         android:textStyle="italic"
         android:padding="4pt"
         android:layout_marginTop="45dp"
-        android:id="@+id/buttonUdarenie" />
+        android:id="@+id/buttonUdarenie"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"
+        android:textColor="@color/WhiteColor"/>
 
     <Button
         android:text="Анаграммы"
@@ -50,6 +65,10 @@
         android:padding="4pt"
         android:id="@+id/buttonAnagrams"
         android:layout_below="@+id/buttonGramm"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"
+        android:textColor="@color/WhiteColor" />
 
 </RelativeLayout>

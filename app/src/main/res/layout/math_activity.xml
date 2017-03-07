@@ -3,6 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/bacgroundmath"/>
+
     <TextView
         android:text="Выбери задание"
         android:layout_width="wrap_content"
@@ -10,10 +15,13 @@
         android:layout_marginTop="36dp"
         android:textStyle="italic"
         android:textSize="24sp"
-        android:textColor="@color/black"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/textView20"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"/>
 
     <Button
         android:text="Примеры"
@@ -22,9 +30,13 @@
         android:layout_marginTop="41dp"
         android:id="@+id/buttonExamplesMath"
         android:textStyle="italic"
+        android:textColor="@color/WhiteColor"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/textView20"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"/>
 
     <Button
         android:text="Дискриминант"
@@ -32,11 +44,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:padding="4pt"
+        android:textColor="@color/WhiteColor"
         android:id="@+id/buttonDiscriminant"
         android:textStyle="italic"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/buttonExamplesMath"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"/>
 
 
 </RelativeLayout>
