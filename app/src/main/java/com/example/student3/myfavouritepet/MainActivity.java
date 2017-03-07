@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 
     public String name;
 
-    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синий", "Розовый", "Зелёный", "Красный", "Жёлтый", "Коричневый", "Оранжевый", "Фиолетовый"};
+    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Розовая", "Голубая", "Жёлтая", "Алая", "Бежевая"};
     Spinner SpinnerKind, SpinnerRoomColor;
     EditText EditTextName;
     Button butGoGame;
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
             // отрываем поток для записи
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             // пишем данные
-            bw.write(String.format("%s\n%s\n%s", petName, kind, color));
+            bw.write(String.format("%s\n%s\n%s\n", petName, kind, color));
             // закрываем поток
             bw.close();
             Log.d("Успех", "Файл записан");

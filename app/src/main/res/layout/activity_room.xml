@@ -59,7 +59,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
+        android:background="@drawable/petdog"
         android:id="@+id/imageButtonPet"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -79,4 +79,14 @@
         android:padding="4pt"
         android:textColor="@color/WhiteColor"
         android:textStyle="italic"/>
+
+    <TextView
+        android:text="Монет: 100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonChangePet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:id="@+id/textViewMoney"
+        android:textColor="@color/WhiteColor" />
 </RelativeLayout>

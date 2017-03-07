@@ -3,18 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.student3.myfavouritepet.MainActivity">
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/bacgroundanycolors"/>
+    tools:context="com.example.student3.myfavouritepet.MainActivity"
+    android:background="@drawable/bacgroundanycolors">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Цвет комнаты"
+        android:text="Комната"
         android:textColor="@color/WhiteColor"
         android:textStyle="italic"
         android:id="@+id/textView3"

@@ -10,18 +10,20 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Room extends Activity{
 
     String name = "250801", kind, roomColor;
-    int money = 9999999;
+    public static int money = 100;
     RelativeLayout room;
 
     ImageButton IBFood, IBHealth, IBAchievement, IBPet;
-    TextView tvPetName;
+    TextView tvPetName, tvMoney;
     Button changePet;
 
     @Override
@@ -34,8 +36,10 @@ public class Room extends Activity{
         IBAchievement = (ImageButton)findViewById(R.id.imageButtonAchievement);
         changePet = (Button)findViewById(R.id.buttonChangePet);
         tvPetName = (TextView)findViewById(R.id.textViewNamePet);
+        tvMoney = (TextView)findViewById(R.id.textViewMoney);
 
         readFile("PetInfo");
+        readMoney("PetMoney");
         if (name.equals("250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
@@ -56,13 +60,21 @@ public class Room extends Activity{
             }
         });
     }
+
     @Override
     public void onResume(){
         super.onResume();
         readFile("PetInfo");
+        tvMoney.setText("Монет: "+money);
     }
 
-    public void readFile(String fileName) {
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        writeMoney("PetMoney");
+    }
+
+    void readFile(String fileName) {
         try {
             // открываем поток для чтения
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
@@ -82,35 +94,59 @@ public class Room extends Activity{
         }
     }
 
-    void RecolorRoom(){
-        room = (RelativeLayout) findViewById(R.id.room);
-        if (roomColor.equals("Синий")){
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorBlue));
-        }else if(roomColor.equals("Розовый")){
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorPink));
-        }else if (roomColor.equals("Красный")){
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorRed));
-        }else if (roomColor.equals("Зелёный")){
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorGreen));
-        }else if (roomColor.equals("Жёлтый")){
-            room.setBackgroundColor(getResources().getColor(R.color.MathBut));
-        }else if (roomColor.equals("Коричневый")){
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorBrown));
-        }else if (roomColor.equals("Оранжевый")) {
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorOrange));
-        }else if (roomColor.equals("Фиолетовый"))
-            room.setBackgroundColor(getResources().getColor(R.color.roomColorPurple));
+    void readMoney(String fileName) {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+            String money = br.readLine();
+            tvMoney.setText("Монет: "+money);
+        }catch (FileNotFoundException e) {
+            writeMoney("PetMoney");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        if(kind.equals("Собака")){
-            IBPet.setBackgroundResource(R.drawable.petdog);
-        }else if (kind.equals("Кошка")){
-            IBPet.setBackgroundResource(R.drawable.petcat);
-        }else if (kind.equals("Заяц")){
-            IBPet.setBackgroundResource(R.drawable.petrabbit);
-        }else if (kind.equals("Черепаха")){
-            IBPet.setBackgroundResource(R.drawable.petturtle);
-        }else if (kind.equals("Попугай")){
-            IBPet.setBackgroundResource(R.drawable.petparrot);
+    void writeMoney(String fileName) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
+            bw.write(String.format(money+""));
+            bw.close();
+            Log.d("Успех", "Деньги сохранены");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void RecolorRoom(){
+        room = (RelativeLayout)findViewById(R.id.room);
+        switch (roomColor){
+            case "Синяя": room.setBackgroundResource(R.drawable.blueroom);break;
+            case "Коричневая": room.setBackgroundResource(R.drawable.brownroom);break;
+            case "Розовая": room.setBackgroundResource(R.drawable.pinkroom);break;
+            case "Голубая": room.setBackgroundResource(R.drawable.blue_whiteroom);break;
+            case "Жёлтая": room.setBackgroundResource(R.drawable.yellowroom);break;
+            case "Алая": room.setBackgroundResource(R.drawable.alayaroom);break;
+            case "Бежевая": room.setBackgroundResource(R.drawable.bezhewayaroom);break;
+        }
+
+        switch (kind) {
+            case "Собака":
+                IBPet.setBackgroundResource(R.drawable.petdog);
+                break;
+            case "Кошка":
+                IBPet.setBackgroundResource(R.drawable.petcat);
+                break;
+            case "Заяц":
+                IBPet.setBackgroundResource(R.drawable.petrabbit);
+                break;
+            case "Черепаха":
+                IBPet.setBackgroundResource(R.drawable.petturtle);
+                break;
+            case "Попугай":
+                IBPet.setBackgroundResource(R.drawable.petparrot);
+                break;
         }
     }
 

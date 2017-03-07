@@ -30,14 +30,10 @@
         android:layout_marginTop="39dp"
         android:id="@+id/buttonExamplesPhis"
         android:textStyle="italic"
-        android:background="@drawable/beautiful_button"
+        android:background="@drawable/beautiful_button_for_subjects"
         android:layout_below="@+id/buttonQuestionsPhis"
         android:layout_alignLeft="@+id/buttonQuestionsPhis"
-        android:layout_alignStart="@+id/buttonQuestionsPhis"
-        android:shadowRadius="5"
-        android:shadowDx="1"
-        android:shadowColor="@color/black"
-        android:textColor="@color/WhiteColor"/>
+        android:layout_alignStart="@+id/buttonQuestionsPhis"/>
 
     <Button
         android:text="Вопросы"
@@ -46,11 +42,7 @@
         android:layout_marginTop="41dp"
         android:id="@+id/buttonQuestionsPhis"
         android:textStyle="italic"
-        android:background="@drawable/beautiful_button"
+        android:background="@drawable/beautiful_button_for_subjects"
         android:layout_below="@+id/textView20"
-        android:layout_centerHorizontal="true"
-        android:shadowRadius="5"
-        android:shadowDx="1"
-        android:shadowColor="@color/black"
-        android:textColor="@color/WhiteColor" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
