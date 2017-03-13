@@ -16,25 +16,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class Room extends Activity{
+public class Room extends Activity implements View.OnClickListener{
 
     String name = "250801", kind, roomColor;
     public static int money = 100;
     RelativeLayout room;
 
-    ImageButton IBFood, IBHealth, IBAchievement, IBPet;
+    ImageButton IBPet, IBFood, IBHealth, IBAchievement;
+    Button btnChangePet;
     TextView tvPetName, tvMoney;
-    Button changePet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
         IBPet = (ImageButton)findViewById(R.id.imageButtonPet);
+        IBPet.setOnClickListener(this);
         IBFood = (ImageButton)findViewById(R.id.imageButtonFood);
+        IBFood.setOnClickListener(this);
         IBHealth = (ImageButton)findViewById(R.id.imageButtonHealth);
+        IBHealth.setOnClickListener(this);
         IBAchievement = (ImageButton)findViewById(R.id.imageButtonAchievement);
-        changePet = (Button)findViewById(R.id.buttonChangePet);
+        IBAchievement.setOnClickListener(this);
+        btnChangePet = (Button)findViewById(R.id.buttonChangePet);
+        btnChangePet.setOnClickListener(this);
         tvPetName = (TextView)findViewById(R.id.textViewNamePet);
         tvMoney = (TextView)findViewById(R.id.textViewMoney);
 
@@ -44,21 +49,6 @@ public class Room extends Activity{
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
         }
-
-        changePet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        IBAchievement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this, GameSchool.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -150,25 +140,20 @@ public class Room extends Activity{
         }
     }
 
-    /*public void onclick(View v) {
-        Log.w("onClick",v.getId()+"");
-        Intent intent;
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.imageButtonPet:
-
-                break;
-            case R.id.imageButtonFood:
-
-                break;
-            case R.id.imageButtonHealth:
-
-                break;
-            case R.id.imageButtonAchievement:
-
-                break;
-            case R.id.buttonChangePet:
-
-                break;
+            case R.id.buttonChangePet: intent = new Intent(Room.this, MainActivity.class);break;
+            case R.id.imageButtonAchievement: intent = new Intent(Room.this, GameSchool.class); break;
+            case R.id.imageButtonPet: break;
+            case R.id.imageButtonFood: break;
+            case R.id.imageButtonHealth: break;
         }
-    }*/
+        try {//Доделай кнопки, потом уберёшь этот блок
+            startActivity(intent);
+        }catch (Exception e){
+
+        }
+    }
 }

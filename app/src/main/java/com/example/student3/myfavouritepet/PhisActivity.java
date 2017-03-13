@@ -6,32 +6,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class PhisActivity extends AppCompatActivity {
-
-    Button btnQuestions, btnExamples;
+public class PhisActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phis_activity);
+        Button QuestionsPhis = (Button)findViewById(R.id.buttonQuestionsPhis);
+        QuestionsPhis.setOnClickListener(this);
+        Button ExamplesPhis = (Button)findViewById(R.id.buttonExamplesPhis);
+        ExamplesPhis.setOnClickListener(this);
+    }
 
-        btnQuestions = (Button)findViewById(R.id.buttonQuestionsPhis);
-        btnExamples = (Button)findViewById(R.id.buttonExamplesPhis);
-
-        btnQuestions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PhisActivity.this, PhisActivityFirstLevel.class);
-                startActivity(intent);
-            }
-        });
-
-        btnExamples.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PhisActivity.this, PhisActivityTasks.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()){
+            case R.id.buttonQuestionsPhis: intent = new Intent(PhisActivity.this, PhisActivityFirstLevel.class); break;
+            case R.id.buttonExamplesPhis: intent = new Intent(PhisActivity.this, PhisActivityTasks.class); break;
+        }
+        startActivity(intent);
     }
 }

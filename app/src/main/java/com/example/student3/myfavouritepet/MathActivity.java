@@ -8,31 +8,25 @@ import android.widget.Button;
 
 import java.util.Random;
 
-public class MathActivity extends AppCompatActivity {
-
-    Button btnExamples, btnDiscrim;
+public class MathActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.math_activity);
-        btnExamples = (Button)findViewById(R.id.buttonExamplesMath);
-        btnDiscrim = (Button)findViewById(R.id.buttonDiscriminant);
+        Button ExamplesMath = (Button)findViewById(R.id.buttonExamplesMath);
+        ExamplesMath.setOnClickListener(this);
+        Button Dicscriminant = (Button)findViewById(R.id.buttonDiscriminant);
+        Dicscriminant.setOnClickListener(this);
+    }
 
-        btnExamples.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MathActivity.this, MathActivityExamples.class);
-                startActivity(intent);
-            }
-        });
-
-        btnDiscrim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MathActivity.this, MathActivityDescrim.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()){
+            case R.id.buttonExamplesMath: intent = new Intent(MathActivity.this, MathActivityExamples.class); break;
+            case R.id.buttonDiscriminant: intent = new Intent(MathActivity.this, MathActivityDescrim.class); break;
+        }
+        startActivity(intent);
     }
 }

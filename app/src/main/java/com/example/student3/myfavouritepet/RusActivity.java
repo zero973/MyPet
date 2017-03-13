@@ -6,41 +6,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class RusActivity extends AppCompatActivity {
-
-    Button btnGram, btnUdarenie, btnAnagram;
+public class RusActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rus_activity);
+        Button Gramm = (Button)findViewById(R.id.buttonGramm);
+        Gramm.setOnClickListener(this);
+        Button Udarenie = (Button)findViewById(R.id.buttonUdarenie);
+        Udarenie.setOnClickListener(this);
+        Button Anagramma = (Button)findViewById(R.id.buttonAnagrams);
+        Anagramma.setOnClickListener(this);
+    }
 
-        btnGram = (Button)findViewById(R.id.buttonGramm);
-        btnUdarenie = (Button)findViewById(R.id.buttonUdarenie);
-        btnAnagram = (Button)findViewById(R.id.buttonAnagrams);
-
-        btnGram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RusActivity.this, RusActivityGrammatica.class);
-                startActivity(intent);
-            }
-        });
-
-        btnAnagram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RusActivity.this, RusActivity_anagrams.class);
-                startActivity(intent);
-            }
-        });
-
-        btnUdarenie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RusActivity.this, RusActivity_Udarenie.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()){
+            case R.id.buttonGramm: intent = new Intent(RusActivity.this, RusActivityGrammatica.class); break;
+            case R.id.buttonUdarenie: intent = new Intent(RusActivity.this, RusActivity_anagrams.class); break;
+            case R.id.buttonAnagrams: intent = new Intent(RusActivity.this, RusActivity_Udarenie.class); break;
+        }
+        startActivity(intent);
     }
 }

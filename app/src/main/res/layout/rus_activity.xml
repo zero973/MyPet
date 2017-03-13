@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
@@ -23,7 +25,7 @@
         android:shadowDx="1"
         android:shadowColor="@color/black"/>
 
-    <Button
+    <com.example.student3.myfavouritepet.ButtonStrokeText
         android:text="Грамматика"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,30 +35,36 @@
         android:layout_marginTop="33dp"
         android:id="@+id/buttonGramm"
         android:textStyle="italic"
-        android:background="@drawable/beautiful_button_for_subjects"/>
+        android:background="@drawable/beautiful_button"
+        app:textStrokeColor="@color/WhiteColor"
+        app:textStrokeWidth="3sp"/>
 
-    <Button
+    <com.example.student3.myfavouritepet.ButtonStrokeText
         android:text="Ударение"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonGramm"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/beautiful_button_for_subjects"
+        android:background="@drawable/beautiful_button"
         android:textStyle="italic"
         android:padding="4pt"
         android:layout_marginTop="45dp"
-        android:id="@+id/buttonUdarenie"/>
+        android:id="@+id/buttonUdarenie"
+        app:textStrokeColor="@color/WhiteColor"
+        app:textStrokeWidth="3sp"/>
 
-    <Button
+    <com.example.student3.myfavouritepet.ButtonStrokeText
         android:text="Анаграммы"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
-        android:background="@drawable/beautiful_button_for_subjects"
+        android:background="@drawable/beautiful_button"
         android:textStyle="italic"
-        android:padding="4pt"
         android:id="@+id/buttonAnagrams"
         android:layout_below="@+id/buttonUdarenie"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:padding="4pt"
+        app:textStrokeColor="@color/WhiteColor"
+        app:textStrokeWidth="3sp"/>
 
 </RelativeLayout>
