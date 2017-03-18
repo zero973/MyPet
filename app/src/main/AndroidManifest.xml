@@ -29,6 +29,7 @@
         <activity android:name=".MathActivityExamples" android:label="Математика"></activity>
         <activity android:name=".TatarActivity" android:label="Татарский язык"></activity>
         <activity android:name=".StorageActivity" android:label="Склад"></activity>
+        <activity android:name=".HealthActivity" android:label="Склад"></activity>
     </application>
 
 </manifest>

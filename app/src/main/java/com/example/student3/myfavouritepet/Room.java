@@ -147,7 +147,7 @@ public class Room extends Activity implements View.OnClickListener{
             case R.id.imageButtonAchievement: intent = new Intent(Room.this, GameSchool.class); break;
             case R.id.imageButtonPet: break;
             case R.id.imageButtonFood: intent = new Intent(Room.this, StorageActivity.class); break;
-            case R.id.imageButtonHealth: break;
+            case R.id.imageButtonHealth: intent = new Intent(Room.this, HealthActivity.class); break;
         }
         try {//Доделай кнопки, потом уберёшь этот блок
             startActivity(intent);

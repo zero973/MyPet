@@ -21,7 +21,7 @@ public class GameSchool extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_school);
+        setContentView(R.layout.school_activity);
         tv = (TextView)findViewById(R.id.textView);
         Matem = (Button)findViewById(R.id.butMath);
         Fizika = (Button)findViewById(R.id.butPhis);

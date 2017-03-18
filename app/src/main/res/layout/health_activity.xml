@@ -9,6 +9,7 @@
         android:layout_height="wrap_content">
         <TableRow>
             <TextView
+                android:paddingBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
@@ -26,13 +27,43 @@
         </TableRow>
         <TableRow>
             <ImageView
-                android:layout_height="50dp"
+                android:layout_height="75dp"
                 android:layout_width="50dp"
-                android:background="@drawable/hand"/>
+                android:background="@drawable/arm"/>
             <TextView
+                android:paddingTop="20dp"
+                android:paddingLeft="5dp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:textSize="24sp"
                 android:text="Погладить"/>
+            <TextView
+                android:paddingLeft="15dp"
+                android:paddingTop="20dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="0"
+                android:textSize="24sp"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_height="75dp"
+                android:layout_width="50dp"
+                android:background="@drawable/ball"/>
+            <TextView
+                android:paddingTop="20dp"
+                android:paddingLeft="5dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Поиграть в мяч"
+                android:textSize="24sp"/>
+            <TextView
+                android:paddingTop="20dp"
+                android:paddingLeft="5dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="500"
+                android:textSize="24sp"/>
         </TableRow>
     </TableLayout>
 </ScrollView>

@@ -1,7 +1,6 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -30,7 +28,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
         //Адаптер для спиннера с полом
         ArrayAdapter<String> adapterKind = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, KindsMass);
         adapterKind.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
