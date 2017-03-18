@@ -40,6 +40,7 @@ public class MathActivityDescrim extends AppCompatActivity {
             public void onClick(View v) {
                 userAnswer = Integer.valueOf(edUserAnswer.getText().toString());
                 if (userAnswer == trueAnswer){
+                    Room.money += 2;
                     countRightAnswers++;
                     countTry++;
                     Start();

@@ -66,6 +66,7 @@ public class RusActivity_Udarenie extends AppCompatActivity {
                 }
                 if (numTrueCB == numUserCB) {
                     countRightAnswers++;
+                    Room.money++;
                     tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 4");
                     Play();
                 }

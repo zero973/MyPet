@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 
     public String name;
 
-    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Розовая", "Голубая", "Жёлтая", "Алая", "Бежевая"};
+    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Розовая", "Голубая", "Жёлтая", "Алая"};
     Spinner SpinnerKind, SpinnerRoomColor;
     EditText EditTextName;
     Button butGoGame;

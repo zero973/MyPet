@@ -28,6 +28,7 @@
         <activity android:name=".RusActivity_Udarenie" android:label="Ударение"></activity>
         <activity android:name=".MathActivityExamples" android:label="Математика"></activity>
         <activity android:name=".TatarActivity" android:label="Татарский язык"></activity>
+        <activity android:name=".StorageActivity" android:label="Склад"></activity>
     </application>
 
 </manifest>

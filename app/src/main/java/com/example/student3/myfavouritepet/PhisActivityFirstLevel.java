@@ -68,6 +68,7 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
                 }
                 if (numTrueCB == numUserCB) {
                     countRightAnswers++;
+                    Room.money++;
                     tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 8");
                     Play();
                 }

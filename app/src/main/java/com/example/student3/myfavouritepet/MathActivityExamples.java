@@ -46,12 +46,18 @@ public class MathActivityExamples extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(CheckResults()) {
-                    if (countRight == 5 || countRight == 6)
+                    if (countRight == 5) {
                         userLevel++;
-                    else if (countRight == 15 || countRight == 16)
+                        Room.money += 5;
+                    }
+                    else if (countRight == 15) {
                         userLevel++;
-                    else if (countRight == 25 || countRight == 26)
+                        Room.money += 15;
+                    }
+                    else if (countRight == 25) {
                         userLevel++;
+                        Room.money += 25;
+                    }
                     ChangeSymbolOnLabel();
                     ans1.setText("0");
                 }

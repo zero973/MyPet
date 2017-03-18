@@ -40,6 +40,39 @@
         android:layout_marginEnd="12dp" />
 
 
+    <Button
+        android:text="Сменить питомца"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonChangePet"
+        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowColor="@color/black"
+        android:background="@drawable/beautiful_button"
+        android:padding="4pt"
+        android:textColor="@color/WhiteColor"
+        android:textStyle="italic"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Монет: 100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:id="@+id/textViewMoney"
+        android:textColor="@color/WhiteColor"
+        android:layout_above="@+id/buttonChangePet"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/petdog"
+        android:id="@+id/imageButtonPet"
+        android:layout_above="@+id/textViewMoney"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:text="Никто"
         android:layout_width="wrap_content"
@@ -52,41 +85,6 @@
         android:textColor="@color/WhiteColor"
         android:textStyle="italic"
         android:typeface="serif"
-        android:layout_below="@+id/imageButtonHealth"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/petdog"
-        android:id="@+id/imageButtonPet"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/imageButtonPet"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Сменить питомца"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="55dp"
-        android:id="@+id/buttonChangePet"
-        android:shadowRadius="5"
-        android:shadowDx="1"
-        android:shadowColor="@color/black"
-        android:background="@drawable/beautiful_button"
-        android:padding="4pt"
-        android:textColor="@color/WhiteColor"
-        android:textStyle="italic"/>
-
-    <TextView
-        android:text="Монет: 100"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonChangePet"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp"
-        android:id="@+id/textViewMoney"
-        android:textColor="@color/WhiteColor" />
 </RelativeLayout>

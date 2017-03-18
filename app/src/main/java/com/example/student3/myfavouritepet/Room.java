@@ -118,7 +118,6 @@ public class Room extends Activity implements View.OnClickListener{
             case "Голубая": room.setBackgroundResource(R.drawable.blue_whiteroom);break;
             case "Жёлтая": room.setBackgroundResource(R.drawable.yellowroom);break;
             case "Алая": room.setBackgroundResource(R.drawable.alayaroom);break;
-            case "Бежевая": room.setBackgroundResource(R.drawable.bezhewayaroom);break;
         }
 
         switch (kind) {
@@ -144,10 +143,10 @@ public class Room extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.buttonChangePet: intent = new Intent(Room.this, MainActivity.class);break;
+            case R.id.buttonChangePet: intent = new Intent(Room.this, MainActivity.class); break;
             case R.id.imageButtonAchievement: intent = new Intent(Room.this, GameSchool.class); break;
             case R.id.imageButtonPet: break;
-            case R.id.imageButtonFood: break;
+            case R.id.imageButtonFood: intent = new Intent(Room.this, StorageActivity.class); break;
             case R.id.imageButtonHealth: break;
         }
         try {//Доделай кнопки, потом уберёшь этот блок
