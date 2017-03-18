@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/schoolColor">
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Действие" />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="" />
+            <TextView
+                android:paddingLeft="5dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:text="Цена" />
+        </TableRow>
+        <TableRow>
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:background="@drawable/hand"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Погладить"/>
+        </TableRow>
+    </TableLayout>
+</ScrollView>
