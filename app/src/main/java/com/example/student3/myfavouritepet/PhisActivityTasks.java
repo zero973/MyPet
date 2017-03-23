@@ -57,6 +57,11 @@ public class PhisActivityTasks extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     void Start(){
         if (index < 6) {
             tvExample.setText(examples[index]);

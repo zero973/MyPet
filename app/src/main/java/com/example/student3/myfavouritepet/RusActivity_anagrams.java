@@ -75,6 +75,11 @@ public class RusActivity_anagrams extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     void GoPlayAnagram(){
         if (level == 1){
             if (indexWord < 20)

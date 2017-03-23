@@ -144,22 +144,136 @@
 
     <string-array name="englishQuestions">
         <item>Как переводится идиома \"let sleeping dogs lie\"?</item>
-        <item>Как переводится слово \"важный\"?</item>
+        <item>Как переводится слово \"Важный\"?</item>
         <item>Что НЕ является игрушкой</item>
         <item>Как переводится фразовый глагол \"to stand by\"?</item>
+        <item>Как переводится идиома \"To blow one\'s mind\"?</item>
+        <item>Как переводится слово \"Tease\"?</item>
+        <item>Как переводится слово \"Mелкий\"?</item>
+        <item>Как переводится слово \"Leave\"?</item>
+        <item>Как переводится слово \"Rook\"?</item>
+        <item>Как переводится слово \"Hang\"?</item>
+        <item>Как переводится слово \"Court\"?</item>
+        <item>Как переводится \"Glass blowing\"?</item>
+        <item>Как переводится \"Whirligig of history\"?</item>
+        <item>Как переводится слово \"Бакенбарды\"?</item>
+        <item>Как переводится слово \"Колючка\"?</item>
+        <item>Как переводится слово \"Stamp\"?</item>
     </string-array>
 
     <string-array name="englishQuestions_Answers">
         <item>Не трать время напрасно</item>
-        <item>difficult</item>
-        <item>doll</item>
+        <item>Difficult</item>
+        <item>Doll</item>
         <item>Стоять около</item>
+        <item>Забывать</item>
+        <item>Брить</item>
+        <item>Nimble</item>
+        <item>Жить</item>
+        <item>Соловей</item>
+        <item>Нажимать</item>
+        <item>Корка</item>
+        <item>Полировка стекла</item>
+        <item>Достоверность истории</item>
+        <item>Whiskers</item>
+        <item>Wig</item>
+        <item>Сдавленный</item>
     </string-array>
 
     <string-array name="englishQuestions_True_Answers">
         <item>Не нарывайся на неприятности</item>
-        <item>important</item>
-        <item>bed</item>
+        <item>Important</item>
+        <item>Bed</item>
         <item>Быть в готовности</item>
+        <item>Сплетничать</item>
+        <item>Дразнить</item>
+        <item>Petty</item>
+        <item>Уходить</item>
+        <item>Грач</item>
+        <item>Висеть</item>
+        <item>Судебное заседание</item>
+        <item>Выдувание стекла</item>
+        <item>Круговорот истории</item>
+        <item>Hindhead</item>
+        <item>Thorn</item>
+        <item>Марка</item>
+    </string-array>
+
+    <string-array name="himiyaQuestions">
+        <item>Пока пусто</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="himiyaQuestions_Answers">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="himiyaQuestions_True_Answers">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="biologiyaQuestions">
+        <item>Пока пусто</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="biologiyaQuestions_Answers">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="biologiyaQuestions_True_Answers">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
     </string-array>
 </resources>

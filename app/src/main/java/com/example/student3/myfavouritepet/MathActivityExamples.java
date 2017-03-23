@@ -3,6 +3,7 @@ package com.example.student3.myfavouritepet;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Random;
 
 public class MathActivityExamples extends AppCompatActivity {
     byte znakMass;
     int[] numsMass = new int[2];
     int rightAnswers;
-    byte i = 0, userLevel = 1, falseExample = 0;
+    byte i = 0, userLevel = 1;
     int countRight = 0;
     int count = 0;
 
@@ -40,29 +48,39 @@ public class MathActivityExamples extends AppCompatActivity {
         t5 = (TextView)findViewById(R.id.TextZnak1);
         TextResult = (TextView)findViewById(R.id.textViewRightAnswers);
         ans1 = (EditText)findViewById(R.id.Answer1);
+
+        ReadActivity("MathActivityExamples");
+        CheckRightAnswers();
+        TextResult.setText("Правильных ответов " + countRight + " из " + count);
         ChangeSymbolOnLabel();
 
         checkBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(CheckResults()) {
-                    if (countRight == 5) {
-                        userLevel++;
-                        Room.money += 5;
-                    }
-                    else if (countRight == 15) {
-                        userLevel++;
-                        Room.money += 15;
-                    }
-                    else if (countRight == 25) {
-                        userLevel++;
-                        Room.money += 25;
-                    }
+                    CheckRightAnswers();
                     ChangeSymbolOnLabel();
                     ans1.setText("0");
                 }
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        SaveActivity("MathActivityExamples");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        SaveActivity("MathActivityExamples");
     }
 
     boolean CheckResults(){
@@ -144,5 +162,59 @@ public class MathActivityExamples extends AppCompatActivity {
             case 2: result = f1 * f2; break;
         }
         rightAnswers = result;
+    }
+
+    void CheckRightAnswers(){
+        if (countRight == 5) {
+            userLevel++;
+            Room.money += 5;
+        }
+        else if (countRight == 15) {
+            userLevel++;
+            Room.money += 15;
+        }
+        else if (countRight == 25) {
+            userLevel++;
+            Room.money += 25;
+        }
+    }
+
+    void SaveActivity(String fileName){
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
+            bw.write(String.format(countRight + " " + count + " "));
+            bw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void ReadActivity(String fileName) {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+            String ActivityInFile = br.readLine();
+            int j = 0;
+            String chislo = "";
+            ActivityInFile.charAt(j);
+            while (ActivityInFile.charAt(j) != ' '){
+                chislo += ActivityInFile.charAt(j);
+                j++;
+            }
+            j++;
+            countRight = Integer.valueOf(chislo);
+            chislo = "";
+            while (ActivityInFile.charAt(j) != ' '){
+                chislo += ActivityInFile.charAt(j);
+                j++;
+            }
+            count = Integer.valueOf(chislo);
+            br.close();
+        }catch (FileNotFoundException e) {
+            SaveActivity("MathActivityExamples");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){}
     }
 }

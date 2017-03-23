@@ -1,92 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/school"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/schoolColor">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Выбери предмет"
+                android:textColor="@color/WhiteColor"
+                android:textSize="30sp"
+                android:textStyle="italic"
+                android:typeface="serif"/>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/butMath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:text="Математика"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/textView"/>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/butPhis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:text="Физика"
+                android:textAlignment="center"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/butMath"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Выбери предмет"
-        android:id="@+id/textView"
-        android:textSize="30sp"
-        android:textColor="@color/WhiteColor"
-        android:textStyle="italic"
-        android:typeface="serif"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Математика"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/butMath"
-        android:textStyle="italic"
-        android:typeface="serif"
-        android:textColor="@color/WhiteColor"
-        android:background="@drawable/beautiful_button"
-        android:padding="4pt"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Физика"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/butPhis"
-        android:textStyle="italic"
-        android:typeface="serif"
-        android:textColor="@color/WhiteColor"
-        android:background="@drawable/beautiful_button"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/butMath"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Русский язык"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/butRus"
-        android:textStyle="italic"
-        android:typeface="serif"
-        android:background="@drawable/beautiful_button"
-        android:padding="4pt"
-        android:textColor="@color/WhiteColor"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/butPhis"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Английский язык"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:typeface="serif"
-        android:background="@drawable/beautiful_button"
-        android:padding="4pt"
-        android:textColor="@color/WhiteColor"
-        android:layout_marginTop="30dp"
-        android:id="@+id/butEnglish"
-        android:layout_below="@+id/butRus"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Татарский язык"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonTatar"
-        android:textStyle="italic"
-        android:typeface="serif"
-        android:background="@drawable/beautiful_button"
-        android:padding="3pt"
-        android:textColor="@color/WhiteColor"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/butEnglish"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/butRus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:text="Русский язык"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/butPhis"/>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/butEnglish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:padding="4pt"
+                android:text="Английский язык"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/butRus"/>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/buttonTatar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:text="Татарский язык"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/butEnglish"/>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/buttonHimiya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:text="Химия"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/buttonTatar"/>
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/buttonBiologiya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beautiful_button"
+                android:text="Биология"
+                android:textColor="@color/WhiteColor"
+                android:textStyle="italic"
+                android:typeface="serif"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/buttonHimiya"/>
+    </RelativeLayout>
+</ScrollView>

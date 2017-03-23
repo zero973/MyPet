@@ -76,6 +76,11 @@ public class RusActivityGrammatica extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     void Play(){
         cb1.setChecked(false);
         cb2.setChecked(false);

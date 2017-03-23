@@ -53,6 +53,11 @@ public class MathActivityDescrim extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     void Start(){
         if (index < 20) {
             tvExample.setText(examples[index]);
