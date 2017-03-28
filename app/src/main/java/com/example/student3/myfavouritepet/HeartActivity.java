@@ -1,8 +1,8 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,16 +15,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class HealthActivity extends Activity implements View.OnClickListener {
+public class HeartActivity extends Activity implements View.OnClickListener {
 
-    ImageButton IBPlusBall; TextView tvBallCost;
+    ImageButton IBPlusBall, IBArm, IBBall; TextView tvBallCost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.health_activity);
+        setContentView(R.layout.heart_activity);
         IBPlusBall = (ImageButton)findViewById(R.id.plusBall);
         IBPlusBall.setOnClickListener(this);
+        IBArm = (ImageButton)findViewById(R.id.arm);
+        IBArm.setOnClickListener(this);
+        IBBall = (ImageButton)findViewById(R.id.ball);
+        IBBall.setOnClickListener(this);
         tvBallCost = (TextView)findViewById(R.id.TextViewBallCost);
         if (ReadPurch("HealthPurch") == true){
             IBPlusBall.setBackgroundResource(Integer.parseInt(null));
@@ -34,6 +38,7 @@ public class HealthActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.plusBall: if (Room.money -500 > -1){
                 Room.money -=500;
@@ -42,6 +47,8 @@ public class HealthActivity extends Activity implements View.OnClickListener {
                 tvBallCost.setText("0");
             } else {Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();}
                 break;
+            case R.id.arm: intent = new Intent(this, CaressActivity.class); startActivity(intent); break;//дописать putExtra
+            case R.id.ball: intent = new Intent(this, CaressActivity.class); startActivity(intent); break;//дописать putExtra
         }
     }
 

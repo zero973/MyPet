@@ -18,7 +18,7 @@ import java.io.OutputStreamWriter;
 
 public class Room extends Activity implements View.OnClickListener{
 
-    String name = "250801", kind, roomColor;
+    public static String name = "250801", kind, roomColor;
     public static int money = 100;
     RelativeLayout room;
 
@@ -147,7 +147,7 @@ public class Room extends Activity implements View.OnClickListener{
             case R.id.imageButtonAchievement: intent = new Intent(Room.this, School.class); break;
             case R.id.imageButtonPet: break;
             case R.id.imageButtonFood: intent = new Intent(Room.this, StorageActivity.class); break;
-            case R.id.imageButtonHealth: intent = new Intent(Room.this, HealthActivity.class); break;
+            case R.id.imageButtonHealth: intent = new Intent(Room.this, HeartActivity.class); break;
         }
         try {//Доделай кнопки, потом уберёшь этот блок
             startActivity(intent);
