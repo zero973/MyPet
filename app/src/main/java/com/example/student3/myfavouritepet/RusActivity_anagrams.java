@@ -40,6 +40,9 @@ public class RusActivity_anagrams extends AppCompatActivity {
         words1 = getResources().getStringArray(R.array.words_1_lvl);
         words2 = getResources().getStringArray(R.array.words_2_lvl);
 
+        words1 = randomMass(words1);
+        words2 = randomMass(words2);
+
         GoPlayAnagram();
 
         CheckWord.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +146,24 @@ public class RusActivity_anagrams extends AppCompatActivity {
         for (int i = 0; i < word.length(); i++){
             char c = word.charAt(i);
             result += c + " ";
+        }
+        return result;
+    }
+
+    public static String[] randomMass(String[] words){
+        String[] result = new String[words.length];
+        boolean[] isUsed = new boolean[words.length];
+        for(int i = 0; i < words.length; i++)
+            isUsed[i] = false;
+        Random r = new Random();
+        byte index;
+        for(int i = 0; i < words.length; i++)
+        {
+            index = (byte) r.nextInt(words.length);
+            if(isUsed[index] == false){
+                result[i] = words[index];
+                isUsed[index] = true;
+            }else i--;
         }
         return result;
     }

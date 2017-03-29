@@ -10,15 +10,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class MathActivityDescrim extends AppCompatActivity {
 
     TextView tvExample, tvCountRightAnswersDescrim;
     EditText edUserAnswer;
     Button check;
 
-    String[] examples;
-    int[] trueAnswers;
-    int userAnswer, trueAnswer, countTry = 0;
+    String[] examples, trueAnswers;
+    String trueAnswer, userAnswer;
+    int countTry = 0;
     byte index = 0, countRightAnswers = 0;
 
     @Override
@@ -31,15 +33,16 @@ public class MathActivityDescrim extends AppCompatActivity {
         check = (Button)findViewById(R.id.buttonCheckDescrim);
 
         examples = getResources().getStringArray(R.array.mathExamplesDiscriminant);
-        trueAnswers = getResources().getIntArray(R.array.mathExamplesDiscriminantAnswers);
+        trueAnswers = getResources().getStringArray(R.array.mathExamplesDiscriminantAnswers);
+
+        examples = randomMass(examples, trueAnswers);
 
         Start();
 
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userAnswer = Integer.valueOf(edUserAnswer.getText().toString());
-                if (userAnswer == trueAnswer){
+                if (userAnswer.equals(trueAnswer)){
                     Room.money += 2;
                     countRightAnswers++;
                     countTry++;
@@ -78,5 +81,26 @@ public class MathActivityDescrim extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
+    }
+
+    public String[] randomMass(String[] questions, String[] true_answers){
+        trueAnswers = new String[true_answers.length];
+        String[] result = new String[questions.length];
+        boolean[] isUsed = new boolean[questions.length];
+        for(int i = 0; i < questions.length; i++)
+            isUsed[i] = false;
+        Random r = new Random();
+        byte index;
+        for(int i = 0; i < questions.length; i++)
+        {
+            index = (byte) r.nextInt(questions.length);
+            if(isUsed[index] == false){
+                result[i] = questions[index];
+                trueAnswers[i] = true_answers[index];
+                isUsed[index] = true;
+            }
+            else i--;
+        }
+        return result;
     }
 }

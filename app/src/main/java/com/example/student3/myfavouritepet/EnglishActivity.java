@@ -12,15 +12,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EnglishActivity extends AppCompatActivity implements View.OnClickListener{
 
-    byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB;
+    byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB, typeActivity;
     Random random = new Random();
-    String[] answers = new String[4];
-    String[] questions = new String[4];
-    String[] trueAnswers = new String[4];
+    String[] answers, questions, trueAnswers;
 
     TextView tvCountRight, tvQuestion;
     Button checkBut;
@@ -41,7 +41,6 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         cb2.setOnClickListener(this);
         checkBut.setOnClickListener(this);
 
-        byte typeActivity = 0;
         Intent intent = getIntent();
         typeActivity = Byte.valueOf(intent.getStringExtra("activity"));
 
@@ -49,9 +48,20 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
             case 0: EngActivity(); break;
             case 1: HimActivity(); break;
             case 2: BioActivity(); break;
+            case 3: GramActivity(); break;
+            case 4: UdarActivity(); break;
         }
 
-        tvCountRight.setText("Правильных ответов: 0 из " + questions.length);
+        if (typeActivity == 3 || typeActivity == 4) {
+            answers = randomMass(answers, trueAnswers);
+            trueAnswers = True_answers;
+        }
+        else {
+            questions = randomMass(questions, answers, trueAnswers);
+            answers = Answers;
+            trueAnswers = True_answers;
+        }
+        tvCountRight.setText("Правильных ответов: 0 из " + answers.length);
 
         Play();
     }
@@ -64,10 +74,10 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
     void Play(){
         cb1.setChecked(false);
         cb2.setChecked(false);
-        if (index == 16) {
+        if (index == answers.length) {
             index = 0;
             AlertDialog.Builder builder = new AlertDialog.Builder(EnglishActivity.this);
-            builder.setTitle("Игра окончена!").setMessage("Правильных ответов: " + countRightAnswers + " из " + questions.length)
+            builder.setTitle("Игра окончена!").setMessage("Правильных ответов: " + countRightAnswers + " из " + answers.length)
                     .setCancelable(false).setNegativeButton("Закончить игру", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
@@ -77,7 +87,12 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
             AlertDialog alert = builder.create();
             alert.show();
         }
-        tvQuestion.setText(questions[index]);
+        if (typeActivity < 3)
+            tvQuestion.setText(questions[index]);
+        else if (typeActivity == 3)
+            tvQuestion.setText("Как правильно?");
+        else if (typeActivity == 4)
+            tvQuestion.setText("Куда падает ударение?");
         byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - первый чекбокс неверный
         if (v == 0) {
             cb2.setText(answers[index]);
@@ -94,20 +109,18 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.checkBoxEnglish1: if (cb2.isChecked() == true) cb2.setChecked(false); break;
-            case R.id.checkBoxEnglish2: if (cb1.isChecked() == true) cb1.setChecked(false); break;
-            case R.id.buttonCheckEnglish: if (cb1.isChecked() == false && cb2.isChecked() == false)
-                return;
-            else {
-                if (cb1.isChecked() == true)
+            case R.id.checkBoxEnglish1: if (cb2.isChecked()) cb2.setChecked(false); break;
+            case R.id.checkBoxEnglish2: if (cb1.isChecked()) cb1.setChecked(false); break;
+            case R.id.buttonCheckEnglish: if (!cb1.isChecked() && !cb2.isChecked()) return; else {
+                if (cb1.isChecked())
                     numUserCB = 0;
                 else {
                     numUserCB = 1;
                 }
-                if (numTrueCB == numUserCB) {
+                if (numUserCB == numTrueCB) {
                     countRightAnswers++;
                     Room.money++;
-                    tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из " + questions.length);
+                    tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из " + answers.length);
                     Play();
                 } else {
                     Play();
@@ -134,5 +147,60 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         answers = getResources().getStringArray(R.array.biologiyaQuestions_Answers);
         trueAnswers = getResources().getStringArray(R.array.biologiyaQuestions_True_Answers);
         setTitle("Биология");
+    }
+
+    void GramActivity(){
+        answers = getResources().getStringArray(R.array.rusQuestions_How_True);
+        trueAnswers = getResources().getStringArray(R.array.rusQuestions_Answers_How_True);
+        setTitle("Грамматика");
+    }
+
+    void UdarActivity(){
+        answers = getResources().getStringArray(R.array.rusQuestions_Udarenie);
+        trueAnswers = getResources().getStringArray(R.array.rusQuestions_Answers_Udarenie);
+        setTitle("Ударение");
+    }
+
+    public static String[] Answers, True_answers;
+
+    public static String[] randomMass(String[] questions, String[] answers, String[] true_answers){
+        Answers = new String[answers.length]; True_answers = new String[true_answers.length];
+        String[] result = new String[questions.length];
+        boolean[] isUsed = new boolean[questions.length];
+        for(int i = 0; i < questions.length; i++)
+            isUsed[i] = false;
+        Random r = new Random();
+        byte index;
+        for(int i = 0; i < questions.length; i++)
+        {
+            index = (byte) r.nextInt(questions.length);
+            if(isUsed[index] == false){
+                result[i] = questions[index];
+                Answers[i] = answers[index];
+                True_answers[i] = true_answers[index];
+                isUsed[index] = true;
+            }else i--;
+        }
+        return result;
+    }
+
+    String[] randomMass(String[] answers, String[] true_answers){
+        Answers = new String[answers.length]; True_answers = new String[true_answers.length];
+        String[] result = new String[answers.length];
+        boolean[] isUsed = new boolean[answers.length];
+        for(int i = 0; i < answers.length; i++)
+            isUsed[i] = false;
+        Random r = new Random();
+        byte index;
+        for(int i = 0; i < answers.length; i++)
+        {
+            index = (byte) r.nextInt(answers.length);
+            if(isUsed[index] == false){
+                result[i] = answers[index];
+                True_answers[i] = true_answers[index];
+                isUsed[index] = true;
+            }else i--;
+        }
+        return result;
     }
 }

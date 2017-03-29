@@ -14,12 +14,12 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class PhisActivityFirstLevel extends AppCompatActivity {
+public class PhisActivityFirstLevel extends AppCompatActivity implements View.OnClickListener{
 
     byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB;
     Random random = new Random();
-    String[] questions = new String[8], answers = new String[8];
-    String[] mass = {"m*a", "m*g", "a*t", "a÷t", "F÷a", "F÷m", "m÷V", "p÷F", "F÷p", "V*p", "k*x", "k÷x", "F*S"};
+    String[] questions = new String[8], trueAnswers = new String[8];
+    String[] answers = {"m*a", "m*g", "a*t", "a÷t", "F÷a", "F÷m", "m÷V", "p÷F", "F÷p", "V*p", "k*x", "k÷x", "F*S"};
     String trueAnswer;
 
     TextView tvQuestion, tvCountRight;
@@ -36,47 +36,18 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
         checkBut = (Button) findViewById(R.id.buttonCheckFizika);
         cb1 = (CheckBox) findViewById(R.id.checkBox1);
         cb2 = (CheckBox) findViewById(R.id.checkBox2);
+        checkBut.setOnClickListener(this);
+        cb1.setOnClickListener(this);
+        cb2.setOnClickListener(this);
 
         questions = getResources().getStringArray(R.array.phisQuestions);
-        answers = getResources().getStringArray(R.array.phisQuestions_Answers);
+        trueAnswers = getResources().getStringArray(R.array.phisQuestions_Answers);
+
+        questions = EnglishActivity.randomMass(questions, answers, trueAnswers);
+        answers = EnglishActivity.Answers;
+        trueAnswers = EnglishActivity.True_answers;
 
         Play();
-
-        cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (cb2.isChecked() == true)
-                    cb2.setChecked(false);
-            }
-        });
-
-        cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (cb1.isChecked() == true)
-                    cb1.setChecked(false);
-            }
-        });
-
-        checkBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb1.isChecked() == true)
-                    numUserCB = 0;
-                else {
-                    numUserCB = 1;//Какой чекбокс выбрали
-                }
-                if (numTrueCB == numUserCB) {
-                    countRightAnswers++;
-                    Room.money++;
-                    tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 8");
-                    Play();
-                }
-                else {
-                    Play();
-                }
-            }
-        });
     }
 
     @Override
@@ -103,13 +74,13 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }else {
-            trueAnswer = answers[index];
+            trueAnswer = trueAnswers[index];
             byte v = (byte) random.nextInt(2);//0 - первый чекбокс верный, 1 - неверный
             if (v == 0) {
                 cb1.setText(trueAnswer);
-                cb2.setText(Generate());
+                cb2.setText(answers[index]);
             } else {
-                cb1.setText(Generate());
+                cb1.setText(answers[index]);
                 cb2.setText(trueAnswer);
             }
             tvQuestion.setText(questions[index]);
@@ -118,11 +89,21 @@ public class PhisActivityFirstLevel extends AppCompatActivity {
         }
     }
 
-    String Generate(){
-        int variant = random.nextInt(13);
-        if (mass[variant] != answers[index])
-            return mass[variant];
-        else
-            return Generate();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.checkBox1: if (cb2.isChecked() == true) cb2.setChecked(false); break;
+            case R.id.checkBox2: if (cb1.isChecked() == true) cb1.setChecked(false); break;
+            case R.id.buttonCheckFizika: if (cb1.isChecked() == false && cb2.isChecked() == false) return; else {
+                if (cb1.isChecked() == true) numUserCB = 0;
+                else numUserCB = 1;//Какой чекбокс выбрали
+                if (numTrueCB == numUserCB) {
+                    countRightAnswers++;
+                    Room.money++;
+                    tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 8");
+                }
+                Play();
+            }break;
+        }
     }
 }

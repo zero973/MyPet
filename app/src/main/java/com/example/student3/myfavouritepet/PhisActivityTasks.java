@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class PhisActivityTasks extends AppCompatActivity {
 
     TextView tvExample, tvCountRightAnswersExample;
@@ -35,6 +37,8 @@ public class PhisActivityTasks extends AppCompatActivity {
 
         examples = getResources().getStringArray(R.array.phisTasks);
         trueAnswers = getResources().getStringArray(R.array.phisTasks_Answers);
+
+        examples = randomMass(examples, trueAnswers);
 
         Start();
 
@@ -83,5 +87,24 @@ public class PhisActivityTasks extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
+    }
+
+    public String[] randomMass(String[] questions, String[] true_answers){
+        String[] result = new String[questions.length];
+        boolean[] isUsed = new boolean[questions.length];
+        for(int i = 0; i < questions.length; i++)
+            isUsed[i] = false;
+        Random r = new Random();
+        byte index;
+        for(int i = 0; i < questions.length; i++)
+        {
+            index = (byte) r.nextInt(questions.length);
+            if(isUsed[index] == false){
+                result[i] = questions[index];
+                trueAnswers[i] = true_answers[index];
+                isUsed[index] = true;
+            } else i--;
+        }
+        return result;
     }
 }

@@ -7,6 +7,8 @@ import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,7 @@ public class MathActivityExamples extends AppCompatActivity {
     byte i = 0, userLevel = 1;
     int countRight = 0;
     int count = 0;
+    char[] numbers = {'0', '1' ,'2', '3', '4' ,'5', '6', '7' ,'8', '9', '-'};
 
     Button checkBut;
     TextView t1;
@@ -61,6 +64,31 @@ public class MathActivityExamples extends AppCompatActivity {
                     CheckRightAnswers();
                     ChangeSymbolOnLabel();
                     ans1.setText("0");
+                }
+            }
+        });
+
+        ans1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                boolean correct = false;
+                for(int i = 0; i < numbers.length; i++)
+                    if (s.length() > 0 && s.charAt(s.length()-1) == numbers[i]) correct = true;
+                if (s.length() > 0 && !correct){
+                    String s1 = s.toString();
+                    try {
+                        ans1.setText(s1.substring(0, s.length() - 1));
+                    }catch (Exception e){}
                 }
             }
         });

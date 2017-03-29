@@ -61,7 +61,7 @@
         <item>x^2+3x=10</item>
         <item>x^2+18=9x</item>
     </string-array>
-    <integer-array name="mathExamplesDiscriminantAnswers">
+    <string-array name="mathExamplesDiscriminantAnswers">
         <item>6</item>
         <item>7</item>
         <item>7</item>
@@ -72,7 +72,7 @@
         <item>8</item>
         <item>2</item>
         <item>6</item>
-    </integer-array>
+    </string-array>
 
     <string-array name="phisQuestions">
         <item>U÷I =</item>
@@ -200,80 +200,80 @@
     </string-array>
 
     <string-array name="himiyaQuestions">
-        <item>Пока пусто</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Самый дорогой элемент</item>
+        <item>Самый лёгкий элемент</item>
+        <item>Самый плотный элемент</item>
+        <item>Самый электроотрицательный элемент</item>
+        <item>Наибольшая температура плавления у</item>
+        <item>Наибольшее удельное электрическое сопротивление у</item>
+        <item>Самый радиоактивный элемент</item>
+        <item>Самая низкая температура плавления у</item>
+        <item>Как называется неделимая частица?</item>
+        <item>Какой химический элемент стал причиной смерти Наполеона?</item>
     </string-array>
 
     <string-array name="himiyaQuestions_Answers">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Алмаз</item>
+        <item>Кислород</item>
+        <item>Иридий</item>
+        <item>Фосфор</item>
+        <item>Водород</item>
+        <item>Нихрома</item>
+        <item>Уран</item>
+        <item>Ртути</item>
+        <item>Ядро</item>
+        <item>Сера</item>
     </string-array>
 
     <string-array name="himiyaQuestions_True_Answers">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Калифорний</item>
+        <item>Водород</item>
+        <item>Осмий</item>
+        <item>Фтор</item>
+        <item>Углерод</item>
+        <item>Графита</item>
+        <item>Полоний-210</item>
+        <item>Гелия</item>
+        <item>Атом</item>
+        <item>Мышьяк</item>
     </string-array>
 
     <string-array name="biologiyaQuestions">
-        <item>Пока пусто</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Неклеточные формы жизни?</item>
+        <item>Легочные пузырьки?</item>
+        <item>Как называется наука о грибах?</item>
+        <item>Что такое лейкоциты?</item>
+        <item>Что такое хромосомы?</item>
+        <item>Место образования спор?</item>
+        <item>Оплодотворенная яйцеклетка?</item>
+        <item>Нейрон это?</item>
+        <item>Пигмент зеленого цвета?</item>
+        <item>Метаболизм это?</item>
     </string-array>
 
     <string-array name="biologiyaQuestions_Answers">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Бактерии</item>
+        <item>Гаметы</item>
+        <item>Фитопатология</item>
+        <item>Пигмент жёлтого цвета</item>
+        <item>Гены</item>
+        <item>Пестик</item>
+        <item>Бластула</item>
+        <item>Нерв</item>
+        <item>Лактоза</item>
+        <item>Поедание своего потомства</item>
     </string-array>
 
     <string-array name="biologiyaQuestions_True_Answers">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Вирусы</item>
+        <item>Альвеолы</item>
+        <item>Микология</item>
+        <item>Клетки крови</item>
+        <item>Носители наследственной информации</item>
+        <item>Спорангии</item>
+        <item>Зигота</item>
+        <item>Клетка нервной ткани</item>
+        <item>Хлорофилл</item>
+        <item>Обмен веществ</item>
     </string-array>
 </resources>

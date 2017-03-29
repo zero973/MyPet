@@ -40,7 +40,7 @@
         app:textStrokeWidth="3sp"/>
 
     <com.example.student3.myfavouritepet.ButtonStrokeText
-        android:text="Анаграммы"
+        android:text="Ударение"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonGramm"
@@ -54,7 +54,7 @@
         app:textStrokeWidth="3sp"/>
 
     <com.example.student3.myfavouritepet.ButtonStrokeText
-        android:text="Ударение"
+        android:text="Анаграммы"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
