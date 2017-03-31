@@ -8,17 +8,18 @@ import android.graphics.Paint;
 import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import static com.example.student3.myfavouritepet.Room.kind;
 import static com.example.student3.myfavouritepet.Room.roomColor;
 
 public class DrawThread extends Thread{
 
-    private SurfaceHolder surfaceHolder;
+    SurfaceHolder surfaceHolder;
     private volatile boolean running = true;//флаг для остановки потока
-    private Bitmap backgroundPaint;
-    private Bitmap Arm;
-    Bitmap paintKind;
+    Bitmap backgroundPaint;
+    Bitmap Arm;
+    ImageView paintKind;
     Display display;
     Paint paint = new Paint();
     private int towardPointX;
@@ -39,11 +40,11 @@ public class DrawThread extends Thread{
         }
 
         switch (kind) {
-            case "Собака":paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petdog);break;
-            case "Кошка":paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petcat);break;
-            case "Заяц":paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petrabbit);break;
-            case "Черепаха":paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petturtle);break;
-            case "Попугай":paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petparrot);break;
+            case "Собака":paintKind.setBackgroundResource(R.drawable.petdog); break;
+            case "Кошка":paintKind.setBackgroundResource(R.drawable.petcat);break;
+            case "Заяц":paintKind.setBackgroundResource(R.drawable.petrabbit);break;
+            case "Черепаха":paintKind.setBackgroundResource(R.drawable.petturtle);break;
+            case "Попугай":paintKind.setBackgroundResource(R.drawable.petparrot);break;
         }
         //backgroundPaint.setHeight(display.getHeight()); не работает
         //backgroundPaint.setWidth(display.getWidth());
@@ -62,10 +63,11 @@ public class DrawThread extends Thread{
     public void run() {
         while (running) {
             Canvas canvas = surfaceHolder.lockCanvas();
+            paintKind.setMaxWidth(50); paintKind.setMaxHeight(50);
             if (canvas != null) {
                 try {
                     canvas.drawBitmap(backgroundPaint, 0, 0, paint);
-                    canvas.drawBitmap(paintKind, display.getHeight()/2/2/2, display.getWidth()-25, paint);
+                    //canvas.drawBitmap(paintKind, display.getHeight()/2/2/2, display.getWidth()-25, paint);
                     canvas.drawBitmap(Arm, 100, 100, paint);
                 } finally {
                     surfaceHolder.unlockCanvasAndPost(canvas);
