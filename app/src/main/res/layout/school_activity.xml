@@ -76,19 +76,6 @@
             <Button
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="15dp"
-                android:id="@+id/buttonTatar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/beautiful_button"
-                android:text="Татарский язык"
-                android:textColor="@color/WhiteColor"
-                android:textStyle="italic"
-                android:typeface="serif"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/butEnglish"/>
-            <Button
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="15dp"
                 android:id="@+id/buttonHimiya"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +85,7 @@
                 android:textStyle="italic"
                 android:typeface="serif"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/buttonTatar"/>
+                android:layout_below="@id/butEnglish"/>
             <Button
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="15dp"

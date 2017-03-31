@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -30,7 +29,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         IBBall = (ImageButton)findViewById(R.id.ball);
         IBBall.setOnClickListener(this);
         tvBallCost = (TextView)findViewById(R.id.TextViewBallCost);
-        if (ReadPurch("HealthPurch") == true){
+        if (ReadPurch("HealthPurch")){
             IBPlusBall.setBackgroundResource(Integer.parseInt(null));
             tvBallCost.setText("0");
         }
@@ -57,8 +56,6 @@ public class HeartActivity extends Activity implements View.OnClickListener {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             bw.write(Zero_Or_One);
             bw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

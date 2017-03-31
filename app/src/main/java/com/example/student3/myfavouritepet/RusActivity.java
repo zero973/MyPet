@@ -24,9 +24,9 @@ public class RusActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()){
-            case R.id.buttonGramm: intent = new Intent(RusActivity.this, RusActivityGrammatica.class); break;
-            case R.id.buttonUdarenie: intent = new Intent(RusActivity.this, RusActivity_anagrams.class); break;
-            case R.id.buttonAnagrams: intent = new Intent(RusActivity.this, RusActivity_Udarenie.class); break;
+            case R.id.buttonGramm: intent = new Intent(RusActivity.this, EnglishActivity.class); intent.putExtra("activity", "3"); break;
+            case R.id.buttonUdarenie: intent = new Intent(RusActivity.this, EnglishActivity.class); intent.putExtra("activity", "4"); break;
+            case R.id.buttonAnagrams: intent = new Intent(RusActivity.this, RusActivity_anagrams.class); break;
         }
         startActivity(intent);
     }

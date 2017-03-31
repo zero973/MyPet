@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class School extends AppCompatActivity implements View.OnClickListener{
 
-    Button Matem, Fizika, Russkiy, English, Tatar, Himiya, Biologiya;
+    Button Matem, Fizika, Russkiy, English, Himiya, Biologiya;
     RelativeLayout room;
 
     @Override
@@ -21,14 +21,12 @@ public class School extends AppCompatActivity implements View.OnClickListener{
         Fizika = (Button)findViewById(R.id.butPhis);
         Russkiy = (Button)findViewById(R.id.butRus);
         English = (Button)findViewById(R.id.butEnglish);
-        Tatar = (Button)findViewById(R.id.buttonTatar);
         Himiya = (Button)findViewById(R.id.buttonHimiya);
         Biologiya = (Button)findViewById(R.id.buttonBiologiya);
         Matem.setOnClickListener(this);
         Fizika.setOnClickListener(this);
         Russkiy.setOnClickListener(this);
         English.setOnClickListener(this);
-        Tatar.setOnClickListener(this);
         Himiya.setOnClickListener(this);
         Biologiya.setOnClickListener(this);
     }
@@ -41,7 +39,6 @@ public class School extends AppCompatActivity implements View.OnClickListener{
             case R.id.butPhis: intent = new Intent(School.this, PhisActivity.class); break;
             case R.id.butRus: intent = new Intent(School.this, RusActivity.class); break;
             case R.id.butEnglish: intent = new Intent(School.this, EnglishActivity.class); intent.putExtra("activity", "0"); break;
-            case R.id.buttonTatar: intent = new Intent(School.this, TatarActivity.class); break;
             case R.id.buttonHimiya: intent = new Intent(School.this, EnglishActivity.class); intent.putExtra("activity", "1"); break;
             case R.id.buttonBiologiya: intent = new Intent(School.this, EnglishActivity.class); intent.putExtra("activity", "2"); break;
         }
