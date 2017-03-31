@@ -10,9 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class EnglishActivity extends AppCompatActivity implements View.OnClickListener{
@@ -173,7 +170,7 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         for(int i = 0; i < questions.length; i++)
         {
             index = (byte) r.nextInt(questions.length);
-            if(isUsed[index] == false){
+            if(!isUsed[index]){
                 result[i] = questions[index];
                 Answers[i] = answers[index];
                 True_answers[i] = true_answers[index];
@@ -194,7 +191,7 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         for(int i = 0; i < answers.length; i++)
         {
             index = (byte) r.nextInt(answers.length);
-            if(isUsed[index] == false){
+            if(!isUsed[index]){
                 result[i] = answers[index];
                 True_answers[i] = true_answers[index];
                 isUsed[index] = true;
