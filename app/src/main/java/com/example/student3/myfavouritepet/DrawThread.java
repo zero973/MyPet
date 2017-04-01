@@ -10,9 +10,6 @@ import android.view.SurfaceHolder;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import static com.example.student3.myfavouritepet.Room.kind;
-import static com.example.student3.myfavouritepet.Room.roomColor;
-
 public class DrawThread extends Thread{
 
     SurfaceHolder surfaceHolder;
@@ -30,16 +27,15 @@ public class DrawThread extends Thread{
         display = wm.getDefaultDisplay();
         this.surfaceHolder = surfaceHolder;
         Arm = BitmapFactory.decodeResource(context.getResources(), R.drawable.arm);
-        switch (roomColor){
+        switch (Room.roomColor){
             case "Синяя": backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blueroom);break;
             case "Коричневая": backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.brownroom);break;
-            case "Розовая": backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.pinkroom);break;
             case "Голубая": backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blue_whiteroom);break;
             case "Жёлтая": backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.yellowroom);break;
             case "Алая": backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.alayaroom);break;
         }
-
-        switch (kind) {
+        paintKind = new ImageView(context);
+        switch (Room.kind) {
             case "Собака":paintKind.setBackgroundResource(R.drawable.petdog); break;
             case "Кошка":paintKind.setBackgroundResource(R.drawable.petcat);break;
             case "Заяц":paintKind.setBackgroundResource(R.drawable.petrabbit);break;
@@ -67,7 +63,7 @@ public class DrawThread extends Thread{
             if (canvas != null) {
                 try {
                     canvas.drawBitmap(backgroundPaint, 0, 0, paint);
-                    //canvas.drawBitmap(paintKind, display.getHeight()/2/2/2, display.getWidth()-25, paint);
+                    //canvas.drawPicture(paintKind, display.getHeight()/2/2/2, display.getWidth()-25, paint);
                     canvas.drawBitmap(Arm, 100, 100, paint);
                 } finally {
                     surfaceHolder.unlockCanvasAndPost(canvas);

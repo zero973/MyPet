@@ -114,7 +114,6 @@ public class Room extends Activity implements View.OnClickListener{
         switch (roomColor){
             case "Синяя": room.setBackgroundResource(R.drawable.blueroom);break;
             case "Коричневая": room.setBackgroundResource(R.drawable.brownroom);break;
-            case "Розовая": room.setBackgroundResource(R.drawable.pinkroom);break;
             case "Голубая": room.setBackgroundResource(R.drawable.blue_whiteroom);break;
             case "Жёлтая": room.setBackgroundResource(R.drawable.yellowroom);break;
             case "Алая": room.setBackgroundResource(R.drawable.alayaroom);break;

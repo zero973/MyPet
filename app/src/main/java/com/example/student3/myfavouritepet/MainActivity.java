@@ -19,21 +19,20 @@ public class MainActivity extends Activity {
 
     public String name;
 
-    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Розовая", "Голубая", "Жёлтая", "Алая"};
+    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
     Spinner SpinnerKind, SpinnerRoomColor;
     EditText EditTextName;
     Button butGoGame;
-    SharedPreferences sPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         //Адаптер для спиннера с полом
-        ArrayAdapter<String> adapterKind = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, KindsMass);
+        ArrayAdapter<String> adapterKind = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, KindsMass);
         adapterKind.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Адаптер спиннера с цветом комнаты
-        ArrayAdapter<String> adapterRoomColor = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomColors);
+        ArrayAdapter<String> adapterRoomColor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomColors);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         EditTextName = (EditText) findViewById(R.id.editTextName);
         butGoGame = (Button) findViewById(R.id.buttonGoGame);
@@ -67,8 +66,6 @@ public class MainActivity extends Activity {
             // закрываем поток
             bw.close();
             Log.d("Успех", "Файл записан");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
