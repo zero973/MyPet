@@ -3,6 +3,7 @@ package com.example.student3.myfavouritepet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import java.io.OutputStreamWriter;
 public class HeartActivity extends Activity implements View.OnClickListener {
 
     ImageButton IBPlusBall, IBArm, IBBall; TextView tvBallCost;
+    public static byte ArmOrBall = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,8 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                 tvBallCost.setText("0");
             } else {Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();}
                 break;
-            case R.id.arm: intent = new Intent(this, CaressActivity.class); startActivity(intent); break;//дописать putExtra
-            case R.id.ball: intent = new Intent(this, CaressActivity.class); startActivity(intent); break;//дописать putExtra
+            case R.id.arm: intent = new Intent(this, CaressActivity.class); ArmOrBall = 1; startActivity(intent); break;
+            case R.id.ball: intent = new Intent(this, CaressActivity.class); ArmOrBall = 2; startActivity(intent);break;
         }
     }
 
