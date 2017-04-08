@@ -23,7 +23,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     ImageButton IBplusWaterMelon, IBplusPear, IBplusStrawberry, IBplusApple, IBplusLemon, IBplusMorkov, IBplusPotato, IBplusIcecream;
     ImageButton IBWaterMelon, IBPear, IBStrawberry, IBApple, IBLemon, IBMorkov, IBPotato, IBIcecream;
 
-    byte[] counts = new byte[8];
+    public static byte[] counts = new byte[8];
     public static byte FoodIndex = 0;
 
     @Override
@@ -100,6 +100,12 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         if (intent != null) startActivity(intent);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ChangeTVCounts();
+    }
+
     void SaveCounts(String fileName){
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
@@ -167,6 +173,5 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         else
             Toast.makeText(getApplicationContext(), "На складе больше не помещается!", Toast.LENGTH_SHORT).show();
     }
-
 
 }

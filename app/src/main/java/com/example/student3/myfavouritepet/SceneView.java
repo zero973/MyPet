@@ -1,5 +1,6 @@
 package com.example.student3.myfavouritepet;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class SceneView extends View {
     private float fSegmentLen;         //curve segment
     Display display;
     public static byte WhoCalled = 1;
+    byte elementCount = 0, elementId = 0;
 
     public SceneView(Context context) {
         super(context);
@@ -115,16 +118,48 @@ public class SceneView extends View {
                 aPoints.add(new PointF(600f, 700f));
                 aPoints.add(new PointF(700f, 700f));
             }
-        }else {
-            switch (StorageActivity.FoodIndex){
-                case 1: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);break;
-                case 2: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);break;
-                case 3: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);break;
-                case 4: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);break;
-                case 5: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);break;
-                case 6: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);break;
-                case 7: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);break;
-                case 8: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);break;
+        } else {
+            switch (StorageActivity.FoodIndex) {
+                case 1:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);
+                    elementCount = StorageActivity.counts[0];
+                    elementId = 0;
+                    break;
+                case 2:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);
+                    elementCount = StorageActivity.counts[1];
+                    elementId = 1;
+                    break;
+                case 3:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);
+                    elementCount = StorageActivity.counts[2];
+                    elementId = 2;
+                    break;
+                case 4:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);
+                    elementCount = StorageActivity.counts[3];
+                    elementId = 3;
+                    break;
+                case 5:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);
+                    elementCount = StorageActivity.counts[4];
+                    elementId = 4;
+                    break;
+                case 6:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);
+                    elementCount = StorageActivity.counts[5];
+                    elementId = 5;
+                    break;
+                case 7:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);
+                    elementCount = StorageActivity.counts[6];
+                    elementId = 6;
+                    break;
+                case 8:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);
+                    elementCount = StorageActivity.counts[7];
+                    elementId = 7;
+                    break;
             }
             iMaxAnimationStep = 75;
             bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
@@ -172,15 +207,22 @@ public class SceneView extends View {
         } else {
             iCurStep = 0;
         }
-
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) { //run animation
-            invalidate();
-            return true;
+        Log.e("elementCount", ""+elementCount);
+        if (elementCount > 0) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) { //run animation
+                elementCount--;
+                StorageActivity.counts[elementId]--;
+                invalidate();
+                return true;
+            }
+            return false;
+        } else {
+            Toast.makeText(getContext(), "Еда кончилась!", Toast.LENGTH_SHORT).show();
+            return false;
         }
-        return false;
     }
 }
