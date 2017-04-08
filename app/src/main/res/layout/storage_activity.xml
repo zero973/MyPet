@@ -33,10 +33,11 @@
                     android:text="Цена" />
             </TableRow>
             <TableRow>
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/watermelon" />
+                    android:background="@drawable/watermelon"
+                    android:id="@+id/Watermelon"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -64,10 +65,11 @@
                     android:text="15" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/pear"/>
+                    android:background="@drawable/pear"
+                    android:id="@+id/Pear"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -95,10 +97,11 @@
                     android:text="5" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/strawberry"/>
+                    android:background="@drawable/strawberry"
+                    android:id="@+id/Strawberry"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -126,10 +129,11 @@
                     android:text="8" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/apple"/>
+                    android:background="@drawable/apple"
+                    android:id="@+id/Apple"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -157,10 +161,11 @@
                     android:text="3" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/lemon"/>
+                    android:background="@drawable/lemon"
+                    android:id="@+id/Lemon"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -188,10 +193,11 @@
                     android:text="10" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/morkovka"/>
+                    android:background="@drawable/morkovka"
+                    android:id="@+id/Morkov"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -219,10 +225,11 @@
                     android:text="10" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/potato"/>
+                    android:background="@drawable/potato"
+                    android:id="@+id/Potato"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"
@@ -250,10 +257,11 @@
                     android:text="7" />
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
-                <ImageView
+                <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/icecream"/>
+                    android:background="@drawable/icecream"
+                    android:id="@+id/Icecream"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:textSize="10pt"

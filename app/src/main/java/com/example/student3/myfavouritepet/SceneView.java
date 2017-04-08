@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ public class SceneView extends View {
     private PathMeasure pm;            //curve measure
     private float fSegmentLen;         //curve segment
     Display display;
+    public static byte WhoCalled = 1;
 
     public SceneView(Context context) {
         super(context);
@@ -82,35 +84,56 @@ public class SceneView extends View {
         }
         paintKind = Bitmap.createScaledBitmap(paintKind, 300, 300, false);
 
-        //load sprite
-        byte indexArmOrBall = 0;
-        indexArmOrBall = HeartActivity.ArmOrBall;
-        switch (indexArmOrBall) {
-            case 1:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.arm);
-                bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 150, false);
-                bmSprite = RotateBitmap(bmSprite, -90);
-                break;
-            case 2:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.ball);
-                bmSprite = Bitmap.createScaledBitmap(bmSprite, 150, 150, false);
-                break;
-        }
+        if (WhoCalled == 1) {
+            byte indexArmOrBall = 0;
+            indexArmOrBall = HeartActivity.ArmOrBall;
+            switch (indexArmOrBall) {
+                case 1:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.arm);
+                    bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 150, false);
+                    bmSprite = RotateBitmap(bmSprite, -90);
+                    iMaxAnimationStep = 75;
+                    break;
+                case 2:
+                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.ball);
+                    bmSprite = Bitmap.createScaledBitmap(bmSprite, 150, 150, false);
+                    break;
+            }
 
-        if(indexArmOrBall == 1) {
-            aPoints.add(new PointF(350f, 350f));
-            aPoints.add(new PointF(300f, 350f));
-            aPoints.add(new PointF(200f, 350f));
-            aPoints.add(new PointF(100f, 350f));
+            if (indexArmOrBall == 1) {
+                aPoints.add(new PointF(350f, 350f));
+                aPoints.add(new PointF(300f, 350f));
+                aPoints.add(new PointF(200f, 350f));
+                aPoints.add(new PointF(100f, 350f));
+            } else {
+                iMaxAnimationStep = 100;
+                aPoints.add(new PointF(100f, 200f));
+                aPoints.add(new PointF(150f, 250f));
+                //aPoints.add(new PointF(200f, 250f));
+                aPoints.add(new PointF(300f, 410f));
+                aPoints.add(new PointF(400f, 410f));
+                aPoints.add(new PointF(600f, 700f));
+                aPoints.add(new PointF(700f, 700f));
+            }
         }else {
-            iMaxAnimationStep = 100;
-            aPoints.add(new PointF(100f, 200f));
-            aPoints.add(new PointF(150f, 250f));
-            //aPoints.add(new PointF(200f, 250f));
-            aPoints.add(new PointF(300f, 410f));
-            aPoints.add(new PointF(400f, 410f));
-            aPoints.add(new PointF(600f, 700f));
-            aPoints.add(new PointF(700f, 700f));
+            switch (StorageActivity.FoodIndex){
+                case 1: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);break;
+                case 2: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);break;
+                case 3: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);break;
+                case 4: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);break;
+                case 5: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);break;
+                case 6: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);break;
+                case 7: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);break;
+                case 8: bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);break;
+            }
+            iMaxAnimationStep = 75;
+            bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
+            bmSprite = RotateBitmap(bmSprite, 90);
+            aPoints.add(new PointF(350f, 700f));
+            aPoints.add(new PointF(350f, 600f));
+            aPoints.add(new PointF(350f, 500f));
+            aPoints.add(new PointF(350f, 400f));
+
         }
         //init smooth curve
         PointF point = aPoints.get(0);
@@ -128,8 +151,7 @@ public class SceneView extends View {
         paint.setColor(Color.rgb(0, 148, 255));
     }
 
-    public static Bitmap RotateBitmap(Bitmap source, float angle)
-    {
+    public static Bitmap RotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
@@ -139,8 +161,7 @@ public class SceneView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(backgroundPaint, rSrc, rDest, null);
         canvas.drawBitmap(paintKind, display.getHeight() / 2 / 2 / 2, display.getWidth() - 100, paint);
-        //canvas.drawPath(ptCurve, paint);
-        //animate the sprite
+        //canvas.drawPath(ptCurve, paint); //animate the sprite
         Matrix mxTransform = new Matrix();
         if (iCurStep <= iMaxAnimationStep) {
             pm.getMatrix(fSegmentLen * iCurStep, mxTransform, PathMeasure.POSITION_MATRIX_FLAG + PathMeasure.TANGENT_MATRIX_FLAG);

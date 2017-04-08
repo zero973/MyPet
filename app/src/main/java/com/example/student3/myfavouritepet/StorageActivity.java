@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +21,10 @@ public class StorageActivity extends Activity implements View.OnClickListener{
 
     TextView tvCountWatermelon, tvCountPear, tvCountStrawberry, tvCountApple, tvCountLemon, tvCountMorkov, tvCountPotato, tvCountIcecream;
     ImageButton IBplusWaterMelon, IBplusPear, IBplusStrawberry, IBplusApple, IBplusLemon, IBplusMorkov, IBplusPotato, IBplusIcecream;
+    ImageButton IBWaterMelon, IBPear, IBStrawberry, IBApple, IBLemon, IBMorkov, IBPotato, IBIcecream;
 
     byte[] counts = new byte[8];
+    public static byte FoodIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,30 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         IBplusMorkov.setOnClickListener(this);
         IBplusPotato.setOnClickListener(this);
         IBplusIcecream.setOnClickListener(this);
+        IBWaterMelon = (ImageButton)findViewById(R.id.Watermelon);
+        IBPear = (ImageButton)findViewById(R.id.Pear);
+        IBStrawberry = (ImageButton)findViewById(R.id.Strawberry);
+        IBApple = (ImageButton)findViewById(R.id.Apple);
+        IBLemon = (ImageButton)findViewById(R.id.Lemon);
+        IBMorkov = (ImageButton)findViewById(R.id.Morkov);
+        IBPotato = (ImageButton)findViewById(R.id.Potato);
+        IBIcecream = (ImageButton)findViewById(R.id.Icecream);
+        IBWaterMelon.setOnClickListener(this);
+        IBPear.setOnClickListener(this);
+        IBStrawberry.setOnClickListener(this);
+        IBApple.setOnClickListener(this);
+        IBLemon.setOnClickListener(this);
+        IBMorkov.setOnClickListener(this);
+        IBPotato.setOnClickListener(this);
+        IBIcecream.setOnClickListener(this);
         ReadCounts("CountFood");
         ChangeTVCounts();
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
+        SceneView.WhoCalled = 2;
         switch (v.getId()) {
             case R.id.plusWaterMelon: BuyFood(0); break;
             case R.id.plusPear: BuyFood(1);break;
@@ -66,8 +87,17 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             case R.id.plusMorkov: BuyFood(5);break;
             case R.id.plusPotato: BuyFood(6);break;
             case R.id.plusIcecream: BuyFood(7);break;
+            case R.id.Watermelon: intent = new Intent(this, CaressActivity.class); FoodIndex = 1; break;
+            case R.id.Pear: intent = new Intent(this, CaressActivity.class); FoodIndex = 2; break;
+            case R.id.Strawberry: intent = new Intent(this, CaressActivity.class); FoodIndex = 3; break;
+            case R.id.Apple: intent = new Intent(this, CaressActivity.class); FoodIndex = 4; break;
+            case R.id.Lemon: intent = new Intent(this, CaressActivity.class); FoodIndex = 5; break;
+            case R.id.Morkov: intent = new Intent(this, CaressActivity.class); FoodIndex = 6; break;
+            case R.id.Potato: intent = new Intent(this, CaressActivity.class); FoodIndex = 7; break;
+            case R.id.Icecream: intent = new Intent(this, CaressActivity.class); FoodIndex = 8; break;
         }
         SaveCounts("CountFood");
+        if (intent != null) startActivity(intent);
     }
 
     void SaveCounts(String fileName){
@@ -137,4 +167,6 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         else
             Toast.makeText(getApplicationContext(), "На складе больше не помещается!", Toast.LENGTH_SHORT).show();
     }
+
+
 }

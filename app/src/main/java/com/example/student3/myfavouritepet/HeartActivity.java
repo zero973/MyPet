@@ -44,6 +44,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent;
+        SceneView.WhoCalled = 1;
         switch (v.getId()) {
             case R.id.plusBall:
                 if (Room.money - 500 > -1) {
@@ -52,9 +53,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     SavePurchases("HealthPurch", "1");
                     IBPlusBall.setVisibility(View.INVISIBLE);
                     tvBallCost.setText("0");
-                } else {
-                    Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
-                }
+                } else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.arm:
                 intent = new Intent(this, CaressActivity.class);
@@ -66,9 +65,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     intent = new Intent(this, CaressActivity.class);
                     ArmOrBall = 2;
                     startActivity(intent);
-                }else {
-                    Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
-                }
+                }else Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
