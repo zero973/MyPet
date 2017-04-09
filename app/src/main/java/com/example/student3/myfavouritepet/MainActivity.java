@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     Button butGoGame;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         //Адаптер для спиннера с полом
@@ -43,28 +43,28 @@ public class MainActivity extends Activity {
         EditTextName = (EditText) findViewById(R.id.editTextName);
         butGoGame = (Button) findViewById(R.id.buttonGoGame);
         SpinnerKind = (Spinner) findViewById(R.id.choosedKindAnimal);
-        SpinnerKind.setAdapter(adapterKind);
+        SpinnerKind.setAdapter(adapterKind);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         SpinnerRoomColor = (Spinner) findViewById(R.id.choosedRoomColor);
-        SpinnerRoomColor.setAdapter(adapterRoomColor);
-        SpinnerOldKinds = (Spinner)findViewById(R.id.choosedOldData);
-        if (!CheckDataBase())
+        SpinnerRoomColor.setAdapter(adapterRoomColor);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        SpinnerOldKinds = (Spinner)findViewById(R.id.choosedOldData);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        if (!CheckDataBase())//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
             SpinnerOldKinds.setVisibility(View.INVISIBLE);
         else
             SpinnerOldKinds.setAdapter(adapterOldKinds);
 
         butGoGame.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
                 name = EditTextName.getText().toString();
                 if (name.compareTo("") == 0) {
                     name = "Иван";
                     writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-                    PutData();
-                    finish();
+                    PutData();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+                    finish();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
                 } else {
                     writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-                    PutData();
-                    finish();
+                    PutData();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+                    finish();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
                 }
             }
         });
@@ -80,10 +80,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    boolean CheckDataBase(){
+    boolean CheckDataBase(){//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("mytable", null, null, null, null, null, null);
+        Cursor c = db.query("mytable", null, null, null, null, null, null);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         // ставим позицию курсора на первую строку выборки
         // если в выборке нет строк, вернется false
         if (c.moveToFirst()) {
@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    void PutData(){
+    void PutData(){//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         DBHelper dbHelper = new DBHelper(getApplicationContext());
         ContentValues cv = new ContentValues();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
