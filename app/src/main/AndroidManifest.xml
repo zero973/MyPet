@@ -18,16 +18,13 @@
         <activity android:name=".MainActivity" android:label="Создание питомца"></activity>
         <activity android:name=".MathActivity" android:label="Математика"></activity>
         <activity android:name=".PhisActivityFirstLevel" android:label="Физика"></activity>
-        <activity android:name=".RusActivityGrammatica" android:label="Грамматика"></activity>
         <activity android:name=".EnglishActivity" android:label="Английский язык"></activity>
         <activity android:name=".RusActivity_anagrams" android:label="Анаграммы"></activity>
         <activity android:name=".MathActivityDescrim" android:label="Математика"></activity>
         <activity android:name=".PhisActivityTasks" android:label="Задачи"></activity>
         <activity android:name=".RusActivity" android:label="Русский язык"></activity>
         <activity android:name=".PhisActivity" android:label="Физика"></activity>
-        <activity android:name=".RusActivity_Udarenie" android:label="Ударение"></activity>
         <activity android:name=".MathActivityExamples" android:label="Математика"></activity>
-        <activity android:name=".TatarActivity" android:label="Татарский язык"></activity>
         <activity android:name=".StorageActivity" android:label="Склад"></activity>
         <activity android:name=".HeartActivity" android:label="Склад"></activity>
         <activity android:name=".CaressActivity"></activity>

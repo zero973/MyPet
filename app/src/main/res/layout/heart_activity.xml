@@ -60,8 +60,8 @@
                 android:text="Поиграть в мяч"
                 android:textSize="20sp"/>
             <TextView
-                android:paddingTop="25dp"
-                android:paddingLeft="5dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:text="500"

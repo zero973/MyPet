@@ -1,7 +1,9 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,21 +13,22 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    public String name;
-
+    public String name, PetType, RoomColor;
     String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
-    Spinner SpinnerKind, SpinnerRoomColor;
+    ArrayList<String> namesOldPets = new ArrayList<String>(), oldPetTypes = new ArrayList<String>(), oldRoomColors = new ArrayList<String>();
+
+    Spinner SpinnerKind, SpinnerRoomColor, SpinnerOldKinds;
     EditText EditTextName;
     Button butGoGame;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         //Адаптер для спиннера с полом
@@ -34,40 +37,81 @@ public class MainActivity extends Activity {
         //Адаптер спиннера с цветом комнаты
         ArrayAdapter<String> adapterRoomColor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomColors);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Адаптер спиннера с прошлыми питомцами
+        ArrayAdapter<String> adapterOldKinds = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, namesOldPets);
+        adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         EditTextName = (EditText) findViewById(R.id.editTextName);
         butGoGame = (Button) findViewById(R.id.buttonGoGame);
         SpinnerKind = (Spinner) findViewById(R.id.choosedKindAnimal);
-        SpinnerKind.setAdapter(adapterKind);
+        SpinnerKind.setAdapter(adapterKind);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
         SpinnerRoomColor = (Spinner) findViewById(R.id.choosedRoomColor);
-        SpinnerRoomColor.setAdapter(adapterRoomColor);
+        SpinnerRoomColor.setAdapter(adapterRoomColor);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        SpinnerOldKinds = (Spinner)findViewById(R.id.choosedOldData);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        if (!CheckDataBase())//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+            SpinnerOldKinds.setVisibility(View.INVISIBLE);
+        else
+            SpinnerOldKinds.setAdapter(adapterOldKinds);
 
         butGoGame.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    name = EditTextName.getText().toString();
-                    if(name.compareTo("") == 0){
-                        name = "Иван";
-                        writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-                        finish();
-                    }else {
-                        writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-                        finish();
-                    }
+            @Override
+            public void onClick(View view) {//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+                name = EditTextName.getText().toString();
+                if (name.compareTo("") == 0) {
+                    name = "Иван";
+                    writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                    PutData();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+                    finish();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+                } else {
+                    writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()], roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                    PutData();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+                    finish();//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
                 }
+            }
         });
     }
 
     void writeFile(String fileName, String petName, String kind, String color) {
         try {
-            // отрываем поток для записи
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-            // пишем данные
             bw.write(String.format("%s\n%s\n%s\n", petName, kind, color));
-            // закрываем поток
             bw.close();
-            Log.d("Успех", "Файл записан");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    boolean CheckDataBase(){//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("mytable", null, null, null, null, null, null);//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        // ставим позицию курсора на первую строку выборки
+        // если в выборке нет строк, вернется false
+        if (c.moveToFirst()) {
+            // определяем номера столбцов по имени в выборке
+            int nameColIndex = c.getColumnIndex("name");
+            int PetTypeColIndex = c.getColumnIndex("PetType");
+            int RoomColorColIndex = c.getColumnIndex("RoomColor");
+            do {// получаем значения по номерам столбцов и пишем все в лог
+                namesOldPets.add(c.getString(nameColIndex));
+                oldPetTypes.add(c.getString(PetTypeColIndex));
+                oldRoomColors.add(c.getString(RoomColorColIndex));
+                Log.d("Работа с БД","name = " + c.getString(nameColIndex) + ", PetType = " + c.getString(PetTypeColIndex) + ", RoomColor = " + c.getString(RoomColorColIndex));
+            } while (c.moveToNext());
+        }else return false;
+        c.close();
+        dbHelper.close();
+        return true;
+    }
+
+    void PutData(){//РАСКИДАЙ ПО СПИННЕРАМ ДАННЫЕ(ТИП ПИТОМЦА И ЦВЕТ КОМНАТЫ)
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // подготовим данные для вставки в виде пар:наименование столбца - значение
+        cv.put("name", name);
+        cv.put("PetType", KindsMass[SpinnerKind.getSelectedItemPosition()]);
+        cv.put("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+        db.insert("mytable", null, cv);
+        dbHelper.close();
     }
 }
