@@ -6,12 +6,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
-        super(context, "myDB", null, 1);
+        super(context, "myDataBase", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {// создаем таблицу с полями
-        db.execSQL("create table mytable (" + "id integer primary key autoincrement," + "name text," + "email text" + ");");
+        db.execSQL("create table myDataTable (" + "id integer primary key autoincrement," + "name text," + "PetType text," +
+                "RoomColor text" + ");");
     }
 
     @Override
