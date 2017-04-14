@@ -171,7 +171,7 @@
                     android:textSize="10pt"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:text="Лемон"/>
+                    android:text="Лимон"/>
                 <TextView
                     android:textSize="10pt"
                     android:layout_height="match_parent"
