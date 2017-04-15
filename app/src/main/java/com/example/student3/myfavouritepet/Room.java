@@ -55,8 +55,7 @@ public class Room extends Activity implements View.OnClickListener{
     public void onResume(){
         super.onResume();
         writeMoney("PetMoney");
-        readMoney("PetMoney");
-        readFile("PetInfo");
+        tvMoney.setText("Монет: "+money);
     }
 
     void readFile(String fileName) {
@@ -82,7 +81,8 @@ public class Room extends Activity implements View.OnClickListener{
     void readMoney(String fileName) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            String money = br.readLine();
+            String smoney = br.readLine();
+            money = Integer.valueOf(smoney);
             tvMoney.setText("Монет: "+money);
         }catch (FileNotFoundException e) {
             writeMoney("PetMoney");
