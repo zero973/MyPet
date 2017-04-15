@@ -54,14 +54,9 @@ public class Room extends Activity implements View.OnClickListener{
     @Override
     public void onResume(){
         super.onResume();
-        readFile("PetInfo");
-        tvMoney.setText("Монет: "+money);
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
         writeMoney("PetMoney");
+        readMoney("PetMoney");
+        readFile("PetInfo");
     }
 
     void readFile(String fileName) {

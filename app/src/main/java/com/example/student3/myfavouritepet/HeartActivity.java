@@ -57,7 +57,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
             IsBallBought = true;
             IBPlusBall.setVisibility(View.INVISIBLE);
             tvBallCost.setText("0");
-        } else if (purchMass[1] == 1) {
+        }if (purchMass[1] == 1) {
             IsMusicBought = true;
             IBPlusMusic.setVisibility(View.INVISIBLE);
             tvMusicCost.setText("0");
@@ -70,9 +70,9 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         SceneView.WhoCalled = 1;
         switch (v.getId()) {
             case R.id.plusBall:
-                if (Room.money - 500 > -1) {
+                if (Room.money - 100 > -1) {
                     IsBallBought = true;
-                    Room.money -= 500;
+                    Room.money -= 100;
                     purchMass[0] = 1;
                     SavePurchases("HealthPurch");
                     IBPlusBall.setVisibility(View.INVISIBLE);
@@ -118,6 +118,9 @@ public class HeartActivity extends Activity implements View.OnClickListener {
             tm.start();
         }
         catch (Exception e){
+            try {
+                tm.stop();
+            }catch (Exception e1){Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();}
             Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();
         }
     }
