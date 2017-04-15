@@ -80,7 +80,7 @@
                 android:layout_height="75dp"
                 android:layout_width="10dp"
                 android:background="@drawable/plastinka"
-                android:id="@+id/plastinka"/>
+                android:id="@+id/Music"/>
             <TextView
                 android:paddingTop="25dp"
                 android:paddingLeft="5dp"

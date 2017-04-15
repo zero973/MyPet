@@ -23,7 +23,17 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     TextView tvBallCost, tvMusicCost;
     boolean IsBallBought = false, IsMusicBought = false;
     public static byte ArmOrBall = 0;
+    public static MediaPlayer mp;
     private byte[] purchMass = new byte[2];
+
+    class ThreadMusic extends Thread {
+        public void run() {
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.mysound);
+            mp.start();
+        }
+    }
+
+    private ThreadMusic tm = new ThreadMusic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +47,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         IBBall.setOnClickListener(this);
         IBPlusMusic = (ImageButton) findViewById(R.id.plusMusic);
         IBPlusMusic.setOnClickListener(this);
-        IBMusic = (ImageButton) findViewById(R.id.plastinka);
+        IBMusic = (ImageButton) findViewById(R.id.Music);
         IBMusic.setOnClickListener(this);
         tvBallCost = (TextView) findViewById(R.id.TextViewBallCost);
         tvMusicCost = (TextView) findViewById(R.id.TextViewMusicCost);
@@ -94,17 +104,21 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                 } else
                     Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.plastinka:
+            case R.id.Music:
                 if (IsMusicBought) {
-                    new Thread() {
-                        public void run() {
-                            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.mysound);
-                            mp.start();
-                        }
-                    }.start();
+                    PlayMusic();
                 } else
-                    Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Купите музыку!", Toast.LENGTH_SHORT).show();
                 break;
+        }
+    }
+
+    void PlayMusic(){
+        try {
+            tm.start();
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();
         }
     }
 
