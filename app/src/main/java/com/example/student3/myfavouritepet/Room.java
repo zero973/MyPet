@@ -55,6 +55,7 @@ public class Room extends Activity implements View.OnClickListener{
     public void onResume(){
         super.onResume();
         writeMoney("PetMoney");
+        readFile("PetInfo");
         tvMoney.setText("Монет: "+money);
     }
 
