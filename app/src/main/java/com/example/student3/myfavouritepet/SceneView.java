@@ -51,7 +51,7 @@ public class SceneView extends View {
         SwitchWhoCalled();
         CreatePathAnimation();
 
-        elementCount--;
+        MinusFood();
     }
 
     private void SetBackgroundSize(){
@@ -212,6 +212,11 @@ public class SceneView extends View {
         paint.setColor(Color.rgb(0, 148, 255));
     }
 
+    private void MinusFood(){
+        elementCount--;
+        StorageActivity.counts[elementId]--;
+    }
+
     public static Bitmap RotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
@@ -239,8 +244,7 @@ public class SceneView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         if (elementCount > 0) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) { //run animation
-                elementCount--;
-                StorageActivity.counts[elementId]--;
+                MinusFood();
                 invalidate();
                 return true;
             }

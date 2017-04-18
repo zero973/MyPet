@@ -87,14 +87,14 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             case R.id.plusMorkov: BuyFood(5);break;
             case R.id.plusPotato: BuyFood(6);break;
             case R.id.plusIcecream: BuyFood(7);break;
-            case R.id.Watermelon: intent = new Intent(this, CaressActivity.class); FoodIndex = 1; break;
-            case R.id.Pear: intent = new Intent(this, CaressActivity.class); FoodIndex = 2; break;
-            case R.id.Strawberry: intent = new Intent(this, CaressActivity.class); FoodIndex = 3; break;
-            case R.id.Apple: intent = new Intent(this, CaressActivity.class); FoodIndex = 4; break;
-            case R.id.Lemon: intent = new Intent(this, CaressActivity.class); FoodIndex = 5; break;
-            case R.id.Morkov: intent = new Intent(this, CaressActivity.class); FoodIndex = 6; break;
-            case R.id.Potato: intent = new Intent(this, CaressActivity.class); FoodIndex = 7; break;
-            case R.id.Icecream: intent = new Intent(this, CaressActivity.class); FoodIndex = 8; break;
+            case R.id.Watermelon: if (counts[0] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 1;} break;
+            case R.id.Pear: if (counts[1] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 2;} break;
+            case R.id.Strawberry: if (counts[2] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 3;} break;
+            case R.id.Apple: if (counts[3] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 4;} break;
+            case R.id.Lemon: if (counts[4] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 5;} break;
+            case R.id.Morkov: if (counts[5] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 6;} break;
+            case R.id.Potato: if (counts[6] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 7;} break;
+            case R.id.Icecream: if (counts[7] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 8;} break;
         }
         SaveCounts("CountFood");
         if (intent != null) startActivity(intent);
