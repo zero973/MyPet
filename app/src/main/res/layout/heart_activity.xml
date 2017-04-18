@@ -64,7 +64,7 @@
                 android:paddingTop="15dp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:text="500"
+                android:text="100"
                 android:textSize="20sp"
                 android:id="@+id/TextViewBallCost"/>
             <ImageButton
@@ -74,6 +74,35 @@
                 android:layout_width="50dp"
                 android:background="@drawable/plus"
                 android:id="@+id/plusBall"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp">
+            <ImageButton
+                android:layout_height="75dp"
+                android:layout_width="10dp"
+                android:background="@drawable/plastinka"
+                android:id="@+id/Music"/>
+            <TextView
+                android:paddingTop="25dp"
+                android:paddingLeft="5dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Музыка"
+                android:textSize="20sp"/>
+            <TextView
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="20"
+                android:textSize="20sp"
+                android:id="@+id/TextViewMusicCost"/>
+            <ImageButton
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:background="@drawable/plus"
+                android:id="@+id/plusMusic"/>
         </TableRow>
     </TableLayout>
 </ScrollView>

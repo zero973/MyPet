@@ -38,7 +38,7 @@ public class SceneView extends View {
     private float fSegmentLen;         //curve segment
     Display display;
     public static byte WhoCalled = 1;
-    byte elementCount = 0, elementId = 0;
+    byte elementCount = 120, elementId = 0;
 
     public SceneView(Context context) {
         super(context);
@@ -164,11 +164,11 @@ public class SceneView extends View {
             iMaxAnimationStep = 75;
             bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
             bmSprite = RotateBitmap(bmSprite, 90);
-            aPoints.add(new PointF(350f, 700f));
-            aPoints.add(new PointF(350f, 600f));
-            aPoints.add(new PointF(350f, 500f));
-            aPoints.add(new PointF(350f, 400f));
-
+            final int tochka = display.getHeight() / 8;
+            aPoints.add(new PointF(tochka, 700f));
+            aPoints.add(new PointF(tochka, 600f));
+            aPoints.add(new PointF(tochka, 500f));
+            aPoints.add(new PointF(tochka, 400f));
         }
         //init smooth curve
         PointF point = aPoints.get(0);
@@ -195,7 +195,7 @@ public class SceneView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(backgroundPaint, rSrc, rDest, null);
-        canvas.drawBitmap(paintKind, display.getHeight() / 2 / 2 / 2, display.getWidth() - 100, paint);
+        canvas.drawBitmap(paintKind, display.getHeight() / 8, display.getWidth() - 100, paint);
         //canvas.drawPath(ptCurve, paint); //animate the sprite
         Matrix mxTransform = new Matrix();
         if (iCurStep <= iMaxAnimationStep) {

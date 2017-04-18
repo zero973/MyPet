@@ -2,6 +2,7 @@ package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,10 +19,21 @@ import java.io.OutputStreamWriter;
 
 public class HeartActivity extends Activity implements View.OnClickListener {
 
-    ImageButton IBPlusBall, IBArm, IBBall;
-    TextView tvBallCost;
-    boolean IsBallBought = false;
+    ImageButton IBPlusBall, IBPlusMusic, IBArm, IBBall, IBMusic;
+    TextView tvBallCost, tvMusicCost;
+    boolean IsBallBought = false, IsMusicBought = false;
     public static byte ArmOrBall = 0;
+    public static MediaPlayer mp;
+    private byte[] purchMass = new byte[2];
+
+    class ThreadMusic extends Thread {
+        public void run() {
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.mysound);
+            mp.start();
+        }
+    }
+
+    private ThreadMusic tm = new ThreadMusic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +45,22 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         IBArm.setOnClickListener(this);
         IBBall = (ImageButton) findViewById(R.id.ball);
         IBBall.setOnClickListener(this);
+        IBPlusMusic = (ImageButton) findViewById(R.id.plusMusic);
+        IBPlusMusic.setOnClickListener(this);
+        IBMusic = (ImageButton) findViewById(R.id.Music);
+        IBMusic.setOnClickListener(this);
         tvBallCost = (TextView) findViewById(R.id.TextViewBallCost);
-        if (ReadPurch("HealthPurch")) {
+        tvMusicCost = (TextView) findViewById(R.id.TextViewMusicCost);
+
+        ReadPurch("HealthPurch");
+        if (purchMass[0] == 1) {
             IsBallBought = true;
             IBPlusBall.setVisibility(View.INVISIBLE);
             tvBallCost.setText("0");
+        }if (purchMass[1] == 1) {
+            IsMusicBought = true;
+            IBPlusMusic.setVisibility(View.INVISIBLE);
+            tvMusicCost.setText("0");
         }
     }
 
@@ -47,13 +70,26 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         SceneView.WhoCalled = 1;
         switch (v.getId()) {
             case R.id.plusBall:
-                if (Room.money - 500 > -1) {
+                if (Room.money - 100 > -1) {
                     IsBallBought = true;
-                    Room.money -= 500;
-                    SavePurchases("HealthPurch", "1");
+                    Room.money -= 100;
+                    purchMass[0] = 1;
+                    SavePurchases("HealthPurch");
                     IBPlusBall.setVisibility(View.INVISIBLE);
                     tvBallCost.setText("0");
-                } else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.plusMusic:
+                if (Room.money - 20 > -1) {
+                    IsMusicBought = true;
+                    Room.money -= 20;
+                    purchMass[1] = 1;
+                    SavePurchases("HealthPurch");
+                    IBPlusMusic.setVisibility(View.INVISIBLE);
+                    tvMusicCost.setText("0");
+                } else
+                    Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.arm:
                 intent = new Intent(this, CaressActivity.class);
@@ -65,35 +101,62 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     intent = new Intent(this, CaressActivity.class);
                     ArmOrBall = 2;
                     startActivity(intent);
-                }else Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.Music:
+                if (IsMusicBought) {
+                    PlayMusic();
+                } else
+                    Toast.makeText(getApplicationContext(), "Купите музыку!", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    void SavePurchases(String fileName, String Zero_Or_One) {
+    void PlayMusic(){
+        try {
+            tm.start();
+        }
+        catch (Exception e){
+            try {
+                tm.stop();
+            }catch (Exception e1){Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();}
+            Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void SavePurchases(String fileName) {
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-            bw.write(Zero_Or_One);
+            for (int i = 0; i < purchMass.length; i++)
+                bw.write(purchMass[i] + " ");
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    boolean ReadPurch(String fileName) {
+    void ReadPurch(String fileName) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
             String countsInFile = br.readLine();
-            if (countsInFile.equals("1"))
-                return true;
-            else
-                return false;
+            byte[] mass = new byte[purchMass.length];
+            int i = 0, j = 0;
+            while (i < countsInFile.length()) {
+                String stroka = "";
+                while (countsInFile.charAt(i) != ' ') {
+                    stroka += countsInFile.charAt(i);
+                    i++;
+                }
+                mass[j] = Byte.valueOf(stroka);
+                j++;
+                i++;
+            }
+            purchMass = mass;
         } catch (FileNotFoundException e) {
-            SavePurchases("HealthPurch", "0");
-            return false;
+            SavePurchases("HealthPurch");
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }
