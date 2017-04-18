@@ -1,6 +1,7 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -87,14 +88,14 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             case R.id.plusMorkov: BuyFood(5);break;
             case R.id.plusPotato: BuyFood(6);break;
             case R.id.plusIcecream: BuyFood(7);break;
-            case R.id.Watermelon: if (counts[0] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 1;} break;
-            case R.id.Pear: if (counts[1] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 2;} break;
-            case R.id.Strawberry: if (counts[2] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 3;} break;
-            case R.id.Apple: if (counts[3] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 4;} break;
-            case R.id.Lemon: if (counts[4] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 5;} break;
-            case R.id.Morkov: if (counts[5] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 6;} break;
-            case R.id.Potato: if (counts[6] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 7;} break;
-            case R.id.Icecream: if (counts[7] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 8;} break;
+            case R.id.Watermelon: if (counts[0] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 1;}else ShowToast("Сначала купите еду!", getApplicationContext());break;
+            case R.id.Pear: if (counts[1] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 2;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Strawberry: if (counts[2] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 3;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Apple: if (counts[3] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 4;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Lemon: if (counts[4] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 5;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Morkov: if (counts[5] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 6;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Potato: if (counts[6] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 7;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Icecream: if (counts[7] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 8;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
         }
         SaveCounts("CountFood");
         if (intent != null) startActivity(intent);
@@ -112,7 +113,6 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             for (int i = 0; i < 8; i++)
                 bw.write(String.format(counts[i] + " "));
             bw.close();
-            Log.d("Успех", "Количества сохранены");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -134,7 +134,6 @@ public class StorageActivity extends Activity implements View.OnClickListener{
                 counts[i] = Byte.valueOf(chislo);
                 j++;
             }
-            Log.d("Успех", "Количества загружены");
         }catch (FileNotFoundException e) {
             SaveCounts("CountFood");
         }catch (IOException e) {
@@ -144,14 +143,14 @@ public class StorageActivity extends Activity implements View.OnClickListener{
 
     void BuyFood(int FoodIndex){
         switch (FoodIndex){
-            case 0: if(Room.money - 15 > -1) {Room.money -= 15; CheckFood(0);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show(); break;
-            case 1: if(Room.money - 5 > -1) {Room.money -= 5; CheckFood(1);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
-            case 2: if(Room.money - 8 > -1) {Room.money -= 8; CheckFood(2);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
-            case 3: if(Room.money - 3 > -1) {Room.money -= 3; CheckFood(3);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
-            case 4: if(Room.money - 10 > -1) {Room.money -= 10; CheckFood(4);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
-            case 5: if(Room.money - 10 > -1) {Room.money -= 10; CheckFood(5);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
-            case 6: if(Room.money - 7 > -1) {Room.money -= 7; CheckFood(6);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
-            case 7: if(Room.money - 25 > -1) {Room.money -= 25; CheckFood(7);} else Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();break;
+            case 0: if(Room.money - 15 > -1) {Room.money -= 15; CheckFood(0);} else ShowToast("Не хватает монет!", this); break;
+            case 1: if(Room.money - 5 > -1) {Room.money -= 5; CheckFood(1);} else ShowToast("Не хватает монет!", this);break;
+            case 2: if(Room.money - 8 > -1) {Room.money -= 8; CheckFood(2);} else ShowToast("Не хватает монет!", this);break;
+            case 3: if(Room.money - 3 > -1) {Room.money -= 3; CheckFood(3);} else ShowToast("Не хватает монет!", this);break;
+            case 4: if(Room.money - 10 > -1) {Room.money -= 10; CheckFood(4);} else ShowToast("Не хватает монет!", this);break;
+            case 5: if(Room.money - 10 > -1) {Room.money -= 10; CheckFood(5);} else ShowToast("Не хватает монет!", this);break;
+            case 6: if(Room.money - 7 > -1) {Room.money -= 7; CheckFood(6);} else ShowToast("Не хватает монет!", this);break;
+            case 7: if(Room.money - 25 > -1) {Room.money -= 25; CheckFood(7);} else ShowToast("Не хватает монет!", this);break;
         }
         ChangeTVCounts();
     }
@@ -171,7 +170,11 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         if(counts[foodIndex]+1 < 101)
             counts[foodIndex]++;
         else
-            Toast.makeText(getApplicationContext(), "На складе больше не помещается!", Toast.LENGTH_SHORT).show();
+            ShowToast("На складе больше не помещается!", this);
+    }
+
+    public static void ShowToast(String text, Context context){
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
 }
