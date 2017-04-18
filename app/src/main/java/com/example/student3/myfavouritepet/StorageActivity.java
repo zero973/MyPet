@@ -25,6 +25,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     ImageButton IBWaterMelon, IBPear, IBStrawberry, IBApple, IBLemon, IBMorkov, IBPotato, IBIcecream;
 
     public static byte[] counts = new byte[8];
+    byte[] foodCosts = {15, 5, 8, 3, 10, 10, 7, 25};
     public static byte FoodIndex = 0;
 
     @Override
@@ -142,16 +143,14 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     }
 
     void BuyFood(int FoodIndex){
-        switch (FoodIndex){
-            case 0: if(Room.money - 15 > -1) {Room.money -= 15; CheckFood(0);} else ShowToast("Не хватает монет!", this); break;
-            case 1: if(Room.money - 5 > -1) {Room.money -= 5; CheckFood(1);} else ShowToast("Не хватает монет!", this);break;
-            case 2: if(Room.money - 8 > -1) {Room.money -= 8; CheckFood(2);} else ShowToast("Не хватает монет!", this);break;
-            case 3: if(Room.money - 3 > -1) {Room.money -= 3; CheckFood(3);} else ShowToast("Не хватает монет!", this);break;
-            case 4: if(Room.money - 10 > -1) {Room.money -= 10; CheckFood(4);} else ShowToast("Не хватает монет!", this);break;
-            case 5: if(Room.money - 10 > -1) {Room.money -= 10; CheckFood(5);} else ShowToast("Не хватает монет!", this);break;
-            case 6: if(Room.money - 7 > -1) {Room.money -= 7; CheckFood(6);} else ShowToast("Не хватает монет!", this);break;
-            case 7: if(Room.money - 25 > -1) {Room.money -= 25; CheckFood(7);} else ShowToast("Не хватает монет!", this);break;
-        }
+        if (Room.money - foodCosts[FoodIndex] > -1)
+            if (CheckFoodOnOverflow(FoodIndex))
+                Room.money -= 15;
+            else
+                ShowToast("На складе больше не помещается!", this);
+        else
+            ShowToast("Не хватает монет!", this);
+
         ChangeTVCounts();
     }
 
@@ -166,11 +165,13 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         tvCountIcecream.setText(""+counts[7]);
     }
 
-    void CheckFood(int foodIndex){
-        if(counts[foodIndex]+1 < 101)
+    boolean CheckFoodOnOverflow(int foodIndex){
+        if(counts[foodIndex]+1 < 101) {
             counts[foodIndex]++;
+            return true;
+        }
         else
-            ShowToast("На складе больше не помещается!", this);
+            return false;
     }
 
     public static void ShowToast(String text, Context context){
