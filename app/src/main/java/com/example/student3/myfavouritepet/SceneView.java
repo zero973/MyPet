@@ -164,7 +164,7 @@ public class SceneView extends View {
             iMaxAnimationStep = 75;
             bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
             bmSprite = RotateBitmap(bmSprite, 90);
-            final int tochka = display.getHeight() / 8;
+            final int tochka = display.getHeight() / 3;
             aPoints.add(new PointF(tochka, 700f));
             aPoints.add(new PointF(tochka, 600f));
             aPoints.add(new PointF(tochka, 500f));
