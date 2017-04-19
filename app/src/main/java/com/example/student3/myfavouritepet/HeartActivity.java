@@ -78,7 +78,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     IBPlusBall.setVisibility(View.INVISIBLE);
                     tvBallCost.setText("0");
                 } else
-                    Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
+                    StorageActivity.ShowToast("Не хватает монет!", this);
                 break;
             case R.id.plusMusic:
                 if (Room.money - 20 > -1) {
@@ -89,7 +89,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     IBPlusMusic.setVisibility(View.INVISIBLE);
                     tvMusicCost.setText("0");
                 } else
-                    Toast.makeText(getApplicationContext(), "Не хватает монет!", Toast.LENGTH_SHORT).show();
+                    StorageActivity.ShowToast("Не хватает монет!", this);
                 break;
             case R.id.arm:
                 intent = new Intent(this, CaressActivity.class);
@@ -102,13 +102,13 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     ArmOrBall = 2;
                     startActivity(intent);
                 } else
-                    Toast.makeText(getApplicationContext(), "Купите мяч!", Toast.LENGTH_SHORT).show();
+                    StorageActivity.ShowToast("Купите мяч!", this);
                 break;
             case R.id.Music:
                 if (IsMusicBought) {
                     PlayMusic();
                 } else
-                    Toast.makeText(getApplicationContext(), "Купите музыку!", Toast.LENGTH_SHORT).show();
+                    StorageActivity.ShowToast("Купите музыку!", this);
                 break;
         }
     }
@@ -120,8 +120,10 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         catch (Exception e){
             try {
                 tm.stop();
-            }catch (Exception e1){Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();}
-            Toast.makeText(this, "Музыка уже играет!", Toast.LENGTH_SHORT).show();
+            }catch (Exception e1){
+                StorageActivity.ShowToast("Музыка уже играет!", this);
+            }
+            StorageActivity.ShowToast("Музыка уже играет!", this);
         }
     }
 

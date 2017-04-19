@@ -36,38 +36,31 @@ public class SceneView extends View {
     private Path ptCurve = new Path(); //curve
     private PathMeasure pm;            //curve measure
     private float fSegmentLen;         //curve segment
-    Display display;
+    private Display display;
     public static byte WhoCalled = 1;
-    byte elementCount = 120, elementId = 0;
+    private byte elementCount = 120, elementId = 0;
+    private Context context;
 
     public SceneView(Context context) {
         super(context);
+        this.context = context;
+
+        SetBackgroundSize();
+        LoadBackground();
+        LoadPet();
+        SwitchWhoCalled();
+        CreatePathAnimation();
+
+        MinusFood();
+    }
+
+    private void SetBackgroundSize(){
         //destination rectangle
         display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         rDest = new Rect(0, 0, display.getWidth(), display.getHeight());
+    }
 
-        //load background
-        switch (Room.roomColor) {
-            case "Синяя":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blueroom);
-                break;
-            case "Коричневая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.brownroom);
-                break;
-            case "Голубая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blue_whiteroom);
-                break;
-            case "Жёлтая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.yellowroom);
-                break;
-            case "Алая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.alayaroom);
-                break;
-        }
-        rSrc = new Rect(0, 0, backgroundPaint.getWidth(), backgroundPaint.getHeight());
-
-
-        //load pet
+    private void LoadPet(){
         switch (Room.kind) {
             case "Собака":
                 paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petdog);
@@ -86,90 +79,123 @@ public class SceneView extends View {
                 break;
         }
         paintKind = Bitmap.createScaledBitmap(paintKind, 300, 300, false);
+    }
 
-        if (WhoCalled == 1) {
-            byte indexArmOrBall = 0;
-            indexArmOrBall = HeartActivity.ArmOrBall;
-            switch (indexArmOrBall) {
-                case 1:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.arm);
-                    bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 150, false);
-                    bmSprite = RotateBitmap(bmSprite, -90);
-                    iMaxAnimationStep = 75;
-                    break;
-                case 2:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.ball);
-                    bmSprite = Bitmap.createScaledBitmap(bmSprite, 150, 150, false);
-                    break;
-            }
-
-            if (indexArmOrBall == 1) {
-                aPoints.add(new PointF(350f, 350f));
-                aPoints.add(new PointF(300f, 350f));
-                aPoints.add(new PointF(200f, 350f));
-                aPoints.add(new PointF(100f, 350f));
-            } else {
-                iMaxAnimationStep = 100;
-                aPoints.add(new PointF(100f, 200f));
-                aPoints.add(new PointF(150f, 250f));
-                //aPoints.add(new PointF(200f, 250f));
-                aPoints.add(new PointF(300f, 410f));
-                aPoints.add(new PointF(400f, 410f));
-                aPoints.add(new PointF(600f, 700f));
-                aPoints.add(new PointF(700f, 700f));
-            }
-        } else {
-            switch (StorageActivity.FoodIndex) {
-                case 1:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);
-                    elementCount = StorageActivity.counts[0];
-                    elementId = 0;
-                    break;
-                case 2:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);
-                    elementCount = StorageActivity.counts[1];
-                    elementId = 1;
-                    break;
-                case 3:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);
-                    elementCount = StorageActivity.counts[2];
-                    elementId = 2;
-                    break;
-                case 4:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);
-                    elementCount = StorageActivity.counts[3];
-                    elementId = 3;
-                    break;
-                case 5:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);
-                    elementCount = StorageActivity.counts[4];
-                    elementId = 4;
-                    break;
-                case 6:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);
-                    elementCount = StorageActivity.counts[5];
-                    elementId = 5;
-                    break;
-                case 7:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);
-                    elementCount = StorageActivity.counts[6];
-                    elementId = 6;
-                    break;
-                case 8:
-                    bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);
-                    elementCount = StorageActivity.counts[7];
-                    elementId = 7;
-                    break;
-            }
-            iMaxAnimationStep = 75;
-            bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
-            bmSprite = RotateBitmap(bmSprite, 90);
-            final int tochka = display.getHeight() / 8;
-            aPoints.add(new PointF(tochka, 700f));
-            aPoints.add(new PointF(tochka, 600f));
-            aPoints.add(new PointF(tochka, 500f));
-            aPoints.add(new PointF(tochka, 400f));
+    private void LoadBackground(){
+        switch (Room.roomColor) {
+            case "Синяя":
+                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blueroom);
+                break;
+            case "Коричневая":
+                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.brownroom);
+                break;
+            case "Голубая":
+                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blue_whiteroom);
+                break;
+            case "Жёлтая":
+                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.yellowroom);
+                break;
+            case "Алая":
+                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.alayaroom);
+                break;
         }
+        rSrc = new Rect(0, 0, backgroundPaint.getWidth(), backgroundPaint.getHeight());
+    }
+
+    private void SwitchWhoCalled(){
+        if (WhoCalled == 1) {
+            SwitchIndexArmOrBallAndSetAnimation();
+        } else {
+            SwitchFoodIndexAndSetAnimationForFood();
+        }
+    }
+
+    private void SwitchIndexArmOrBallAndSetAnimation(){
+        byte indexArmOrBall = 0;
+        indexArmOrBall = HeartActivity.ArmOrBall;
+        switch (indexArmOrBall) {
+            case 1:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.arm);
+                bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 150, false);
+                bmSprite = RotateBitmap(bmSprite, -90);
+                iMaxAnimationStep = 75;
+                break;
+            case 2:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.ball);
+                bmSprite = Bitmap.createScaledBitmap(bmSprite, 150, 150, false);
+                break;
+        }
+
+        if (indexArmOrBall == 1) {
+            aPoints.add(new PointF(350f, 350f));
+            aPoints.add(new PointF(300f, 350f));
+            aPoints.add(new PointF(200f, 350f));
+            aPoints.add(new PointF(100f, 350f));
+        } else {
+            iMaxAnimationStep = 100;
+            aPoints.add(new PointF(100f, 200f));
+            aPoints.add(new PointF(150f, 250f));
+            aPoints.add(new PointF(300f, 410f));
+            aPoints.add(new PointF(400f, 410f));
+            aPoints.add(new PointF(600f, 700f));
+            aPoints.add(new PointF(700f, 700f));
+        }
+    }
+
+    private void SwitchFoodIndexAndSetAnimationForFood(){
+        switch (StorageActivity.FoodIndex) {
+            case 1:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);
+                elementCount = StorageActivity.counts[0];
+                elementId = 0;
+                break;
+            case 2:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);
+                elementCount = StorageActivity.counts[1];
+                elementId = 1;
+                break;
+            case 3:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);
+                elementCount = StorageActivity.counts[2];
+                elementId = 2;
+                break;
+            case 4:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);
+                elementCount = StorageActivity.counts[3];
+                elementId = 3;
+                break;
+            case 5:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);
+                elementCount = StorageActivity.counts[4];
+                elementId = 4;
+                break;
+            case 6:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);
+                elementCount = StorageActivity.counts[5];
+                elementId = 5;
+                break;
+            case 7:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);
+                elementCount = StorageActivity.counts[6];
+                elementId = 6;
+                break;
+            case 8:
+                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);
+                elementCount = StorageActivity.counts[7];
+                elementId = 7;
+                break;
+        }
+        iMaxAnimationStep = 75;
+        bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
+        bmSprite = RotateBitmap(bmSprite, 90);
+        final int tochka = display.getHeight() / 3;
+        aPoints.add(new PointF(tochka, 700f));
+        aPoints.add(new PointF(tochka, 600f));
+        aPoints.add(new PointF(tochka, 500f));
+        aPoints.add(new PointF(tochka, 400f));
+    }
+
+    private void CreatePathAnimation(){
         //init smooth curve
         PointF point = aPoints.get(0);
         ptCurve.moveTo(point.x, point.y);
@@ -184,6 +210,11 @@ public class SceneView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(3);
         paint.setColor(Color.rgb(0, 148, 255));
+    }
+
+    private void MinusFood(){
+        elementCount--;
+        StorageActivity.counts[elementId]--;
     }
 
     public static Bitmap RotateBitmap(Bitmap source, float angle) {
@@ -211,11 +242,9 @@ public class SceneView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.e("elementCount", ""+elementCount);
         if (elementCount > 0) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) { //run animation
-                elementCount--;
-                StorageActivity.counts[elementId]--;
+                MinusFood();
                 invalidate();
                 return true;
             }
