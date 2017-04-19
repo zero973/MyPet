@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <string name="app_name">Мой любимый питомец</string>
 
     <string name="fish">fish</string>
@@ -43,7 +43,7 @@
         <item>дождь</item>
         <item>фартук</item>
         <item>фрукт</item>
-        <item>овощь</item>
+        <item>овощ</item>
         <item>болезнь</item>
         <item>яблоко</item>
         <item>вариант</item>
