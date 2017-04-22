@@ -23,7 +23,6 @@ public class MainActivity extends Activity {
     public String name, PetType, RoomColor;
     String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
     ArrayList<String> namesOldPets = new ArrayList<String>(), oldPetTypes = new ArrayList<String>(), oldRoomColors = new ArrayList<String>();
-    boolean IsChoosed = false;
 
     Spinner SpinnerKind, SpinnerRoomColor, SpinnerOldKinds;
     EditText EditTextName;
@@ -53,11 +52,10 @@ public class MainActivity extends Activity {
         SpinnerOldKinds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (IsChoosed) {
+                if (position != 0) {
                     writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position), oldRoomColors.get(position));
                     finish();
-                }else
-                    IsChoosed = true;
+                }
             }
 
             @Override
