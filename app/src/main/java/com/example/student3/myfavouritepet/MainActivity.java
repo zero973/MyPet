@@ -48,12 +48,13 @@ public class MainActivity extends Activity {
         SpinnerRoomColor = (Spinner) findViewById(R.id.choosedRoomColor);
         SpinnerRoomColor.setAdapter(adapterRoomColor);
         SpinnerOldKinds = (Spinner)findViewById(R.id.choosedOldData);
+        namesOldPets.add("Новый питомец");
 
         SpinnerOldKinds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position), oldRoomColors.get(position));
+                    writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
                     finish();
                 }
             }
