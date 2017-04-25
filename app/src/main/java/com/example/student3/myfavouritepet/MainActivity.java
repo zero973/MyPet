@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
+                    Room.petIndex = position;
                     finish();
                 }
             }
@@ -97,7 +98,7 @@ public class MainActivity extends Activity {
         SpinnerOldKinds.setSelected(true);
     }
 
-    void writeFile(String fileName, String petName, String kind, String color) {
+    private void writeFile(String fileName, String petName, String kind, String color) {
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             bw.write(String.format("%s\n%s\n%s\n", petName, kind, color));
@@ -107,7 +108,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    boolean CheckDataBase(){
+    private boolean CheckDataBase(){
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = null;
@@ -134,7 +135,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    void PutData(){
+    private void PutData(){
         DBHelper dbHelper = new DBHelper(getApplicationContext());
         ContentValues cv = new ContentValues();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -144,5 +145,7 @@ public class MainActivity extends Activity {
         cv.put("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
         db.insert("myDataTable", null, cv);
         dbHelper.close();
+        Room.petIndex = Room.moneyList.size() + 1;
+        Room.moneyList.add(Room.moneyList.size(), 100);
     }
 }

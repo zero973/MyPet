@@ -1,7 +1,10 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +18,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class Room extends Activity implements View.OnClickListener{
 
     public static String name = "250801", kind, roomColor;
     public static int money = 100;
+    public static int petIndex = -1;
+    public static ArrayList<Integer> moneyList = new ArrayList();
+    private boolean IsItFirstAppStart = true;
     RelativeLayout room;
 
     ImageButton IBPet, IBFood, IBHealth, IBAchievement;
@@ -44,7 +51,7 @@ public class Room extends Activity implements View.OnClickListener{
         tvMoney = (TextView)findViewById(R.id.textViewMoney);
 
         readFile("PetInfo");
-        readMoney("PetMoney");
+        readMoneyAndChangeLabel("PetMoney");
         if (name.equals("250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
@@ -54,58 +61,33 @@ public class Room extends Activity implements View.OnClickListener{
     @Override
     public void onResume(){
         super.onResume();
-        writeMoney("PetMoney");
-        readFile("PetInfo");
+        if (IsItFirstAppStart)
+            readMoneyAndChangeLabel("PetMoney");
+        else {
+            writeMoney("PetMoney");
+            readFile("PetInfo");
+        }
         tvMoney.setText("Монет: "+money);
     }
 
-    void readFile(String fileName) {
-        try {
-            // открываем поток для чтения
-            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            String str = br.readLine();
-            // читаем содержимое
-            if (str != null) {
-                name = str;
-                kind = br.readLine();
-                roomColor = br.readLine();
-                RecolorRoom();
-                tvPetName.setText(name);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()) {
+            case R.id.buttonChangePet: intent = new Intent(Room.this, MainActivity.class); break;
+            case R.id.imageButtonAchievement: intent = new Intent(Room.this, School.class); break;
+            case R.id.imageButtonPet: break;
+            case R.id.imageButtonFood: intent = new Intent(Room.this, StorageActivity.class); break;
+            case R.id.imageButtonHealth: intent = new Intent(Room.this, HeartActivity.class); break;
+        }
+        try {//Доделай кнопки, потом уберёшь этот блок
+            startActivity(intent);
+        }catch (Exception e){
+
         }
     }
 
-    void readMoney(String fileName) {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            String smoney = br.readLine();
-            money = Integer.valueOf(smoney);
-            tvMoney.setText("Монет: "+money);
-        }catch (FileNotFoundException e) {
-            writeMoney("PetMoney");
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void writeMoney(String fileName) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-            bw.write(String.format(money+""));
-            bw.close();
-            Log.d("Успех", "Деньги сохранены");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void RecolorRoom(){
+    private void RecolorRoom(){
         room = (RelativeLayout)findViewById(R.id.room);
         switch (roomColor){
             case "Синяя": room.setBackgroundResource(R.drawable.blueroom);break;
@@ -134,20 +116,61 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent();
-        switch (v.getId()) {
-            case R.id.buttonChangePet: intent = new Intent(Room.this, MainActivity.class); break;
-            case R.id.imageButtonAchievement: intent = new Intent(Room.this, School.class); break;
-            case R.id.imageButtonPet: break;
-            case R.id.imageButtonFood: intent = new Intent(Room.this, StorageActivity.class); break;
-            case R.id.imageButtonHealth: intent = new Intent(Room.this, HeartActivity.class); break;
-        }
-        try {//Доделай кнопки, потом уберёшь этот блок
-            startActivity(intent);
-        }catch (Exception e){
-
+    private void readFile(String fileName) {
+        try {
+            // открываем поток для чтения
+            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+            String str = br.readLine();
+            // читаем содержимое
+            if (str != null) {
+                name = str;
+                kind = br.readLine();
+                roomColor = br.readLine();
+                RecolorRoom();
+                tvPetName.setText(name);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    private void readMoneyAndChangeLabel(String fileName) {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+            if (moneyList.isEmpty())
+                AddMoneysToMoneyList(br);
+            tvMoney.setText("Монет: " + moneyList.get(petIndex));
+        }catch (FileNotFoundException e) {
+            writeMoney("PetMoney");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void AddMoneysToMoneyList(BufferedReader br) throws IOException {
+        int i = 0;
+        String smoney;
+        while (br.readLine() != "") {
+            smoney = br.readLine();
+            moneyList.add(Integer.valueOf(smoney));
+            i++;
+        }
+    }
+
+    private void writeMoney(String fileName) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
+            for (int i = 0; i < moneyList.size(); i++)
+                bw.write(String.format(moneyList.get(i)+"\n"));
+            bw.close();
+            Log.d("Успех", "Деньги сохранены в количестве " + moneyList.size());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
