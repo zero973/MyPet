@@ -101,6 +101,17 @@
         <item>Прецендент</item>
         <item>Щевель</item>
         <item>Вобщем</item>
+        <item>БорЯщийся</item>
+        <item>ВИтЕрИнар</item>
+        <item>ВолчЁнок</item>
+        <item>РасстИлить</item>
+        <item>БАчонок</item>
+        <item>АППеЛяция</item>
+        <item>ВетреННый</item>
+        <item>ПрЕмирение</item>
+        <item>укрАщение</item>
+        <item>кАтОклизм</item>
+        <item>АбОжур</item>
     </string-array>
 
     <string-array name="rusQuestions_Answers_How_True">
@@ -108,6 +119,17 @@
         <item>Прецедент</item>
         <item>Щавель</item>
         <item>В общем</item>
+        <item>БорЮщийся</item>
+        <item>ВЕтЕрИнар</item>
+        <item>ВолчОнок</item>
+        <item>РасстЕлить</item>
+        <item>БОчонок</item>
+        <item>АПеЛЛяция</item>
+        <item>ВетреНый</item>
+        <item>ПрИмирение</item>
+        <item>укрОщение</item>
+        <item>кАтАклизм</item>
+        <item>АбАжур</item>
     </string-array>
 
     <string-array name="rusQuestions_Udarenie">
@@ -115,6 +137,9 @@
         <item>ИскрА</item>
         <item>БармЕн</item>
         <item>ТортЫ</item>
+        <item>НоворОжденный</item>
+        <item>ДремотА</item>
+        <item>Оптовый</item>
     </string-array>
 
     <string-array name="rusQuestions_Answers_Udarenie">
@@ -122,6 +147,9 @@
         <item>Искра</item>
         <item>БАрмен</item>
         <item>ТОрты</item>
+        <item>НоворождЁнный</item>
+        <item>ДремОта</item>
+        <item>ОптОвый</item>
     </string-array>
 
     <string-array name="phisTasks">
