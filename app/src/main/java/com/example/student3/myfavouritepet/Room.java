@@ -25,8 +25,6 @@ public class Room extends Activity implements View.OnClickListener{
     public static String name = "250801", kind, roomColor;
     public static int money = 100;
     public static int petIndex = -1;
-    public static ArrayList<Integer> moneyList = new ArrayList();
-    private boolean IsItFirstAppStart = true;
     RelativeLayout room;
 
     ImageButton IBPet, IBFood, IBHealth, IBAchievement;
@@ -51,7 +49,7 @@ public class Room extends Activity implements View.OnClickListener{
         tvMoney = (TextView)findViewById(R.id.textViewMoney);
 
         readFile("PetInfo");
-        readMoneyAndChangeLabel("PetMoney");
+
         if (name.equals("250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
@@ -61,13 +59,8 @@ public class Room extends Activity implements View.OnClickListener{
     @Override
     public void onResume(){
         super.onResume();
-        if (IsItFirstAppStart)
-            readMoneyAndChangeLabel("PetMoney");
-        else {
-            writeMoney("PetMoney");
-            readFile("PetInfo");
-        }
-        tvMoney.setText("Монет: "+money);
+        ChangeCountMoney();
+        readFile("PetInfo");
     }
 
     @Override
@@ -136,41 +129,9 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
-    private void readMoneyAndChangeLabel(String fileName) {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            if (moneyList.isEmpty())
-                AddMoneysToMoneyList(br);
-            tvMoney.setText("Монет: " + moneyList.get(petIndex));
-        }catch (FileNotFoundException e) {
-            writeMoney("PetMoney");
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void AddMoneysToMoneyList(BufferedReader br) throws IOException {
-        int i = 0;
-        String smoney;
-        while (br.readLine() != "") {
-            smoney = br.readLine();
-            moneyList.add(Integer.valueOf(smoney));
-            i++;
-        }
-    }
-
-    private void writeMoney(String fileName) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-            for (int i = 0; i < moneyList.size(); i++)
-                bw.write(String.format(moneyList.get(i)+"\n"));
-            bw.close();
-            Log.d("Успех", "Деньги сохранены в количестве " + moneyList.size());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void ChangeCountMoney(){
+        //Добавить обновление db
+        tvMoney.setText("Монет: " + money);
     }
 
 }

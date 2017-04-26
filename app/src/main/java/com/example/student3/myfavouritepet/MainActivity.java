@@ -2,6 +2,7 @@ package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    public String name, PetType, RoomColor;
+    public String name;
     String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
-    ArrayList<String> namesOldPets = new ArrayList<String>(), oldPetTypes = new ArrayList<String>(), oldRoomColors = new ArrayList<String>();
+    ArrayList<String> namesOldPets = new ArrayList<>(), oldPetTypes = new ArrayList<>(), oldRoomColors = new ArrayList<>();
+    ArrayList<Integer> moneyList = new ArrayList<>();
 
     Spinner SpinnerKind, SpinnerRoomColor, SpinnerOldKinds;
     EditText EditTextName;
@@ -56,17 +58,16 @@ public class MainActivity extends Activity {
                 if (position != 0) {
                     writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
                     Room.petIndex = position;
+                    Room.money = moneyList.get(position-1);
                     finish();
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        if (!CheckDataBase()) {
+        if (!CheckDataBaseAndFillLists()) {
             Log.e("CheckDataBase()", "Дата база пуста");
             SpinnerOldKinds.setVisibility(View.INVISIBLE);
         }
@@ -108,26 +109,24 @@ public class MainActivity extends Activity {
         }
     }
 
-    private boolean CheckDataBase(){
+    private boolean CheckDataBaseAndFillLists(){
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = null;
         try {
             c = db.query("myDataTable", null, null, null, null, null, null);
         }catch (Exception e){return false;}
-        // ставим позицию курсора на первую строку выборки
-        // если в выборке нет строк, вернется false
-        if (c.moveToFirst()) {
-            // определяем номера столбцов по имени в выборке
+        // ставим позицию курсора на первую строку выборки. Если в выборке нет строк, вернется false
+        if (c.moveToFirst()) {// определяем номера столбцов по имени в выборке
             int nameColIndex = c.getColumnIndex("name");
             int PetTypeColIndex = c.getColumnIndex("PetType");
             int RoomColorColIndex = c.getColumnIndex("RoomColor");
-            do {// получаем значения по номерам столбцов и пишем все в лог
+            int MoneyColIndex = c.getColumnIndex("money");
+            do {//получаем значения по номерам столбцов
                 namesOldPets.add(c.getString(nameColIndex));
                 oldPetTypes.add(c.getString(PetTypeColIndex));
                 oldRoomColors.add(c.getString(RoomColorColIndex));
-                Log.d("Работа с БД","name = " + c.getString(nameColIndex) + ", PetType = " + c.getString(PetTypeColIndex)
-                        + ", RoomColor = " + c.getString(RoomColorColIndex));
+                moneyList.add(MoneyColIndex);
             } while (c.moveToNext());
         }else return false;
         c.close();
@@ -143,9 +142,8 @@ public class MainActivity extends Activity {
         cv.put("name", name);
         cv.put("PetType", KindsMass[SpinnerKind.getSelectedItemPosition()]);
         cv.put("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+        cv.put("money", 100);
         db.insert("myDataTable", null, cv);
         dbHelper.close();
-        Room.petIndex = Room.moneyList.size() + 1;
-        Room.moneyList.add(Room.moneyList.size(), 100);
     }
 }
