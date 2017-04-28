@@ -49,7 +49,6 @@ public class Room extends Activity implements View.OnClickListener{
         tvMoney = (TextView)findViewById(R.id.textViewMoney);
 
         readFile("PetInfo");
-
         if (name.equals("250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);

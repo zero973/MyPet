@@ -114,17 +114,10 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     }
 
     void PlayMusic(){
-        try {
-            tm.start();
-        }
-        catch (Exception e){
-            try {
-                tm.stop();
-            }catch (Exception e1){
-                StorageActivity.ShowToast("Музыка уже играет!", this);
-            }
-            StorageActivity.ShowToast("Музыка уже играет!", this);
-        }
+        if (!tm.isAlive())
+            tm.run();
+        else
+            tm.destroy();
     }
 
     void SavePurchases(String fileName) {
