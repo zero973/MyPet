@@ -140,6 +140,7 @@
         <item>НоворОжденный</item>
         <item>ДремотА</item>
         <item>Оптовый</item>
+        <item>ТанцовщИца</item>
     </string-array>
 
     <string-array name="rusQuestions_Answers_Udarenie">
@@ -150,6 +151,7 @@
         <item>НоворождЁнный</item>
         <item>ДремОта</item>
         <item>ОптОвый</item>
+        <item>ТанцОвщица</item>
     </string-array>
 
     <string-array name="phisTasks">

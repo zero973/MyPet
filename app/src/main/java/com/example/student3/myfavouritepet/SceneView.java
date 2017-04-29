@@ -1,18 +1,15 @@
 package com.example.student3.myfavouritepet;
 
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SceneView extends View {
-    private static Bitmap bmSprite, paintKind, backgroundPaint;
+    private static Bitmap bmSprite, paintKind, backgroundPaint, bitmapHeart;
     private static Rect rSrc, rDest;
 
     //animation step
@@ -31,33 +28,42 @@ public class SceneView extends View {
     private int iCurStep = 0;
 
     //points defining our curve
-    private List<PointF> aPoints = new ArrayList<PointF>();
+    private List<PointF> bmSpritePoints = new ArrayList(), HeartPoints = new ArrayList();
     private Paint paint;
     private Path ptCurve = new Path(); //curve
     private PathMeasure pm;            //curve measure
-    private float fSegmentLen;         //curve segment
+    private float fSegmentLen;//curve segment
     private Display display;
     public static byte WhoCalled = 1;
     private byte elementCount = 120, elementId = 0;
     private Context context;
 
+    private int paintKindX, paintKindY;
+
     public SceneView(Context context) {
         super(context);
         this.context = context;
 
-        SetBackgroundSize();
+        SetBackgroundSizeAndPetPoints();
         LoadBackground();
         LoadPet();
+        if (WhoCalled == 1)
+            LoadHeartAndSetAnimation();
+
         SwitchWhoCalled();
-        CreatePathAnimation();
+        CreatePathAnimation(bmSpritePoints);
 
         MinusFood();
+        if (WhoCalled == 2)
+            Toast.makeText(context, "Очень вкусно!", Toast.LENGTH_SHORT).show();
     }
 
-    private void SetBackgroundSize(){
+    private void SetBackgroundSizeAndPetPoints(){
         //destination rectangle
         display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         rDest = new Rect(0, 0, display.getWidth(), display.getHeight());
+        paintKindX = display.getWidth() /2 - 150;
+        paintKindY = display.getHeight() / 2 - 100;
     }
 
     private void LoadPet(){
@@ -78,7 +84,7 @@ public class SceneView extends View {
                 paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petparrot);
                 break;
         }
-        paintKind = Bitmap.createScaledBitmap(paintKind, 300, 300, false);
+        paintKind = Bitmap.createScaledBitmap(paintKind, 300, 340, false);
     }
 
     private void LoadBackground(){
@@ -100,6 +106,17 @@ public class SceneView extends View {
                 break;
         }
         rSrc = new Rect(0, 0, backgroundPaint.getWidth(), backgroundPaint.getHeight());
+    }
+
+    private void LoadHeartAndSetAnimation(){
+        bitmapHeart = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
+        bitmapHeart = Bitmap.createScaledBitmap(bitmapHeart, 100, 100, false);
+        bitmapHeart = RotateBitmap(bitmapHeart, -180);
+        HeartPoints.add(new PointF(paintKindX, paintKindY));
+        HeartPoints.add(new PointF(paintKindX, paintKindY + 50));
+        HeartPoints.add(new PointF(paintKindX, paintKindY + 100));
+        HeartPoints.add(new PointF(paintKindX, paintKindY + 150));
+        HeartPoints.add(new PointF(paintKindX, paintKindY + 200));
     }
 
     private void SwitchWhoCalled(){
@@ -127,18 +144,17 @@ public class SceneView extends View {
         }
 
         if (indexArmOrBall == 1) {
-            aPoints.add(new PointF(350f, 350f));
-            aPoints.add(new PointF(300f, 350f));
-            aPoints.add(new PointF(200f, 350f));
-            aPoints.add(new PointF(100f, 350f));
+            bmSpritePoints.add(new PointF(paintKindX+200, paintKindY-50));
+            bmSpritePoints.add(new PointF(paintKindX+100, paintKindY-50));
+            bmSpritePoints.add(new PointF(paintKindX, paintKindY-50));
         } else {
             iMaxAnimationStep = 100;
-            aPoints.add(new PointF(100f, 200f));
-            aPoints.add(new PointF(150f, 250f));
-            aPoints.add(new PointF(300f, 410f));
-            aPoints.add(new PointF(400f, 410f));
-            aPoints.add(new PointF(600f, 700f));
-            aPoints.add(new PointF(700f, 700f));
+            bmSpritePoints.add(new PointF(100f, 200f));
+            bmSpritePoints.add(new PointF(150f, 250f));
+            bmSpritePoints.add(new PointF(300f, 410f));
+            bmSpritePoints.add(new PointF(400f, 410f));
+            bmSpritePoints.add(new PointF(600f, 700f));
+            bmSpritePoints.add(new PointF(700f, 700f));
         }
     }
 
@@ -188,15 +204,15 @@ public class SceneView extends View {
         iMaxAnimationStep = 75;
         bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
         bmSprite = RotateBitmap(bmSprite, 90);
-        final int tochka = display.getHeight() / 3;
-        aPoints.add(new PointF(tochka, 700f));
-        aPoints.add(new PointF(tochka, 600f));
-        aPoints.add(new PointF(tochka, 500f));
-        aPoints.add(new PointF(tochka, 400f));
+        final int tochka = display.getWidth()/2+100;
+        final int displayHeight = display.getHeight();
+        bmSpritePoints.add(new PointF(tochka, displayHeight-100));
+        bmSpritePoints.add(new PointF(tochka, displayHeight-200));
+        bmSpritePoints.add(new PointF(tochka, displayHeight-300));
+        bmSpritePoints.add(new PointF(tochka, displayHeight-400));
     }
 
-    private void CreatePathAnimation(){
-        //init smooth curve
+    private void CreatePathAnimation(List<PointF> aPoints){
         PointF point = aPoints.get(0);
         ptCurve.moveTo(point.x, point.y);
         for (int i = 0; i < aPoints.size() - 1; i++) {
@@ -206,10 +222,10 @@ public class SceneView extends View {
         }
         pm = new PathMeasure(ptCurve, false);
         fSegmentLen = pm.getLength() / iMaxAnimationStep;//20 animation steps//init paint object
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        /*paint = new Paint(Paint.ANTI_ALIAS_FLAG);//Задаёт путь анимации
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(3);
-        paint.setColor(Color.rgb(0, 148, 255));
+        paint.setColor(Color.rgb(0, 148, 255));*/
     }
 
     private void MinusFood(){
@@ -226,24 +242,44 @@ public class SceneView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(backgroundPaint, rSrc, rDest, null);
-        canvas.drawBitmap(paintKind, display.getHeight() / 8, display.getWidth() - 100, paint);
-        //canvas.drawPath(ptCurve, paint); //animate the sprite
+        canvas.drawBitmap(paintKind, paintKindX, paintKindY, null);
+        //canvas.drawPath(ptCurve, paint); //рисет путь анимации
+        if (!IsAnimationbmSpriteEnd) {
+            DrawAnimation(canvas, bmSprite);
+        }
+        if (WhoCalled == 1 && IsAnimationbmSpriteEnd) {
+            DrawAnimation(canvas, bitmapHeart);
+        }
+    }
+
+    boolean IsAnimationbmSpriteEnd = false;
+
+    private void DrawAnimation(Canvas canvas, Bitmap sprite){
         Matrix mxTransform = new Matrix();
         if (iCurStep <= iMaxAnimationStep) {
             pm.getMatrix(fSegmentLen * iCurStep, mxTransform, PathMeasure.POSITION_MATRIX_FLAG + PathMeasure.TANGENT_MATRIX_FLAG);
-            mxTransform.preTranslate(-bmSprite.getWidth(), -bmSprite.getHeight());
-            canvas.drawBitmap(bmSprite, mxTransform, null);
+            mxTransform.preTranslate(-sprite.getWidth(), -sprite.getHeight());
+            canvas.drawBitmap(sprite, mxTransform, null);
             iCurStep++; //advance to the next step
             invalidate();
         } else {
             iCurStep = 0;
+            if (WhoCalled == 1 && sprite.equals(bmSprite)) {
+                IsAnimationbmSpriteEnd = true;
+                CreatePathAnimation(HeartPoints);
+            }else {
+                IsAnimationbmSpriteEnd = false;
+                CreatePathAnimation(bmSpritePoints);
+            }
         }
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event){
+        if (WhoCalled == 2 && elementCount > 0)
+            ShowThankForEat();
         if (elementCount > 0) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) { //run animation
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {//run animation
                 MinusFood();
                 invalidate();
                 return true;
@@ -253,5 +289,18 @@ public class SceneView extends View {
             Toast.makeText(getContext(), "Еда кончилась!", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    int i = 0, b = 0;
+    String[] wordsMassEat = {"Спасибо!", "Очень вкусно!", "Благодарю!"};
+
+    private void ShowThankForEat(){
+        if (i % 2 != 0) {
+            if (wordsMassEat.length == b)
+                b = 0;
+            Toast.makeText(getContext(), wordsMassEat[b], Toast.LENGTH_SHORT).show();
+            b++;
+        }
+        i++;
     }
 }
