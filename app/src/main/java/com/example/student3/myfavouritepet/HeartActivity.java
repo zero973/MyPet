@@ -113,11 +113,17 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    private boolean IsMusicPlay = false;
+
     void PlayMusic(){
-        if (!tm.isAlive())
+        if (!IsMusicPlay) {
             tm.run();
-        else
+            IsMusicPlay = true;
+        }
+        else {
             tm.destroy();
+            IsMusicPlay = false;
+        }
     }
 
     void SavePurchases(String fileName) {
