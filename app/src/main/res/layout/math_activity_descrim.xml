@@ -5,7 +5,7 @@
     android:background="@drawable/mathbacgroundanother">
 
     <TextView
-        android:text="Найди больший из кореней"
+        android:text="Найди больший из корней"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
