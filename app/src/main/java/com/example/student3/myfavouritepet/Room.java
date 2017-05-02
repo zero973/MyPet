@@ -20,6 +20,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import static com.example.student3.myfavouritepet.MainActivity.moneyList;
+import static com.example.student3.myfavouritepet.MainActivity.namesOldPets;
+import static com.example.student3.myfavouritepet.MainActivity.oldPetTypes;
+import static com.example.student3.myfavouritepet.MainActivity.oldRoomColors;
+
 public class Room extends Activity implements View.OnClickListener{
 
     public static String name = "250801", kind, roomColor;
@@ -60,9 +65,10 @@ public class Room extends Activity implements View.OnClickListener{
         super.onResume();
         if (petIndex == -1) {
             GetLastPetIndex("PetIndex");
-            MainActivity mainActivity = new MainActivity();
-            if (mainActivity.CheckDataBaseAndFillLists())
-                money = MainActivity.moneyList.get(petIndex);
+            DBHelper dbHelper = new DBHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            money = moneyList.get(petIndex);
         }
         else
             WriteLastPetIndex("PetIndex");

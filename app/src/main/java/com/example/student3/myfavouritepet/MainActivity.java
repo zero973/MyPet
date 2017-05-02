@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    public boolean CheckDataBaseAndFillLists(){
+    private boolean CheckDataBaseAndFillLists(){
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = null;
