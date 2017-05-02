@@ -2,6 +2,7 @@ package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,8 +24,8 @@ public class MainActivity extends Activity {
 
     public String name;
     String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
-    ArrayList<String> namesOldPets = new ArrayList<>(), oldPetTypes = new ArrayList<>(), oldRoomColors = new ArrayList<>();
-    ArrayList<Integer> moneyList = new ArrayList<>();
+    static ArrayList<String> namesOldPets = new ArrayList<>(), oldPetTypes = new ArrayList<>(), oldRoomColors = new ArrayList<>();
+    public static ArrayList<Integer> moneyList = new ArrayList<>();
 
     Spinner SpinnerKind, SpinnerRoomColor, SpinnerOldKinds;
     EditText EditTextName;
@@ -82,18 +83,16 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 name = EditTextName.getText().toString();
-                if (name.compareTo("") == 0) {
+                if (name.compareTo("") == 0)
                     name = "Иван";
-                    writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()],
-                            roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-                    PutData();
-                    finish();
-                } else {
-                    writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()],
-                            roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
-                    PutData();
-                    finish();
-                }
+                writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()],
+                        roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                PutData();
+                if (moneyList.isEmpty())
+                    Room.petIndex = moneyList.size();
+                else
+                    Room.petIndex = moneyList.size()-1;
+                finish();
             }
         });
         SpinnerOldKinds.setSelected(true);
@@ -109,7 +108,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private boolean CheckDataBaseAndFillLists(){
+    public boolean CheckDataBaseAndFillLists(){
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = null;

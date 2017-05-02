@@ -145,7 +145,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     void BuyFood(int FoodIndex){
         if (Room.money - foodCosts[FoodIndex] > -1)
             if (CheckFoodOnOverflow(FoodIndex))
-                Room.money -= 15;
+                Room.money -= foodCosts[FoodIndex];
             else
                 ShowToast("На складе больше не помещается!", this);
         else

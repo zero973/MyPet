@@ -58,8 +58,17 @@ public class Room extends Activity implements View.OnClickListener{
     @Override
     public void onResume(){
         super.onResume();
-        ChangeCountMoney();
+        if (petIndex == -1) {
+            GetLastPetIndex("PetIndex");
+            MainActivity mainActivity = new MainActivity();
+            if (mainActivity.CheckDataBaseAndFillLists())
+                money = MainActivity.moneyList.get(petIndex);
+        }
+        else
+            WriteLastPetIndex("PetIndex");
+        UpdateDataBase();
         readFile("PetInfo");
+        tvMoney.setText("Монет: " + money);
     }
 
     @Override
@@ -128,9 +137,40 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
-    private void ChangeCountMoney(){
-        //Добавить обновление db
-        tvMoney.setText("Монет: " + money);
+    private void GetLastPetIndex(String fileName){
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+            petIndex = Integer.valueOf(br.readLine());
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void WriteLastPetIndex(String fileName){
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
+            bw.write(String.valueOf(petIndex));
+            bw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void UpdateDataBase(){
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("PetType", kind);
+        cv.put("RoomColor", roomColor);
+        cv.put("money", money);
+        db.update("myDataTable", cv, "id = ?", new String[]{ String.valueOf(petIndex) });
     }
 
 }
