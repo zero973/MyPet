@@ -65,8 +65,7 @@ public class Room extends Activity implements View.OnClickListener{
         super.onResume();
         if (petIndex == -1) {
             GetLastPetIndex("PetIndex");
-            DBHelper dbHelper = new DBHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
 
             money = moneyList.get(petIndex);
         }
