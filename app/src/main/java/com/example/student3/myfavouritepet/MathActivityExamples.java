@@ -27,7 +27,7 @@ import java.util.Random;
 public class MathActivityExamples extends AppCompatActivity {
     byte znakMass;
     int[] numsMass = new int[2];
-    int rightAnswers;
+    int rightAnswer;
     byte i = 0, userLevel = 1;
     int countRight = 0;
     int count = 0;
@@ -132,7 +132,7 @@ public class MathActivityExamples extends AppCompatActivity {
         }
         if (userAnswer == 250801)
             Room.money = 9999999;
-        if (userAnswer == rightAnswers)
+        if (userAnswer == rightAnswer)
             countRight++;
         else {
             TextResult.setText("Правильных ответов " + countRight + " из " + count);

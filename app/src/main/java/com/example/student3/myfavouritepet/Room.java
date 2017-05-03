@@ -60,20 +60,27 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
+    public static boolean IsIWentFromMainActivity = false;
+
     @Override
     public void onResume(){
         super.onResume();
-        if (petIndex == -1) {
-            GetLastPetIndex("PetIndex");
-
-
+        if (IsIWentFromMainActivity){
+            CheckDataBaseAndFillLists();
             money = moneyList.get(petIndex);
+            IsIWentFromMainActivity = false;
+            tvMoney.setText("Монет: " + money);
         }
-        else
+        else if (petIndex != -1){
+            UpdateDataBase();//Метод работает неправильно
             WriteLastPetIndex("PetIndex");
-        UpdateDataBase();
+            tvMoney.setText("Монет: " + money);
+        }
+        else {
+            GetLastPetIndex("PetIndex");
+            CheckDataBaseAndFillLists();
+        }
         readFile("PetInfo");
-        tvMoney.setText("Монет: " + money);
     }
 
     @Override
@@ -143,9 +150,8 @@ public class Room extends Activity implements View.OnClickListener{
     }
 
     private void GetLastPetIndex(String fileName){
-        BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
             petIndex = Integer.valueOf(br.readLine());
             br.close();
         } catch (FileNotFoundException e) {
@@ -175,7 +181,41 @@ public class Room extends Activity implements View.OnClickListener{
         cv.put("PetType", kind);
         cv.put("RoomColor", roomColor);
         cv.put("money", money);
-        db.update("myDataTable", cv, "id = ?", new String[]{ String.valueOf(petIndex) });
+        db.update("myDataTable", cv, "id = ?", new String[]{ String.valueOf(petIndex) });//Метод работает неправильно
+    }
+
+    private void CheckDataBaseAndFillLists(){
+        ClearPetLists();
+        namesOldPets.add("Новый питомец");
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = null;
+        try {
+            c = db.query("myDataTable", null, null, null, null, null, null);
+        }catch (Exception e){return;}
+        // ставим позицию курсора на первую строку выборки. Если в выборке нет строк, вернется false
+        if (c.moveToFirst()) {// определяем номера столбцов по имени в выборке
+            int nameColIndex = c.getColumnIndex("name");
+            int PetTypeColIndex = c.getColumnIndex("PetType");
+            int RoomColorColIndex = c.getColumnIndex("RoomColor");
+            int MoneyColIndex = c.getColumnIndex("money");
+            do {//получаем значения по номерам столбцов
+                namesOldPets.add(c.getString(nameColIndex));
+                oldPetTypes.add(c.getString(PetTypeColIndex));
+                oldRoomColors.add(c.getString(RoomColorColIndex));
+                moneyList.add(c.getInt(MoneyColIndex));
+            } while (c.moveToNext());
+        }else return;
+        c.close();
+        dbHelper.close();
+        return;
+    }
+
+    private void ClearPetLists(){
+        namesOldPets = new ArrayList<>();
+        oldPetTypes = new ArrayList<>();
+        oldRoomColors = new ArrayList<>();
+        moneyList = new ArrayList<>();
     }
 
 }
