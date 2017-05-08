@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -25,7 +28,7 @@ import static com.example.student3.myfavouritepet.MainActivity.namesOldPets;
 import static com.example.student3.myfavouritepet.MainActivity.oldPetTypes;
 import static com.example.student3.myfavouritepet.MainActivity.oldRoomColors;
 
-public class Room extends Activity implements View.OnClickListener{
+public class Room extends Activity implements View.OnClickListener {
 
     public static String name = "250801", kind, roomColor;
     public static int money = 100;
@@ -40,46 +43,45 @@ public class Room extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
-        IBPet = (ImageButton)findViewById(R.id.imageButtonPet);
+        IBPet = (ImageButton) findViewById(R.id.imageButtonPet);
         IBPet.setOnClickListener(this);
-        IBFood = (ImageButton)findViewById(R.id.imageButtonFood);
+        IBFood = (ImageButton) findViewById(R.id.imageButtonFood);
         IBFood.setOnClickListener(this);
-        IBHealth = (ImageButton)findViewById(R.id.imageButtonHealth);
+        IBHealth = (ImageButton) findViewById(R.id.imageButtonHealth);
         IBHealth.setOnClickListener(this);
-        IBAchievement = (ImageButton)findViewById(R.id.imageButtonAchievement);
+        IBAchievement = (ImageButton) findViewById(R.id.imageButtonAchievement);
         IBAchievement.setOnClickListener(this);
-        btnChangePet = (Button)findViewById(R.id.buttonChangePet);
+        btnChangePet = (Button) findViewById(R.id.buttonChangePet);
         btnChangePet.setOnClickListener(this);
-        tvPetName = (TextView)findViewById(R.id.textViewNamePet);
-        tvMoney = (TextView)findViewById(R.id.textViewMoney);
+        tvPetName = (TextView) findViewById(R.id.textViewNamePet);
+        tvMoney = (TextView) findViewById(R.id.textViewMoney);
 
         readFile("PetInfo");
         if (name.equals("250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
+        } else {
+            GetLastPetIndex("PetIndex");
+            MoneyReadWrite(Opertion.Read, "PetMoney");
         }
     }
 
     public static boolean IsIWentFromMainActivity = false;
 
     @Override
-    public void onResume(){
+    public void onPause() {
+        super.onPause();
+        Toast.makeText(getApplicationContext(), "Debug: invoked onPause()", Toast.LENGTH_LONG);
+        Log.e("Debug", "Invoked onPause()");
+        UpdateDataBase();
+        WriteLastPetIndex("PetIndex");
+        MoneyReadWrite(Opertion.Write, "PetMoney");
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
-        if (IsIWentFromMainActivity){
-            CheckDataBaseAndFillLists();
-            money = moneyList.get(petIndex);
-            IsIWentFromMainActivity = false;
-            tvMoney.setText("Монет: " + money);
-        }
-        else if (petIndex != -1){
-            UpdateDataBase();//Метод работает неправильно
-            WriteLastPetIndex("PetIndex");
-            tvMoney.setText("Монет: " + money);
-        }
-        else {
-            GetLastPetIndex("PetIndex");
-            CheckDataBaseAndFillLists();
-        }
+        tvMoney.setText("Монет: " + money);
         readFile("PetInfo");
     }
 
@@ -87,27 +89,46 @@ public class Room extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.buttonChangePet: intent = new Intent(Room.this, MainActivity.class); break;
-            case R.id.imageButtonAchievement: intent = new Intent(Room.this, School.class); break;
-            case R.id.imageButtonPet: break;
-            case R.id.imageButtonFood: intent = new Intent(Room.this, StorageActivity.class); break;
-            case R.id.imageButtonHealth: intent = new Intent(Room.this, HeartActivity.class); break;
+            case R.id.buttonChangePet:
+                intent = new Intent(Room.this, MainActivity.class);
+                break;
+            case R.id.imageButtonAchievement:
+                intent = new Intent(Room.this, School.class);
+                break;
+            case R.id.imageButtonPet:
+                break;
+            case R.id.imageButtonFood:
+                intent = new Intent(Room.this, StorageActivity.class);
+                break;
+            case R.id.imageButtonHealth:
+                intent = new Intent(Room.this, HeartActivity.class);
+                break;
         }
         try {//Доделай кнопки, потом уберёшь этот блок
             startActivity(intent);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    private void RecolorRoom(){
-        room = (RelativeLayout)findViewById(R.id.room);
-        switch (roomColor){
-            case "Синяя": room.setBackgroundResource(R.drawable.blueroom);break;
-            case "Коричневая": room.setBackgroundResource(R.drawable.brownroom);break;
-            case "Голубая": room.setBackgroundResource(R.drawable.blue_whiteroom);break;
-            case "Жёлтая": room.setBackgroundResource(R.drawable.yellowroom);break;
-            case "Алая": room.setBackgroundResource(R.drawable.alayaroom);break;
+    private void RecolorRoom() {
+        room = (RelativeLayout) findViewById(R.id.room);
+        switch (roomColor) {
+            case "Синяя":
+                room.setBackgroundResource(R.drawable.blueroom);
+                break;
+            case "Коричневая":
+                room.setBackgroundResource(R.drawable.brownroom);
+                break;
+            case "Голубая":
+                room.setBackgroundResource(R.drawable.blue_whiteroom);
+                break;
+            case "Жёлтая":
+                room.setBackgroundResource(R.drawable.yellowroom);
+                break;
+            case "Алая":
+                room.setBackgroundResource(R.drawable.alayaroom);
+                break;
         }
 
         switch (kind) {
@@ -149,7 +170,39 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
-    private void GetLastPetIndex(String fileName){
+    private enum Opertion {
+        Write, Read;
+    }
+
+    private void MoneyReadWrite(Opertion opertion, String fileName) {
+        switch (opertion) {
+            case Write:
+                try {
+                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
+                    bw.write(String.valueOf(money));
+                    bw.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Read:
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
+                    money = Integer.valueOf(br.readLine());
+                    tvMoney.setText("Монет: " + money);
+                    br.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    private void GetLastPetIndex(String fileName) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
             petIndex = Integer.valueOf(br.readLine());
@@ -161,7 +214,7 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
-    private void WriteLastPetIndex(String fileName){
+    private void WriteLastPetIndex(String fileName) {
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             bw.write(String.valueOf(petIndex));
@@ -173,7 +226,7 @@ public class Room extends Activity implements View.OnClickListener{
         }
     }
 
-    private void UpdateDataBase(){
+    private void UpdateDataBase() {
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -181,41 +234,7 @@ public class Room extends Activity implements View.OnClickListener{
         cv.put("PetType", kind);
         cv.put("RoomColor", roomColor);
         cv.put("money", money);
-        db.update("myDataTable", cv, "id = ?", new String[]{ String.valueOf(petIndex) });//Метод работает неправильно
-    }
-
-    private void CheckDataBaseAndFillLists(){
-        ClearPetLists();
-        namesOldPets.add("Новый питомец");
-        DBHelper dbHelper = new DBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = null;
-        try {
-            c = db.query("myDataTable", null, null, null, null, null, null);
-        }catch (Exception e){return;}
-        // ставим позицию курсора на первую строку выборки. Если в выборке нет строк, вернется false
-        if (c.moveToFirst()) {// определяем номера столбцов по имени в выборке
-            int nameColIndex = c.getColumnIndex("name");
-            int PetTypeColIndex = c.getColumnIndex("PetType");
-            int RoomColorColIndex = c.getColumnIndex("RoomColor");
-            int MoneyColIndex = c.getColumnIndex("money");
-            do {//получаем значения по номерам столбцов
-                namesOldPets.add(c.getString(nameColIndex));
-                oldPetTypes.add(c.getString(PetTypeColIndex));
-                oldRoomColors.add(c.getString(RoomColorColIndex));
-                moneyList.add(c.getInt(MoneyColIndex));
-            } while (c.moveToNext());
-        }else return;
-        c.close();
+        db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""});
         dbHelper.close();
-        return;
     }
-
-    private void ClearPetLists(){
-        namesOldPets = new ArrayList<>();
-        oldPetTypes = new ArrayList<>();
-        oldRoomColors = new ArrayList<>();
-        moneyList = new ArrayList<>();
-    }
-
 }

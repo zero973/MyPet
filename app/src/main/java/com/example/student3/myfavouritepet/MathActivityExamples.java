@@ -191,7 +191,7 @@ public class MathActivityExamples extends AppCompatActivity {
             case 1: result = f1 - f2; break;
             case 2: result = f1 * f2; break;
         }
-        rightAnswers = result;
+        rightAnswer = result;
     }
 
     void CheckRightAnswers(){

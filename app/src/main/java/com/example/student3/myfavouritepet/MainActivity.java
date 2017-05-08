@@ -41,8 +41,6 @@ public class MainActivity extends Activity {
         //Адаптер спиннера с цветом комнаты
         ArrayAdapter<String> adapterRoomColor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomColors);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Адаптер спиннера с прошлыми питомцами
-        ArrayAdapter<String> adapterOldKinds = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, namesOldPets);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         EditTextName = (EditText) findViewById(R.id.editTextName);
         butGoGame = (Button) findViewById(R.id.buttonGoGame);
@@ -68,9 +66,11 @@ public class MainActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        if (namesOldPets.size() == 1)
+        if (!CheckDataBaseAndFillLists())
             SpinnerOldKinds.setVisibility(View.INVISIBLE);
         else {
+            //Адаптер спиннера с прошлыми питомцами
+            ArrayAdapter<String> adapterOldKinds = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, namesOldPets);
             SpinnerOldKinds.setVisibility(View.VISIBLE);
             SpinnerOldKinds.setAdapter(adapterOldKinds);
         }
@@ -84,11 +84,9 @@ public class MainActivity extends Activity {
                 writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()],
                         roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
                 PutData();
-                if (moneyList.isEmpty())
-                    Room.petIndex = 0;
-                else
-                    Room.petIndex = moneyList.size();
+                Room.petIndex = moneyList.size();
                 Room.IsIWentFromMainActivity = true;
+                Room.money = 100;
                 finish();
             }
         });
@@ -116,5 +114,42 @@ public class MainActivity extends Activity {
         cv.put("money", 100);
         db.insert("myDataTable", null, cv);
         dbHelper.close();
+    }
+
+    private boolean CheckDataBaseAndFillLists(){
+        ClearPetLists();
+        namesOldPets.add("Новый питомец");
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = null;
+        try {
+            c = db.query("myDataTable", null, null, null, null, null, null);
+        }catch (Exception e){
+            dbHelper.close();
+            return false;
+        }
+        // ставим позицию курсора на первую строку выборки. Если в выборке нет строк, вернется false
+        if (c.moveToFirst()) {// определяем номера столбцов по имени в выборке
+            int nameColIndex = c.getColumnIndex("name");
+            int PetTypeColIndex = c.getColumnIndex("PetType");
+            int RoomColorColIndex = c.getColumnIndex("RoomColor");
+            int MoneyColIndex = c.getColumnIndex("money");
+            do {//получаем значения по номерам столбцов
+                namesOldPets.add(c.getString(nameColIndex));
+                oldPetTypes.add(c.getString(PetTypeColIndex));
+                oldRoomColors.add(c.getString(RoomColorColIndex));
+                moneyList.add(c.getInt(MoneyColIndex));
+            } while (c.moveToNext());
+        }else return false;
+        c.close();
+        dbHelper.close();
+        return true;
+    }
+
+    private void ClearPetLists(){
+        namesOldPets = new ArrayList<>();
+        oldPetTypes = new ArrayList<>();
+        oldRoomColors = new ArrayList<>();
+        moneyList = new ArrayList<>();
     }
 }
