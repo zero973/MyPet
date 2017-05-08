@@ -42,6 +42,7 @@ public class MathActivityDescrim extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userAnswer = edUserAnswer.getText().toString();
                 if (userAnswer.equals(trueAnswer)){
                     Room.money += 2;
                     countRightAnswers++;
