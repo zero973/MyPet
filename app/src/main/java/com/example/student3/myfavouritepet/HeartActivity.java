@@ -93,13 +93,13 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.arm:
                 intent = new Intent(this, CaressActivity.class);
-                ArmOrBall = 1;
+                ArmOrBall = 0;
                 startActivity(intent);
                 break;
             case R.id.ball:
                 if (IsBallBought) {
                     intent = new Intent(this, CaressActivity.class);
-                    ArmOrBall = 2;
+                    ArmOrBall = 1;
                     startActivity(intent);
                 } else
                     StorageActivity.ShowToast("Купите мяч!", this);

@@ -1,12 +1,16 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.RequiresPermission;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +18,14 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.student3.myfavouritepet.MainActivity.moneyList;
 import static com.example.student3.myfavouritepet.MainActivity.namesOldPets;
@@ -30,11 +34,16 @@ import static com.example.student3.myfavouritepet.MainActivity.oldRoomColors;
 
 public class Room extends Activity implements View.OnClickListener {
 
-    public static String name = "250801", kind, roomColor;
-    public static int money = 100;
-    public static int petIndex = -1;
-    RelativeLayout room;
+    public static String name = "250801250801", kind, roomColor;
+    public static int money = 100, petIndex = -1, satiety = 50, caress = 50;
+    private int countDeadMessage = 0;
+    private boolean IsPetSatiety = true, IsPerCaress = true;
+    private static final int NOTIFY_ID = 101;
 
+    private Timer timer;
+    private MyTimerTask timerTask;
+
+    RelativeLayout room;
     ImageButton IBPet, IBFood, IBHealth, IBAchievement;
     Button btnChangePet;
     TextView tvPetName, tvMoney;
@@ -57,12 +66,15 @@ public class Room extends Activity implements View.OnClickListener {
         tvMoney = (TextView) findViewById(R.id.textViewMoney);
 
         readFile("PetInfo");
-        if (name.equals("250801")) {
+        if (name.equals("250801250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
         } else {
             GetLastPetIndex("PetIndex");
             MoneyReadWrite(Opertion.Read, "PetMoney");
+            CheckStatus();
+            StartTimer();
+            Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
         }
     }
 
@@ -83,10 +95,16 @@ public class Room extends Activity implements View.OnClickListener {
         super.onResume();
         tvMoney.setText("Монет: " + money);
         readFile("PetInfo");
+        CheckStatus();
     }
 
     @Override
     public void onClick(View v) {
+        //Не робит!!!
+        Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
+        //Не робит!!!
+        SendNotification("Мой любимый питомец", "Поиграй со мной!", R.drawable.home);
+        boolean IsNeedReplaceActivity = true;
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.buttonChangePet:
@@ -96,6 +114,9 @@ public class Room extends Activity implements View.OnClickListener {
                 intent = new Intent(Room.this, School.class);
                 break;
             case R.id.imageButtonPet:
+                Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
+                Log.e("Инфа", "Сытость: " + satiety + " Настроение: " + caress);
+                IsNeedReplaceActivity = false;
                 break;
             case R.id.imageButtonFood:
                 intent = new Intent(Room.this, StorageActivity.class);
@@ -104,11 +125,8 @@ public class Room extends Activity implements View.OnClickListener {
                 intent = new Intent(Room.this, HeartActivity.class);
                 break;
         }
-        try {//Доделай кнопки, потом уберёшь этот блок
+        if (IsNeedReplaceActivity)
             startActivity(intent);
-        } catch (Exception e) {
-
-        }
     }
 
     private void RecolorRoom() {
@@ -236,5 +254,81 @@ public class Room extends Activity implements View.OnClickListener {
         cv.put("money", money);
         db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""});
         dbHelper.close();
+    }
+
+    private void CheckStatus(){
+        if (satiety >= 75)
+            IsPetSatiety = true;
+        else {
+            IsPetSatiety = false;
+            SendNotification("Мой любимый питомец", "Я хочу кушать!", R.drawable.home);
+        }
+        if (caress >= 100) {
+            caress = 100;//Пользователь может гладить питомца без ограничеий, поэтому делаю так
+            IsPerCaress = true;
+        }
+        if (caress < 20){
+            IsPerCaress = false;
+            SendNotification("Мой любимый питомец", "Поиграй со мной!", R.drawable.home);
+        }
+    }
+
+    private String GetPetStatus(){
+        return null;
+    }
+
+    private void StartTimer(){
+        timer = new Timer();
+        timerTask = new MyTimerTask();
+        timer.schedule(timerTask, 0, 1000*60);
+    }
+
+    private void PetDead(){
+        SendNotification("Ты плохой хозяин", "Я умер", R.drawable.skull);
+    }
+
+    private void SendNotification(String title, String text, int icon){
+        Context context = getApplicationContext();
+        Intent notificationIntent = new Intent(context, Room.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context,
+                0, notificationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        Notification.Builder builder = new Notification.Builder(context);
+
+        builder.setContentIntent(contentIntent)
+                .setSmallIcon(icon)
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentText(text);
+
+        Notification notification = builder.getNotification(); // до API 16
+        //Notification notification = builder.build();
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFY_ID, notification);
+    }
+
+    class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+            if (countDeadMessage > 5) {
+                PetDead();
+            }else {
+                if (satiety-1 > 10 && caress-2 > 10) {
+                    satiety -= 1;
+                    caress -= 2;
+                    CheckStatus();
+                }else
+                    countDeadMessage++;
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
     }
 }

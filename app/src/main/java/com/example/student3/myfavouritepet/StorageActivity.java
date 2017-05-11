@@ -24,8 +24,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     ImageButton IBplusWaterMelon, IBplusPear, IBplusStrawberry, IBplusApple, IBplusLemon, IBplusMorkov, IBplusPotato, IBplusIcecream;
     ImageButton IBWaterMelon, IBPear, IBStrawberry, IBApple, IBLemon, IBMorkov, IBPotato, IBIcecream;
 
-    public static byte[] counts = new byte[8];
-    byte[] foodCosts = {15, 5, 8, 3, 10, 10, 7, 25};
+    public static byte[] counts = new byte[8], foodCosts = {15, 5, 8, 3, 10, 10, 7, 25};
     public static byte FoodIndex = 0;
 
     @Override
@@ -108,7 +107,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         ChangeTVCounts();
     }
 
-    void SaveCounts(String fileName){
+    private void SaveCounts(String fileName){
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             for (int i = 0; i < 8; i++)
@@ -121,7 +120,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    void ReadCounts(String fileName) {
+    private void ReadCounts(String fileName) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
             String countsInFile = br.readLine();
@@ -142,7 +141,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    void BuyFood(int FoodIndex){
+    private void BuyFood(int FoodIndex){
         if (Room.money - foodCosts[FoodIndex] > -1)
             if (CheckFoodOnOverflow(FoodIndex))
                 Room.money -= foodCosts[FoodIndex];
@@ -154,7 +153,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         ChangeTVCounts();
     }
 
-    void ChangeTVCounts(){
+    private void ChangeTVCounts(){
         tvCountWatermelon.setText(""+counts[0]);
         tvCountPear.setText(""+counts[1]);
         tvCountStrawberry.setText(""+counts[2]);
@@ -165,7 +164,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         tvCountIcecream.setText(""+counts[7]);
     }
 
-    boolean CheckFoodOnOverflow(int foodIndex){
+    private boolean CheckFoodOnOverflow(int foodIndex){
         if(counts[foodIndex]+1 < 101) {
             counts[foodIndex]++;
             return true;

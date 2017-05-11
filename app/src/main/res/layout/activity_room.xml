@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/room"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/black">
 
     <ImageButton
         android:layout_width="50dp"

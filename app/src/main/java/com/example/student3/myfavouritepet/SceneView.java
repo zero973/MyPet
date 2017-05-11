@@ -58,15 +58,15 @@ public class SceneView extends View {
             Toast.makeText(context, "Очень вкусно!", Toast.LENGTH_SHORT).show();
     }
 
-    private void SetBackgroundSizeAndPetPoints(){
+    private void SetBackgroundSizeAndPetPoints() {
         //destination rectangle
         display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         rDest = new Rect(0, 0, display.getWidth(), display.getHeight());
-        paintKindX = display.getWidth() /2 - 150;
+        paintKindX = display.getWidth() / 2 - 150;
         paintKindY = display.getHeight() / 2 - 100;
     }
 
-    private void LoadPet(){
+    private void LoadPet() {
         switch (Room.kind) {
             case "Собака":
                 paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petdog);
@@ -87,7 +87,7 @@ public class SceneView extends View {
         paintKind = Bitmap.createScaledBitmap(paintKind, 300, 340, false);
     }
 
-    private void LoadBackground(){
+    private void LoadBackground() {
         switch (Room.roomColor) {
             case "Синяя":
                 backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blueroom);
@@ -108,7 +108,7 @@ public class SceneView extends View {
         rSrc = new Rect(0, 0, backgroundPaint.getWidth(), backgroundPaint.getHeight());
     }
 
-    private void LoadHeartAndSetAnimation(){
+    private void LoadHeartAndSetAnimation() {
         bitmapHeart = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
         bitmapHeart = Bitmap.createScaledBitmap(bitmapHeart, 100, 100, false);
         bitmapHeart = RotateBitmap(bitmapHeart, -180);
@@ -119,7 +119,7 @@ public class SceneView extends View {
         HeartPoints.add(new PointF(paintKindX, paintKindY + 200));
     }
 
-    private void SwitchWhoCalled(){
+    private void SwitchWhoCalled() {
         if (WhoCalled == 1) {
             SwitchIndexArmOrBallAndSetAnimation();
         } else {
@@ -127,26 +127,26 @@ public class SceneView extends View {
         }
     }
 
-    private void SwitchIndexArmOrBallAndSetAnimation(){
-        byte indexArmOrBall = 0;
+    private byte indexArmOrBall;
+    private void SwitchIndexArmOrBallAndSetAnimation() {
         indexArmOrBall = HeartActivity.ArmOrBall;
         switch (indexArmOrBall) {
-            case 1:
+            case 0:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.arm);
                 bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 150, false);
                 bmSprite = RotateBitmap(bmSprite, -90);
                 iMaxAnimationStep = 75;
                 break;
-            case 2:
+            case 1:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.ball);
                 bmSprite = Bitmap.createScaledBitmap(bmSprite, 150, 150, false);
                 break;
         }
 
-        if (indexArmOrBall == 1) {
-            bmSpritePoints.add(new PointF(paintKindX+200, paintKindY-50));
-            bmSpritePoints.add(new PointF(paintKindX+100, paintKindY-50));
-            bmSpritePoints.add(new PointF(paintKindX, paintKindY-50));
+        if (indexArmOrBall == 0) {
+            bmSpritePoints.add(new PointF(paintKindX + 200, paintKindY - 50));
+            bmSpritePoints.add(new PointF(paintKindX + 100, paintKindY - 50));
+            bmSpritePoints.add(new PointF(paintKindX, paintKindY - 50));
         } else {
             iMaxAnimationStep = 100;
             bmSpritePoints.add(new PointF(100f, 200f));
@@ -158,7 +158,7 @@ public class SceneView extends View {
         }
     }
 
-    private void SwitchFoodIndexAndSetAnimationForFood(){
+    private void SwitchFoodIndexAndSetAnimationForFood() {
         switch (StorageActivity.FoodIndex) {
             case 1:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);
@@ -204,15 +204,15 @@ public class SceneView extends View {
         iMaxAnimationStep = 75;
         bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
         bmSprite = RotateBitmap(bmSprite, 90);
-        final int tochka = display.getWidth()/2+100;
+        final int tochka = display.getWidth() / 2 + 100;
         final int displayHeight = display.getHeight();
-        bmSpritePoints.add(new PointF(tochka, displayHeight-100));
-        bmSpritePoints.add(new PointF(tochka, displayHeight-200));
-        bmSpritePoints.add(new PointF(tochka, displayHeight-300));
-        bmSpritePoints.add(new PointF(tochka, displayHeight-400));
+        bmSpritePoints.add(new PointF(tochka, displayHeight - 100));
+        bmSpritePoints.add(new PointF(tochka, displayHeight - 200));
+        bmSpritePoints.add(new PointF(tochka, displayHeight - 300));
+        bmSpritePoints.add(new PointF(tochka, displayHeight - 400));
     }
 
-    private void CreatePathAnimation(List<PointF> aPoints){
+    private void CreatePathAnimation(List<PointF> aPoints) {
         PointF point = aPoints.get(0);
         ptCurve.moveTo(point.x, point.y);
         for (int i = 0; i < aPoints.size() - 1; i++) {
@@ -228,7 +228,7 @@ public class SceneView extends View {
         paint.setColor(Color.rgb(0, 148, 255));*/
     }
 
-    private void MinusFood(){
+    private void MinusFood() {
         elementCount--;
         StorageActivity.counts[elementId]--;
     }
@@ -252,9 +252,9 @@ public class SceneView extends View {
         }
     }
 
-    boolean IsAnimationbmSpriteEnd = false;
+    private boolean IsAnimationbmSpriteEnd = false;
 
-    private void DrawAnimation(Canvas canvas, Bitmap sprite){
+    private void DrawAnimation(Canvas canvas, Bitmap sprite) {
         Matrix mxTransform = new Matrix();
         if (iCurStep <= iMaxAnimationStep) {
             pm.getMatrix(fSegmentLen * iCurStep, mxTransform, PathMeasure.POSITION_MATRIX_FLAG + PathMeasure.TANGENT_MATRIX_FLAG);
@@ -267,7 +267,7 @@ public class SceneView extends View {
             if (WhoCalled == 1 && sprite.equals(bmSprite)) {
                 IsAnimationbmSpriteEnd = true;
                 CreatePathAnimation(HeartPoints);
-            }else {
+            } else {
                 IsAnimationbmSpriteEnd = false;
                 CreatePathAnimation(bmSpritePoints);
             }
@@ -275,13 +275,23 @@ public class SceneView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
-        if (WhoCalled == 2 && elementCount > 0)
-            ShowThankForEat();
-        if (elementCount > 0) {
+    public boolean onTouchEvent(MotionEvent event) {
+        byte[] cost = {5, 15};
+        if (WhoCalled == 2 && elementCount > 0) {
+            if (IncreaseStatus(Status.Satiety, StorageActivity.foodCosts[elementId]))
+                ShowThankForEat();
+            else
+                Toast.makeText(getContext(), "Я наелся!", Toast.LENGTH_SHORT);
+        }
+        else if (WhoCalled == 1){
+            IncreaseStatus(Status.Caress, cost[indexArmOrBall]);
+            Draw(event);
+            return true;
+        }
+        if (elementCount > 0 && WhoCalled == 2) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {//run animation
                 MinusFood();
-                invalidate();
+                Draw(event);
                 return true;
             }
             return false;
@@ -291,10 +301,10 @@ public class SceneView extends View {
         }
     }
 
-    int i = 0, b = 0;
+    private int i = 0, b = 0;
     String[] wordsMassEat = {"Спасибо!", "Очень вкусно!", "Благодарю!"};
 
-    private void ShowThankForEat(){
+    private void ShowThankForEat() {
         if (i % 2 != 0) {
             if (wordsMassEat.length == b)
                 b = 0;
@@ -302,5 +312,29 @@ public class SceneView extends View {
             b++;
         }
         i++;
+    }
+
+    private enum Status {
+        Satiety, Caress;
+    }
+
+    private boolean IncreaseStatus(Status status, int count) {
+        switch (status) {
+            case Satiety:
+                if (Room.satiety + count >= 75) //75, т.к. мороженое стоит 25
+                    return false;
+                else
+                    Room.satiety += count;
+                break;
+            case Caress:
+                Room.satiety += count;
+                break;
+        }
+        return true;
+    }
+
+    private void Draw(MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_DOWN)//run animation
+            invalidate();
     }
 }
