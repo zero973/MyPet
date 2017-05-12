@@ -103,7 +103,6 @@ public class Room extends Activity implements View.OnClickListener {
         //Не робит!!!
         Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
         //Не робит!!!
-        SendNotification("Мой любимый питомец", "Поиграй со мной!", R.drawable.home);
         boolean IsNeedReplaceActivity = true;
         Intent intent = new Intent();
         switch (v.getId()) {
@@ -257,7 +256,7 @@ public class Room extends Activity implements View.OnClickListener {
     }
 
     private void CheckStatus(){
-        if (satiety >= 75)
+        if (satiety >= 11)
             IsPetSatiety = true;
         else {
             IsPetSatiety = false;
@@ -267,7 +266,7 @@ public class Room extends Activity implements View.OnClickListener {
             caress = 100;//Пользователь может гладить питомца без ограничеий, поэтому делаю так
             IsPerCaress = true;
         }
-        if (caress < 20){
+        if (caress < 12){
             IsPerCaress = false;
             SendNotification("Мой любимый питомец", "Поиграй со мной!", R.drawable.home);
         }

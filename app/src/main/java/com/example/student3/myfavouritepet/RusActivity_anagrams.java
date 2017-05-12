@@ -1,6 +1,10 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,6 +60,8 @@ public class RusActivity_anagrams extends AppCompatActivity {
                     GoPlayAnagram();
                 }
                 else {
+                    if (UserWord.getText().toString().equals("debug"))
+                        SendNotification("Мой любимый питомец", "debug", R.drawable.home);
                     if (trueWord.toLowerCase().equals(UserWord.getText().toString().toLowerCase())) {
                         countRightAnswers++;
                         Room.money += 2;
@@ -83,7 +89,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    void GoPlayAnagram(){
+    private void GoPlayAnagram(){
         if (level == 1){
             if (indexWord < 20)
                 trueWord = words1[indexWord];
@@ -120,7 +126,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
         indexWord++;
     }
 
-    String GenerateWord(String word){
+    private String GenerateWord(String word){
         boolean[] stroka = new boolean[word.length()];
         byte index;
         Random rand = new Random();
@@ -140,7 +146,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
         return result;
     }
 
-    String ToUpperText(String word){
+    private String ToUpperText(String word){
         String result = "";
         word = word.toUpperCase();
         for (int i = 0; i < word.length(); i++){
@@ -166,5 +172,27 @@ public class RusActivity_anagrams extends AppCompatActivity {
             }else i--;
         }
         return result;
+    }
+
+    private void SendNotification(String title, String text, int icon){
+        Context context = getApplicationContext();
+        Intent notificationIntent = new Intent(context, Room.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context,
+                0, notificationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        Notification.Builder builder = new Notification.Builder(context);
+
+        builder.setContentIntent(contentIntent)
+                .setSmallIcon(icon)
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentText(text);
+
+        Notification notification = builder.getNotification(); // до API 16
+        //Notification notification = builder.build();
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(101, notification);
     }
 }
