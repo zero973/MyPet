@@ -162,42 +162,42 @@ public class SceneView extends View {
         switch (StorageActivity.FoodIndex) {
             case 1:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);
-                elementCount = StorageActivity.counts[0];
+                elementCount = StorageActivity.foodCounts[0];
                 elementId = 0;
                 break;
             case 2:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);
-                elementCount = StorageActivity.counts[1];
+                elementCount = StorageActivity.foodCounts[1];
                 elementId = 1;
                 break;
             case 3:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);
-                elementCount = StorageActivity.counts[2];
+                elementCount = StorageActivity.foodCounts[2];
                 elementId = 2;
                 break;
             case 4:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);
-                elementCount = StorageActivity.counts[3];
+                elementCount = StorageActivity.foodCounts[3];
                 elementId = 3;
                 break;
             case 5:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);
-                elementCount = StorageActivity.counts[4];
+                elementCount = StorageActivity.foodCounts[4];
                 elementId = 4;
                 break;
             case 6:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);
-                elementCount = StorageActivity.counts[5];
+                elementCount = StorageActivity.foodCounts[5];
                 elementId = 5;
                 break;
             case 7:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);
-                elementCount = StorageActivity.counts[6];
+                elementCount = StorageActivity.foodCounts[6];
                 elementId = 6;
                 break;
             case 8:
                 bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);
-                elementCount = StorageActivity.counts[7];
+                elementCount = StorageActivity.foodCounts[7];
                 elementId = 7;
                 break;
         }
@@ -230,7 +230,7 @@ public class SceneView extends View {
 
     private void MinusFood() {
         elementCount--;
-        StorageActivity.counts[elementId]--;
+        StorageActivity.foodCounts[elementId]--;
     }
 
     public static Bitmap RotateBitmap(Bitmap source, float angle) {

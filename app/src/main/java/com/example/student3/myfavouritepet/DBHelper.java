@@ -13,6 +13,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {// создаем таблицу с полями
         db.execSQL("create table myDataTable (id integer primary key autoincrement,name text,PetType text,RoomColor text, money integer);");
+        db.execSQL("create table FoodTable (id integer primary key autoincrement,Watermelon integer,Pear integer,Strawberry integer, Apple integer, Lemon integer, Morkov integer, Potato integer, Icecream integer);");
     }
 
     @Override

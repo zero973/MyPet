@@ -1,8 +1,11 @@
 package com.example.student3.myfavouritepet;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,12 +23,18 @@ import java.io.OutputStreamWriter;
 
 public class StorageActivity extends Activity implements View.OnClickListener{
 
-    TextView tvCountWatermelon, tvCountPear, tvCountStrawberry, tvCountApple, tvCountLemon, tvCountMorkov, tvCountPotato, tvCountIcecream;
-    ImageButton IBplusWaterMelon, IBplusPear, IBplusStrawberry, IBplusApple, IBplusLemon, IBplusMorkov, IBplusPotato, IBplusIcecream;
-    ImageButton IBWaterMelon, IBPear, IBStrawberry, IBApple, IBLemon, IBMorkov, IBPotato, IBIcecream;
+    private TextView tvCountWatermelon, tvCountPear, tvCountStrawberry, tvCountApple, tvCountLemon, tvCountMorkov, tvCountPotato, tvCountIcecream;
+    private ImageButton IBplusWaterMelon, IBplusPear, IBplusStrawberry, IBplusApple, IBplusLemon, IBplusMorkov, IBplusPotato, IBplusIcecream;
+    private ImageButton IBWaterMelon, IBPear, IBStrawberry, IBApple, IBLemon, IBMorkov, IBPotato, IBIcecream;
 
-    public static byte[] counts = new byte[8], foodCosts = {15, 5, 8, 3, 10, 10, 7, 25};
-    public static byte FoodIndex = 0;
+    public static byte[] foodCounts = new byte[8], foodCosts = {15, 5, 8, 3, 10, 10, 7, 25};
+    public static int FoodIndex = 0;
+
+    private int countLinesInDB = 0;
+    private String[] MassOfFoodNames = {"Watermelon", "Pear", "Strawberry", "Apple", "Lemon", "Morkov", "Potato", "Icecream"};
+
+    private Context c;
+    private Intent intent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +80,16 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         IBMorkov.setOnClickListener(this);
         IBPotato.setOnClickListener(this);
         IBIcecream.setOnClickListener(this);
-        ReadCounts("CountFood");
+        c = getApplicationContext();
+        if (countLinesInDB <= Room.petIndex)
+            AddNewFoodCountsToDBTable();
+        else
+            ReadFoodCounts();
         ChangeTVCounts();
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = null;
         SceneView.WhoCalled = 2;
         switch (v.getId()) {
             case R.id.plusWaterMelon: BuyFood(0); break;
@@ -88,57 +100,97 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             case R.id.plusMorkov: BuyFood(5);break;
             case R.id.plusPotato: BuyFood(6);break;
             case R.id.plusIcecream: BuyFood(7);break;
-            case R.id.Watermelon: if (counts[0] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 1;}else ShowToast("Сначала купите еду!", getApplicationContext());break;
-            case R.id.Pear: if (counts[1] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 2;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
-            case R.id.Strawberry: if (counts[2] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 3;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
-            case R.id.Apple: if (counts[3] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 4;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
-            case R.id.Lemon: if (counts[4] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 5;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
-            case R.id.Morkov: if (counts[5] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 6;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
-            case R.id.Potato: if (counts[6] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 7;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
-            case R.id.Icecream: if (counts[7] > 0) {intent = new Intent(this, CaressActivity.class); FoodIndex = 8;}else ShowToast("Сначала купите еду!", getApplicationContext()); break;
+            case R.id.Watermelon: CheckOnZeroCount(0); break;
+            case R.id.Pear: CheckOnZeroCount(1); break;
+            case R.id.Strawberry: CheckOnZeroCount(2); break;
+            case R.id.Apple: CheckOnZeroCount(3); break;
+            case R.id.Lemon: CheckOnZeroCount(4); break;
+            case R.id.Morkov: CheckOnZeroCount(5); break;
+            case R.id.Potato: CheckOnZeroCount(6); break;
+            case R.id.Icecream: CheckOnZeroCount(7); break;
         }
-        SaveCounts("CountFood");
         if (intent != null) startActivity(intent);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        countLinesInDB = GetCountLinesInDBTable();
         ChangeTVCounts();
     }
 
-    private void SaveCounts(String fileName){
-        try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-            for (int i = 0; i < 8; i++)
-                bw.write(String.format(counts[i] + " "));
-            bw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (countLinesInDB >= Room.petIndex)//С какого индекса начинать? - Айнур, help
+            UpdateDataBase();
+        else
+            AddNewFoodCountsToDBTable();
     }
 
-    private void ReadCounts(String fileName) {
+    private void ReadFoodCounts(){
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c;
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            String countsInFile = br.readLine();
-            int j = 0;
-            for (int i = 0; i < 8; i++){
-                String chislo = "";
-                while (countsInFile.charAt(j) != ' '){
-                    chislo += countsInFile.charAt(j);
-                    j++;
-                }
-                counts[i] = Byte.valueOf(chislo);
-                j++;
-            }
-        }catch (FileNotFoundException e) {
-            SaveCounts("CountFood");
-        }catch (IOException e) {
-            e.printStackTrace();
+            c = db.query("FoodTable", null, null, null, null, null, null);
+        }catch (Exception e){
+            dbHelper.close();
+            return;
         }
+        if (c.moveToFirst()) {
+            for (int i = 0;  i < Room.petIndex; i++)//С какого индекса начинать? - Айнур, help
+                c.moveToNext();
+            for (int i = 0; i < MassOfFoodNames.length; i++)
+                foodCounts[i] = (byte)c.getInt(c.getColumnIndex(MassOfFoodNames[i]));
+        }else return;
+        return;
+    }
+
+    private void AddNewFoodCountsToDBTable(){
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        for (int i = 0; i < MassOfFoodNames.length; i++) {
+            cv.put(MassOfFoodNames[i], 0);
+            foodCounts[i] = 0;
+        }
+        db.insert("FoodTable", null, cv);
+        dbHelper.close();
+    }
+
+    private int GetCountLinesInDBTable(){
+        int result = 0;
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c;
+        try {
+            c = db.query("FoodTable", null, null, null, null, null, null);
+        }catch (Exception e){
+            dbHelper.close();
+            return result;
+        }
+        while (c.moveToNext())
+            result++;
+        return result;
+    }
+
+    private void UpdateDataBase() {
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        for (int i = 0; i < MassOfFoodNames.length; i++)
+            cv.put(MassOfFoodNames[i], foodCounts[i]);
+        //db.update("FoodTable", cv, "id = ?", new String[]{Room.petIndex+""}); НЕКОРРЕКТНАЯ РАБОТА
+        dbHelper.close();
+    }
+
+    private void CheckOnZeroCount(int index){
+        if (foodCounts[index] > 0) {
+            intent = new Intent(this, CaressActivity.class);
+            FoodIndex = index+1;
+        }else
+            ShowToast("Сначала купите еду!", c);
     }
 
     private void BuyFood(int FoodIndex){
@@ -154,19 +206,19 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     }
 
     private void ChangeTVCounts(){
-        tvCountWatermelon.setText(""+counts[0]);
-        tvCountPear.setText(""+counts[1]);
-        tvCountStrawberry.setText(""+counts[2]);
-        tvCountApple.setText(""+counts[3]);
-        tvCountLemon.setText(""+counts[4]);
-        tvCountMorkov.setText(""+counts[5]);
-        tvCountPotato.setText(""+counts[6]);
-        tvCountIcecream.setText(""+counts[7]);
+        tvCountWatermelon.setText(""+foodCounts[0]);
+        tvCountPear.setText(""+foodCounts[1]);
+        tvCountStrawberry.setText(""+foodCounts[2]);
+        tvCountApple.setText(""+foodCounts[3]);
+        tvCountLemon.setText(""+foodCounts[4]);
+        tvCountMorkov.setText(""+foodCounts[5]);
+        tvCountPotato.setText(""+foodCounts[6]);
+        tvCountIcecream.setText(""+foodCounts[7]);
     }
 
     private boolean CheckFoodOnOverflow(int foodIndex){
-        if(counts[foodIndex]+1 < 101) {
-            counts[foodIndex]++;
+        if(foodCounts[foodIndex]+1 < 101) {
+            foodCounts[foodIndex]++;
             return true;
         }
         else

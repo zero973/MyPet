@@ -27,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.student3.myfavouritepet.MainActivity.moneyList;
 import static com.example.student3.myfavouritepet.MainActivity.namesOldPets;
 import static com.example.student3.myfavouritepet.MainActivity.oldPetTypes;
@@ -74,17 +75,17 @@ public class Room extends Activity implements View.OnClickListener {
             MoneyReadWrite(Opertion.Read, "PetMoney");
             CheckStatus();
             StartTimer();
-            Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
+            //Тост не выводит
+            Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT);
         }
     }
 
-    public static boolean IsIWentFromMainActivity = false;
+    //public static boolean IsIWentFromMainActivity = false;
 
     @Override
     public void onPause() {
         super.onPause();
-        Toast.makeText(getApplicationContext(), "Debug: invoked onPause()", Toast.LENGTH_LONG);
-        Log.e("Debug", "Invoked onPause()");
+        Toast.makeText(getApplicationContext(), "Debug: invoked onPause()", LENGTH_SHORT);
         UpdateDataBase();
         WriteLastPetIndex("PetIndex");
         MoneyReadWrite(Opertion.Write, "PetMoney");
@@ -100,9 +101,9 @@ public class Room extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //Не робит!!!
-        Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
-        //Не робит!!!
+        //Не выводит!!!
+        Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT);
+        //Не выводит!!!
         boolean IsNeedReplaceActivity = true;
         Intent intent = new Intent();
         switch (v.getId()) {
@@ -113,7 +114,7 @@ public class Room extends Activity implements View.OnClickListener {
                 intent = new Intent(Room.this, School.class);
                 break;
             case R.id.imageButtonPet:
-                Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT);
                 Log.e("Инфа", "Сытость: " + satiety + " Настроение: " + caress);
                 IsNeedReplaceActivity = false;
                 break;
@@ -180,15 +181,13 @@ public class Room extends Activity implements View.OnClickListener {
                 RecolorRoom();
                 tvPetName.setText(name);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private enum Opertion {
-        Write, Read;
+        Write, Read
     }
 
     private void MoneyReadWrite(Opertion opertion, String fileName) {
@@ -198,8 +197,6 @@ public class Room extends Activity implements View.OnClickListener {
                     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
                     bw.write(String.valueOf(money));
                     bw.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -210,8 +207,6 @@ public class Room extends Activity implements View.OnClickListener {
                     money = Integer.valueOf(br.readLine());
                     tvMoney.setText("Монет: " + money);
                     br.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -219,26 +214,22 @@ public class Room extends Activity implements View.OnClickListener {
         }
     }
 
-    private void GetLastPetIndex(String fileName) {
+    private void GetLastPetIndex(String fileName){
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
             petIndex = Integer.valueOf(br.readLine());
             br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private void WriteLastPetIndex(String fileName) {
+    private void WriteLastPetIndex(String fileName){
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             bw.write(String.valueOf(petIndex));
             bw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -251,7 +242,7 @@ public class Room extends Activity implements View.OnClickListener {
         cv.put("PetType", kind);
         cv.put("RoomColor", roomColor);
         cv.put("money", money);
-        db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""});
+        //db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""}); НЕКОРРЕКТНО РАБОТАЕТ
         dbHelper.close();
     }
 
@@ -308,7 +299,7 @@ public class Room extends Activity implements View.OnClickListener {
         notificationManager.notify(NOTIFY_ID, notification);
     }
 
-    class MyTimerTask extends TimerTask{
+    private class MyTimerTask extends TimerTask{
 
         @Override
         public void run() {

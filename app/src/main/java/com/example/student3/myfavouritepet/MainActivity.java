@@ -50,22 +50,6 @@ public class MainActivity extends Activity {
         SpinnerRoomColor.setAdapter(adapterRoomColor);
         SpinnerOldKinds = (Spinner)findViewById(R.id.choosedOldData);
 
-        SpinnerOldKinds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
-                    Room.petIndex = position;
-                    Room.money = moneyList.get(position-1);
-                    Room.IsIWentFromMainActivity = true;
-                    finish();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
         if (!CheckDataBaseAndFillLists())
             SpinnerOldKinds.setVisibility(View.INVISIBLE);
         else {
@@ -74,6 +58,21 @@ public class MainActivity extends Activity {
             SpinnerOldKinds.setVisibility(View.VISIBLE);
             SpinnerOldKinds.setAdapter(adapterOldKinds);
         }
+
+        SpinnerOldKinds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
+                    Room.petIndex = position-1;
+                    Room.money = moneyList.get(position-1);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
         butGoGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +84,6 @@ public class MainActivity extends Activity {
                         roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
                 PutData();
                 Room.petIndex = moneyList.size();
-                Room.IsIWentFromMainActivity = true;
                 Room.money = 100;
                 finish();
             }
@@ -121,7 +119,7 @@ public class MainActivity extends Activity {
         namesOldPets.add("Новый питомец");
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = null;
+        Cursor c;
         try {
             c = db.query("myDataTable", null, null, null, null, null, null);
         }catch (Exception e){
