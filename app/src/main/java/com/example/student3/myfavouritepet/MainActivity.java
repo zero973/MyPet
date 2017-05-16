@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
-                    Room.petIndex = position-1;
+                    Room.petIndex = position;
                     Room.money = moneyList.get(position-1);
                     finish();
                 }
@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
                 writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()],
                         roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
                 PutData();
-                Room.petIndex = moneyList.size();
+                Room.petIndex = moneyList.size()+1;
                 Room.money = 100;
                 finish();
             }

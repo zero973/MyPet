@@ -242,7 +242,7 @@ public class Room extends Activity implements View.OnClickListener {
         cv.put("PetType", kind);
         cv.put("RoomColor", roomColor);
         cv.put("money", money);
-        //db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""}); НЕКОРРЕКТНО РАБОТАЕТ
+        db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""});
         dbHelper.close();
     }
 
@@ -303,20 +303,19 @@ public class Room extends Activity implements View.OnClickListener {
 
         @Override
         public void run() {
-            if (countDeadMessage > 5) {
-                PetDead();
-            }else {
-                if (satiety-1 > 10 && caress-2 > 10) {
-                    satiety -= 1;
-                    caress -= 2;
-                    CheckStatus();
-                }else
-                    countDeadMessage++;
-            }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
+                    if (countDeadMessage > 5) {
+                        PetDead();
+                    }else {
+                        if (satiety-1 > 10 && caress-2 > 10) {
+                            satiety -= 1;
+                            caress -= 2;
+                            CheckStatus();
+                        }else
+                            countDeadMessage++;
+                    }
                 }
             });
         }

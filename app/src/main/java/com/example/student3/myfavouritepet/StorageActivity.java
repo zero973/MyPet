@@ -81,7 +81,8 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         IBPotato.setOnClickListener(this);
         IBIcecream.setOnClickListener(this);
         c = getApplicationContext();
-        if (countLinesInDB <= Room.petIndex)
+        countLinesInDB = GetCountLinesInDBTable();
+        if (countLinesInDB < Room.petIndex)
             AddNewFoodCountsToDBTable();
         else
             ReadFoodCounts();
@@ -139,10 +140,10 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             return;
         }
         if (c.moveToFirst()) {
-            for (int i = 0;  i < Room.petIndex; i++)//С какого индекса начинать? - Айнур, help
+            for (int i = 1;  i < Room.petIndex; i++)
                 c.moveToNext();
             for (int i = 0; i < MassOfFoodNames.length; i++)
-                foodCounts[i] = (byte)c.getInt(c.getColumnIndex(MassOfFoodNames[i]));
+                foodCounts[i] = (byte) c.getInt(c.getColumnIndex(MassOfFoodNames[i]));
         }else return;
         return;
     }
@@ -181,7 +182,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         ContentValues cv = new ContentValues();
         for (int i = 0; i < MassOfFoodNames.length; i++)
             cv.put(MassOfFoodNames[i], foodCounts[i]);
-        //db.update("FoodTable", cv, "id = ?", new String[]{Room.petIndex+""}); НЕКОРРЕКТНАЯ РАБОТА
+        db.update("FoodTable", cv, "id = ?", new String[]{Room.petIndex+""});
         dbHelper.close();
     }
 
