@@ -228,11 +228,6 @@ public class SceneView extends View {
         paint.setColor(Color.rgb(0, 148, 255));*/
     }
 
-    private void ClearPathResource(){
-        ptCurve = null;
-        pm = null;
-    }
-
     private void MinusFood() {
         elementCount--;
         StorageActivity.foodCounts[elementId]--;
@@ -253,7 +248,6 @@ public class SceneView extends View {
             DrawAnimation(canvas, bmSprite);
         }
         if (WhoCalled == 1 && IsAnimationbmSpriteEnd) {
-            ClearPathResource();
             CreatePathAnimation(HeartPoints);
             DrawAnimation(canvas, bitmapHeart);
         }
