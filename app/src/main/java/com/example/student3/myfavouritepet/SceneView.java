@@ -244,9 +244,8 @@ public class SceneView extends View {
         canvas.drawBitmap(backgroundPaint, rSrc, rDest, null);
         canvas.drawBitmap(paintKind, paintKindX, paintKindY, null);
         //canvas.drawPath(ptCurve, paint); //рисет путь анимации
-        if (!IsAnimationbmSpriteEnd) {
+        if (!IsAnimationbmSpriteEnd)
             DrawAnimation(canvas, bmSprite);
-        }
         if (WhoCalled == 1 && IsAnimationbmSpriteEnd) {
             CreatePathAnimation(HeartPoints);
             DrawAnimation(canvas, bitmapHeart);

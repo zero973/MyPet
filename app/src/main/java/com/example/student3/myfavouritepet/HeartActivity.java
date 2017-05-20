@@ -19,21 +19,16 @@ import java.io.OutputStreamWriter;
 
 public class HeartActivity extends Activity implements View.OnClickListener {
 
-    ImageButton IBPlusBall, IBPlusMusic, IBArm, IBBall, IBMusic;
-    TextView tvBallCost, tvMusicCost;
-    boolean IsBallBought = false, IsMusicBought = false;
+    private ImageButton IBPlusBall, IBPlusMusic, IBArm, IBBall, IBMusic;
+    private TextView tvBallCost, tvMusicCost;
+    private boolean IsBallBought = false, IsMusicBought = false;
     public static byte ArmOrBall = 0;
+
     public static MediaPlayer mp;
-    private byte[] purchMass = new byte[2];
-
-    class ThreadMusic extends Thread {
-        public void run() {
-            mp = MediaPlayer.create(getApplicationContext(), R.raw.mysound);
-            mp.start();
-        }
-    }
-
     private ThreadMusic tm = new ThreadMusic();
+
+    private byte[] purchMass = new byte[2];
+    private boolean IsMusicPlay = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,28 +100,26 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     StorageActivity.ShowToast("Купите мяч!", this);
                 break;
             case R.id.Music:
-                if (IsMusicBought) {
+                if (IsMusicBought)
                     PlayMusic();
-                } else
+                else
                     StorageActivity.ShowToast("Купите музыку!", this);
                 break;
         }
     }
 
-    private boolean IsMusicPlay = false;
-
-    void PlayMusic(){
+    private void PlayMusic(){
         if (!IsMusicPlay) {
             tm.run();
             IsMusicPlay = true;
         }
         else {
-            tm.destroy();
+            mp.stop();
             IsMusicPlay = false;
         }
     }
 
-    void SavePurchases(String fileName) {
+    private void SavePurchases(String fileName) {
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             for (int i = 0; i < purchMass.length; i++)
@@ -137,7 +130,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    void ReadPurch(String fileName) {
+    private void ReadPurch(String fileName) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
             String countsInFile = br.readLine();
@@ -158,6 +151,13 @@ public class HeartActivity extends Activity implements View.OnClickListener {
             SavePurchases("HealthPurch");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class ThreadMusic extends Thread {
+        public void run() {
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.mysound);
+            mp.start();
         }
     }
 }
