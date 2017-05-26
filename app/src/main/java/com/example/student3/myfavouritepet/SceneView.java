@@ -151,10 +151,11 @@ public class SceneView extends View {
             iMaxAnimationStep = 100;
             bmSpritePoints.add(new PointF(100f, 200f));
             bmSpritePoints.add(new PointF(150f, 250f));
-            bmSpritePoints.add(new PointF(300f, 410f));
-            bmSpritePoints.add(new PointF(400f, 410f));
+            bmSpritePoints.add(new PointF(400f, 500f));
+            bmSpritePoints.add(new PointF(500f, 600f));
             bmSpritePoints.add(new PointF(600f, 700f));
-            bmSpritePoints.add(new PointF(700f, 700f));
+            bmSpritePoints.add(new PointF(700f, 800f));
+            bmSpritePoints.add(new PointF(800f, 900f));
         }
     }
 
