@@ -75,8 +75,7 @@ public class Room extends Activity implements View.OnClickListener {
             MoneyReadWrite(Opertion.Read, "PetMoney");
             CheckStatus();
             StartTimer();
-            //Тост не выводит
-            Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT).show();
         }
     }
 
@@ -85,7 +84,6 @@ public class Room extends Activity implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        Toast.makeText(getApplicationContext(), "Debug: invoked onPause()", LENGTH_SHORT);
         UpdateDataBase();
         WriteLastPetIndex("PetIndex");
         MoneyReadWrite(Opertion.Write, "PetMoney");
@@ -114,7 +112,7 @@ public class Room extends Activity implements View.OnClickListener {
                 intent = new Intent(Room.this, School.class);
                 break;
             case R.id.imageButtonPet:
-                Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT).show();
                 Log.e("Инфа", "Сытость: " + satiety + " Настроение: " + caress);
                 IsNeedReplaceActivity = false;
                 break;
