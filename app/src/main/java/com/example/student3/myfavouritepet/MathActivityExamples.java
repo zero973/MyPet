@@ -25,21 +25,16 @@ import java.io.OutputStreamWriter;
 import java.util.Random;
 
 public class MathActivityExamples extends AppCompatActivity {
-    byte znakMass;
-    int[] numsMass = new int[2];
-    int rightAnswer;
-    byte i = 0, userLevel = 1;
-    int countRight = 0;
-    int count = 0;
-    char[] numbers = {'0', '1' ,'2', '3', '4' ,'5', '6', '7' ,'8', '9', '-'};
+    private byte znakMass;
+    private int[] numsMass = new int[2];
+    private int rightAnswer, countRight = 0, count = 0;
+    private byte i = 0, userLevel = 1;
+    private char[] numbers = {'0', '1' ,'2', '3', '4' ,'5', '6', '7' ,'8', '9', '-'};
 
-    Button checkBut;
-    TextView t1;
-    TextView t2;
-    TextView t5;//znak
-    TextView TextResult;
-    EditText ans1;
-    Random rand = new Random();
+    private Button checkBut;
+    private TextView t1, t2, t5, TextResult;
+    private EditText ans1;
+    private Random rand = new Random();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +58,7 @@ public class MathActivityExamples extends AppCompatActivity {
                 if(CheckResults()) {
                     CheckRightAnswers();
                     ChangeSymbolOnLabel();
-                    ans1.setText("0");
+                    ans1.setText("");
                 }
             }
         });
