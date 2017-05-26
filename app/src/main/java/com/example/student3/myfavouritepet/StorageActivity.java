@@ -94,13 +94,13 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         SceneView.WhoCalled = 2;
         switch (v.getId()) {
             case R.id.plusWaterMelon: BuyFood(0); break;
-            case R.id.plusPear: BuyFood(1);break;
-            case R.id.plusStrawberry: BuyFood(2);break;
-            case R.id.plusApple: BuyFood(3);break;
-            case R.id.plusLemon: BuyFood(4);break;
-            case R.id.plusMorkov: BuyFood(5);break;
-            case R.id.plusPotato: BuyFood(6);break;
-            case R.id.plusIcecream: BuyFood(7);break;
+            case R.id.plusPear: BuyFood(1);intent = null; break;
+            case R.id.plusStrawberry: BuyFood(2);intent = null; break;
+            case R.id.plusApple: BuyFood(3);intent = null; break;
+            case R.id.plusLemon: BuyFood(4);intent = null; break;
+            case R.id.plusMorkov: BuyFood(5);intent = null; break;
+            case R.id.plusPotato: BuyFood(6);intent = null; break;
+            case R.id.plusIcecream: BuyFood(7); intent = null; break;
             case R.id.Watermelon: CheckOnZeroCount(0); break;
             case R.id.Pear: CheckOnZeroCount(1); break;
             case R.id.Strawberry: CheckOnZeroCount(2); break;

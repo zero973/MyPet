@@ -281,7 +281,7 @@ public class SceneView extends View {
             if (IncreaseStatus(Status.Satiety, StorageActivity.foodCosts[elementId]))
                 ShowThankForEat();
             else
-                Toast.makeText(getContext(), "Я наелся!", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Я наелся!", Toast.LENGTH_SHORT).show();
         }
         else if (WhoCalled == 1){
             IncreaseStatus(Status.Caress, cost[indexArmOrBall]);
@@ -302,7 +302,7 @@ public class SceneView extends View {
     }
 
     private int i = 0, b = 0;
-    String[] wordsMassEat = {"Спасибо!", "Очень вкусно!", "Благодарю!"};
+    private String[] wordsMassEat = {"Спасибо!", "Очень вкусно!", "Благодарю!"};
 
     private void ShowThankForEat() {
         if (i % 2 != 0) {
@@ -327,7 +327,7 @@ public class SceneView extends View {
                     Room.satiety += count;
                 break;
             case Caress:
-                Room.satiety += count;
+                Room.caress += count;
                 break;
         }
         return true;
