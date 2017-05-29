@@ -62,6 +62,10 @@ public class RusActivity_anagrams extends AppCompatActivity {
                 else {
                     if (UserWord.getText().toString().equals("debug"))
                         SendNotification("Мой любимый питомец", "debug", R.drawable.home);
+                    if (UserWord.getText().toString().equals("debug1"))
+                        SendNotification("Мой любимый питомец", "Поиграй со мной", R.drawable.home);
+                    if (UserWord.getText().toString().equals("debug2"))
+                        SendNotification("Мой любимый питомец", "Покорми меня", R.drawable.home);
                     if (trueWord.toLowerCase().equals(UserWord.getText().toString().toLowerCase())) {
                         countRightAnswers++;
                         Room.money += 2;
