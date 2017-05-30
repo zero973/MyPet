@@ -22,23 +22,23 @@ import java.util.List;
 public class SceneView extends View {
     private static Bitmap bmSprite, paintKind, backgroundPaint, bitmapHeart;
     private static Rect rSrc, rDest;
-
-    //animation step
     private static int iMaxAnimationStep = 75;
     private int iCurStep = 0;
-
-    //points defining our curve
     private List<PointF> bmSpritePoints = new ArrayList(), HeartPoints = new ArrayList();
     private Paint paint;
     private Path ptCurve = new Path(); //curve
     private PathMeasure pm;            //curve measure
     private float fSegmentLen;//curve segment
     private Display display;
-    public static byte WhoCalled = 1;
-    private byte elementCount = 120, elementId = 0;
     private Context context;
-
     private int paintKindX, paintKindY;
+
+    public static EWhoCalled WhoCalled;
+
+    public enum EWhoCalled{
+        Caress, Food
+    }
+    private byte elementCount = 120, elementId = 0;
 
     public SceneView(Context context) {
         super(context);
@@ -47,14 +47,14 @@ public class SceneView extends View {
         SetBackgroundSizeAndPetPoints();
         LoadBackground();
         LoadPet();
-        if (WhoCalled == 1)
+        if (WhoCalled == EWhoCalled.Caress)
             LoadHeartAndSetAnimation();
 
         SwitchWhoCalled();
         CreatePathAnimation(bmSpritePoints);
 
         MinusFood();
-        if (WhoCalled == 2)
+        if (WhoCalled == EWhoCalled.Food)
             Toast.makeText(context, "Очень вкусно!", Toast.LENGTH_SHORT).show();
     }
 
@@ -67,44 +67,12 @@ public class SceneView extends View {
     }
 
     private void LoadPet() {
-        switch (Room.kind) {
-            case "Собака":
-                paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petdog);
-                break;
-            case "Кошка":
-                paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petcat);
-                break;
-            case "Заяц":
-                paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petrabbit);
-                break;
-            case "Черепаха":
-                paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petturtle);
-                break;
-            case "Попугай":
-                paintKind = BitmapFactory.decodeResource(context.getResources(), R.drawable.petparrot);
-                break;
-        }
+        paintKind = BitmapFactory.decodeResource(context.getResources(), Pet.getKind());
         paintKind = Bitmap.createScaledBitmap(paintKind, 300, 340, false);
     }
 
     private void LoadBackground() {
-        switch (Room.roomColor) {
-            case "Синяя":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blueroom);
-                break;
-            case "Коричневая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.brownroom);
-                break;
-            case "Голубая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.blue_whiteroom);
-                break;
-            case "Жёлтая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.yellowroom);
-                break;
-            case "Алая":
-                backgroundPaint = BitmapFactory.decodeResource(context.getResources(), R.drawable.alayaroom);
-                break;
-        }
+        backgroundPaint = BitmapFactory.decodeResource(context.getResources(), Pet.getRoom());
         rSrc = new Rect(0, 0, backgroundPaint.getWidth(), backgroundPaint.getHeight());
     }
 
@@ -112,7 +80,7 @@ public class SceneView extends View {
         bitmapHeart = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
         bitmapHeart = Bitmap.createScaledBitmap(bitmapHeart, 100, 100, false);
         bitmapHeart = RotateBitmap(bitmapHeart, -180);
-        HeartPoints.add(new PointF(paintKindX, paintKindY));
+        HeartPoints.add(new PointF(paintKindX, paintKindY));//Не робит
         HeartPoints.add(new PointF(paintKindX, paintKindY + 50));
         HeartPoints.add(new PointF(paintKindX, paintKindY + 100));
         HeartPoints.add(new PointF(paintKindX, paintKindY + 150));
@@ -120,10 +88,11 @@ public class SceneView extends View {
     }
 
     private void SwitchWhoCalled() {
-        if (WhoCalled == 1) {
+        if (WhoCalled == EWhoCalled.Caress)
             SwitchIndexArmOrBallAndSetAnimation();
-        } else {
-            SwitchFoodIndexAndSetAnimationForFood();
+        else {
+            SwitchFoodIndex();
+            SetAnimationForFood();
         }
     }
 
@@ -159,49 +128,14 @@ public class SceneView extends View {
         }
     }
 
-    private void SwitchFoodIndexAndSetAnimationForFood() {
-        switch (StorageActivity.FoodIndex) {
-            case 1:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.watermelon);
-                elementCount = StorageActivity.foodCounts[0];
-                elementId = 0;
-                break;
-            case 2:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.pear);
-                elementCount = StorageActivity.foodCounts[1];
-                elementId = 1;
-                break;
-            case 3:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.strawberry);
-                elementCount = StorageActivity.foodCounts[2];
-                elementId = 2;
-                break;
-            case 4:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.apple);
-                elementCount = StorageActivity.foodCounts[3];
-                elementId = 3;
-                break;
-            case 5:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.lemon);
-                elementCount = StorageActivity.foodCounts[4];
-                elementId = 4;
-                break;
-            case 6:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.morkovka);
-                elementCount = StorageActivity.foodCounts[5];
-                elementId = 5;
-                break;
-            case 7:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.potato);
-                elementCount = StorageActivity.foodCounts[6];
-                elementId = 6;
-                break;
-            case 8:
-                bmSprite = BitmapFactory.decodeResource(context.getResources(), R.drawable.icecream);
-                elementCount = StorageActivity.foodCounts[7];
-                elementId = 7;
-                break;
-        }
+    private void SwitchFoodIndex() {
+        bmSprite = BitmapFactory.decodeResource(context.getResources(), StorageActivity.FoodInfo.FoodId);
+        int index = StorageActivity.FoodInfo.FoodIndex;
+        elementCount = StorageActivity.foodCounts[index-1];
+        elementId = (byte)(index-1);
+    }
+
+    private void SetAnimationForFood(){
         iMaxAnimationStep = 75;
         bmSprite = Bitmap.createScaledBitmap(bmSprite, 100, 100, false);
         bmSprite = RotateBitmap(bmSprite, 90);
@@ -247,7 +181,7 @@ public class SceneView extends View {
         //canvas.drawPath(ptCurve, paint); //рисет путь анимации
         if (!IsAnimationbmSpriteEnd)
             DrawAnimation(canvas, bmSprite);
-        if (WhoCalled == 1 && IsAnimationbmSpriteEnd) {
+        if (WhoCalled == EWhoCalled.Caress && IsAnimationbmSpriteEnd) {
             CreatePathAnimation(HeartPoints);
             DrawAnimation(canvas, bitmapHeart);
         }
@@ -265,7 +199,7 @@ public class SceneView extends View {
             invalidate();
         } else {
             iCurStep = 0;
-            if (WhoCalled == 1 && sprite.equals(bmSprite)) {
+            if (WhoCalled == EWhoCalled.Caress && sprite.equals(bmSprite)) {
                 IsAnimationbmSpriteEnd = true;
                 CreatePathAnimation(HeartPoints);
             } else {
@@ -278,18 +212,18 @@ public class SceneView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         byte[] cost = {5, 15};
-        if (WhoCalled == 2 && elementCount > 0) {
+        if (WhoCalled == EWhoCalled.Food && elementCount > 0) {
             if (IncreaseStatus(Status.Satiety, StorageActivity.foodCosts[elementId]))
                 ShowThankForEat();
             else
                 Toast.makeText(getContext(), "Я наелся!", Toast.LENGTH_SHORT).show();
         }
-        else if (WhoCalled == 1){
+        else if (WhoCalled == EWhoCalled.Caress){
             IncreaseStatus(Status.Caress, cost[indexArmOrBall]);
             Draw(event);
             return true;
         }
-        if (elementCount > 0 && WhoCalled == 2) {
+        if (elementCount > 0 && WhoCalled == EWhoCalled.Food) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {//run animation
                 MinusFood();
                 Draw(event);
@@ -316,19 +250,19 @@ public class SceneView extends View {
     }
 
     private enum Status {
-        Satiety, Caress;
+        Satiety, Caress
     }
 
     private boolean IncreaseStatus(Status status, int count) {
         switch (status) {
             case Satiety:
-                if (Room.satiety + count >= 75) //75, т.к. мороженое стоит 25
+                if (Pet.getSatiety() + count >= 75) //75, т.к. мороженое стоит 25
                     return false;
                 else
-                    Room.satiety += count;
+                    Pet.setSatiety(Pet.getSatiety() + count);
                 break;
             case Caress:
-                Room.caress += count;
+                Pet.setCaress(Pet.getCaress() + count);
                 break;
         }
         return true;

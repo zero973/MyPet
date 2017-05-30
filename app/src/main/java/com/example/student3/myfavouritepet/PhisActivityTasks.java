@@ -49,7 +49,7 @@ public class PhisActivityTasks extends AppCompatActivity {
                 if (userAnswer.equals(trueAnswer)){
                     countRightAnswers++;
                     countTry++;
-                    Room.money += 2;
+                    Pet.IncreaseMoney(2);
                     edUserAnswer.setText("");
                     Start();
                 }else {

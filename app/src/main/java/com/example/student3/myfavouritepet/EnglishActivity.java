@@ -115,7 +115,7 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 if (numUserCB == numTrueCB) {
                     countRightAnswers++;
-                    Room.money++;
+                    Pet.IncreaseMoney();
                     tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из " + answers.length);
                     Play();
                 } else {

@@ -14,7 +14,8 @@
         android:layout_toRightOf="@+id/TextFieldChislo1"
         android:layout_toEndOf="@+id/TextFieldChislo1"
         android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp" />
+        android:layout_marginStart="27dp"
+        android:textSize="24dp"/>
 
     <TextView
         android:text="000"
@@ -26,7 +27,8 @@
         android:layout_toRightOf="@+id/TextZnak1"
         android:layout_toEndOf="@+id/TextZnak1"
         android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp" />
+        android:layout_marginStart="15dp"
+        android:textSize="24dp"/>
 
     <TextView
         android:text="="
@@ -38,21 +40,22 @@
         android:layout_toRightOf="@+id/TextFieldChislo2"
         android:layout_toEndOf="@+id/TextFieldChislo2"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="16dp"
+        android:textSize="24dp"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="10"
-        android:text="0"
         android:id="@+id/Answer1"
         android:layout_alignBaseline="@+id/textView15"
         android:layout_alignBottom="@+id/textView15"
         android:layout_toRightOf="@+id/textView15"
         android:layout_toEndOf="@+id/textView15"
         android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
+        android:layout_marginStart="11dp"
+        android:textSize="24dp"/>
 
 
     <TextView
@@ -63,7 +66,8 @@
         android:layout_marginTop="51dp"
         android:layout_below="@+id/buttonCheckAnswers"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"/>
 
     <TextView
         android:text="Реши пример"
@@ -85,7 +89,8 @@
         android:id="@+id/TextFieldChislo1"
         android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="24dp"/>
 
     <Button
         android:text="Проверить"

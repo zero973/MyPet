@@ -99,7 +99,7 @@ public class PhisActivityFirstLevel extends AppCompatActivity implements View.On
                 else numUserCB = 1;//Какой чекбокс выбрали
                 if (numTrueCB == numUserCB) {
                     countRightAnswers++;
-                    Room.money++;
+                    Pet.IncreaseMoney();
                     tvCountRight.setText("Правильных ответов: " + countRightAnswers + " из 8");
                 }
                 Play();

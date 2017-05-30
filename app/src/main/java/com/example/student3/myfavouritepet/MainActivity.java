@@ -22,23 +22,22 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    public String name;
-    String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"}, roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
-    static ArrayList<String> namesOldPets, oldPetTypes, oldRoomColors;
-    public static ArrayList<Integer> moneyList = new ArrayList<>();
+    private String name;
+    private String[] KindsMass = {"Собака", "Кошка", "Попугай", "Заяц", "Черепаха"},
+            roomColors = {"Синяя", "Коричневая", "Голубая", "Жёлтая", "Алая"};
+    private int[] kindPictures = {R.drawable.petdog, R.drawable.petcat, R.drawable.petparrot, R.drawable.petrabbit, R.drawable.petturtle},
+        roomPictures = {R.drawable.blueroom, R.drawable.brownroom, R.drawable.blue_whiteroom, R.drawable.yellowroom, R.drawable.alayaroom};
+    private static ArrayList<String> namesOldPets;
+    public static ArrayList<Integer> moneyList = new ArrayList<>(), oldPetTypes, oldRoomColors;
 
-    Spinner SpinnerKind, SpinnerRoomColor, SpinnerOldKinds;
-    EditText EditTextName;
-    Button butGoGame;
+    private Spinner SpinnerKind, SpinnerRoomColor, SpinnerOldKinds;
+    private EditText EditTextName;
+    private Button butGoGame;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void main(){
         setContentView(R.layout.main_activity);
-        //Адаптер для спиннера с полом
         ArrayAdapter<String> adapterKind = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, KindsMass);
         adapterKind.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Адаптер спиннера с цветом комнаты
         ArrayAdapter<String> adapterRoomColor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomColors);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterRoomColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -49,11 +48,16 @@ public class MainActivity extends Activity {
         SpinnerRoomColor = (Spinner) findViewById(R.id.choosedRoomColor);
         SpinnerRoomColor.setAdapter(adapterRoomColor);
         SpinnerOldKinds = (Spinner)findViewById(R.id.choosedOldData);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        main();
 
         if (!CheckDataBaseAndFillLists())
             SpinnerOldKinds.setVisibility(View.INVISIBLE);
         else {
-            //Адаптер спиннера с прошлыми питомцами
             ArrayAdapter<String> adapterOldKinds = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, namesOldPets);
             SpinnerOldKinds.setVisibility(View.VISIBLE);
             SpinnerOldKinds.setAdapter(adapterOldKinds);
@@ -64,8 +68,8 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     writeFile("PetInfo", namesOldPets.get(position), oldPetTypes.get(position-1), oldRoomColors.get(position-1));
-                    Room.petIndex = position;
-                    Room.money = moneyList.get(position-1);
+                    Pet.setPetIndex(position);
+                    Pet.setMoney(moneyList.get(position-1));
                     finish();
                 }
             }
@@ -80,18 +84,17 @@ public class MainActivity extends Activity {
                 name = EditTextName.getText().toString();
                 if (name.compareTo("") == 0)
                     name = "Иван";
-                writeFile("PetInfo", name, KindsMass[SpinnerKind.getSelectedItemPosition()],
-                        roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+                writeFile("PetInfo", name, kindPictures[SpinnerKind.getSelectedItemPosition()], roomPictures[SpinnerRoomColor.getSelectedItemPosition()]);
                 PutData();
-                Room.petIndex = moneyList.size()+1;
-                Room.money = 100;
+                Pet.setPetIndex(moneyList.size()+1);
+                Pet.setMoney(100);
                 finish();
             }
         });
         SpinnerOldKinds.setSelected(true);
     }
 
-    private void writeFile(String fileName, String petName, String kind, String color) {
+    private void writeFile(String fileName, String petName, int kind, int color) {
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
             bw.write(String.format("%s\n%s\n%s\n", petName, kind, color));
@@ -107,10 +110,10 @@ public class MainActivity extends Activity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         // подготовим данные для вставки в виде пар:наименование столбца - значение
         cv.put("name", name);
-        cv.put("PetType", KindsMass[SpinnerKind.getSelectedItemPosition()]);
-        cv.put("RoomColor", roomColors[SpinnerRoomColor.getSelectedItemPosition()]);
+        cv.put("PetType", kindPictures[SpinnerKind.getSelectedItemPosition()]);
+        cv.put("RoomColor", roomPictures[SpinnerRoomColor.getSelectedItemPosition()]);
         cv.put("money", 100);
-        db.insert("myDataTable", null, cv);
+        db.insert("PetTable", null, cv);
         dbHelper.close();
     }
 
@@ -121,7 +124,7 @@ public class MainActivity extends Activity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c;
         try {
-            c = db.query("myDataTable", null, null, null, null, null, null);
+            c = db.query("PetTable", null, null, null, null, null, null);
         }catch (Exception e){
             dbHelper.close();
             return false;
@@ -134,8 +137,8 @@ public class MainActivity extends Activity {
             int MoneyColIndex = c.getColumnIndex("money");
             do {//получаем значения по номерам столбцов
                 namesOldPets.add(c.getString(nameColIndex));
-                oldPetTypes.add(c.getString(PetTypeColIndex));
-                oldRoomColors.add(c.getString(RoomColorColIndex));
+                oldPetTypes.add(c.getInt(PetTypeColIndex));
+                oldRoomColors.add(c.getInt(RoomColorColIndex));
                 moneyList.add(c.getInt(MoneyColIndex));
             } while (c.moveToNext());
         }else return false;

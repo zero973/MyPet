@@ -7,11 +7,8 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,54 +17,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.widget.Toast.LENGTH_SHORT;
-import static com.example.student3.myfavouritepet.MainActivity.moneyList;
-import static com.example.student3.myfavouritepet.MainActivity.namesOldPets;
-import static com.example.student3.myfavouritepet.MainActivity.oldPetTypes;
-import static com.example.student3.myfavouritepet.MainActivity.oldRoomColors;
-
 public class Room extends Activity implements View.OnClickListener {
 
-    public static String name = "250801250801", kind, roomColor;
-    public static int money = 100, petIndex = -1, satiety = 50, caress = 50;
     private int countDeadMessage = 0;
-    private boolean IsPetSatiety = true, IsPerCaress = true;
     private static final int NOTIFY_ID = 101;
 
-    private Timer timer;
-    private MyTimerTask timerTask;
+    private RelativeLayout room;
+    private ImageButton IBPet;
+    private TextView tvPetName, tvMoney;
 
-    RelativeLayout room;
-    ImageButton IBPet, IBFood, IBHealth, IBAchievement;
-    Button btnChangePet;
-    TextView tvPetName, tvMoney;
+    private void main(){
+        setContentView(R.layout.activity_room);
+        IBPet = (ImageButton) findViewById(R.id.imageButtonPet);
+        IBPet.setOnClickListener(this);
+        ImageButton IBFood = (ImageButton) findViewById(R.id.imageButtonFood);
+        IBFood.setOnClickListener(this);
+        ImageButton IBHealth = (ImageButton) findViewById(R.id.imageButtonHealth);
+        IBHealth.setOnClickListener(this);
+        ImageButton IBAchievement = (ImageButton) findViewById(R.id.imageButtonAchievement);
+        IBAchievement.setOnClickListener(this);
+        Button btnChangePet = (Button) findViewById(R.id.buttonChangePet);
+        btnChangePet.setOnClickListener(this);
+        tvPetName = (TextView) findViewById(R.id.textViewNamePet);
+        tvMoney = (TextView) findViewById(R.id.textViewMoney);
+        room = (RelativeLayout)findViewById(R.id.room);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room);
-        IBPet = (ImageButton) findViewById(R.id.imageButtonPet);
-        IBPet.setOnClickListener(this);
-        IBFood = (ImageButton) findViewById(R.id.imageButtonFood);
-        IBFood.setOnClickListener(this);
-        IBHealth = (ImageButton) findViewById(R.id.imageButtonHealth);
-        IBHealth.setOnClickListener(this);
-        IBAchievement = (ImageButton) findViewById(R.id.imageButtonAchievement);
-        IBAchievement.setOnClickListener(this);
-        btnChangePet = (Button) findViewById(R.id.buttonChangePet);
-        btnChangePet.setOnClickListener(this);
-        tvPetName = (TextView) findViewById(R.id.textViewNamePet);
-        tvMoney = (TextView) findViewById(R.id.textViewMoney);
-
+        main();
         readFile("PetInfo");
-        if (name.equals("250801250801")) {
+        if (Pet.getName().equals("250801250801")) {
             Intent intent = new Intent(Room.this, MainActivity.class);
             startActivity(intent);
         } else {
@@ -75,11 +62,9 @@ public class Room extends Activity implements View.OnClickListener {
             MoneyReadWrite(Opertion.Read, "PetMoney");
             CheckStatus();
             StartTimer();
-            Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT).show();
+            ShowPetStatus();
         }
     }
-
-    //public static boolean IsIWentFromMainActivity = false;
 
     @Override
     public void onPause() {
@@ -92,16 +77,13 @@ public class Room extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        tvMoney.setText("Монет: " + money);
+        tvMoney.setText("Монет: "+Pet.getMoney());
         readFile("PetInfo");
         CheckStatus();
     }
 
     @Override
     public void onClick(View v) {
-        //Не выводит!!!
-        Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT);
-        //Не выводит!!!
         boolean IsNeedReplaceActivity = true;
         Intent intent = new Intent();
         switch (v.getId()) {
@@ -112,8 +94,7 @@ public class Room extends Activity implements View.OnClickListener {
                 intent = new Intent(Room.this, School.class);
                 break;
             case R.id.imageButtonPet:
-                Toast.makeText(getApplicationContext(), "Сытость: " + satiety + " Настроение: " + caress, LENGTH_SHORT).show();
-                Log.e("Инфа", "Сытость: " + satiety + " Настроение: " + caress);
+                ShowPetStatus();
                 IsNeedReplaceActivity = false;
                 break;
             case R.id.imageButtonFood:
@@ -128,56 +109,20 @@ public class Room extends Activity implements View.OnClickListener {
     }
 
     private void RecolorRoom() {
-        room = (RelativeLayout) findViewById(R.id.room);
-        switch (roomColor) {
-            case "Синяя":
-                room.setBackgroundResource(R.drawable.blueroom);
-                break;
-            case "Коричневая":
-                room.setBackgroundResource(R.drawable.brownroom);
-                break;
-            case "Голубая":
-                room.setBackgroundResource(R.drawable.blue_whiteroom);
-                break;
-            case "Жёлтая":
-                room.setBackgroundResource(R.drawable.yellowroom);
-                break;
-            case "Алая":
-                room.setBackgroundResource(R.drawable.alayaroom);
-                break;
-        }
-
-        switch (kind) {
-            case "Собака":
-                IBPet.setBackgroundResource(R.drawable.petdog);
-                break;
-            case "Кошка":
-                IBPet.setBackgroundResource(R.drawable.petcat);
-                break;
-            case "Заяц":
-                IBPet.setBackgroundResource(R.drawable.petrabbit);
-                break;
-            case "Черепаха":
-                IBPet.setBackgroundResource(R.drawable.petturtle);
-                break;
-            case "Попугай":
-                IBPet.setBackgroundResource(R.drawable.petparrot);
-                break;
-        }
+        room.setBackgroundResource(Pet.getRoom());
+        IBPet.setBackgroundResource(Pet.getKind());
     }
 
     private void readFile(String fileName) {
         try {
-            // открываем поток для чтения
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            String str = br.readLine();
-            // читаем содержимое
-            if (str != null) {
-                name = str;
-                kind = br.readLine();
-                roomColor = br.readLine();
+            String s = br.readLine();
+            if (s != null) {
+                Pet.setName(s);
+                Pet.setKind(Integer.valueOf(br.readLine()));
+                Pet.setRoom(Integer.valueOf(br.readLine()));
                 RecolorRoom();
-                tvPetName.setText(name);
+                tvPetName.setText(Pet.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -193,7 +138,7 @@ public class Room extends Activity implements View.OnClickListener {
             case Write:
                 try {
                     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-                    bw.write(String.valueOf(money));
+                    bw.write(String.valueOf(Pet.getMoney()));
                     bw.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -202,8 +147,8 @@ public class Room extends Activity implements View.OnClickListener {
             case Read:
                 try {
                     BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-                    money = Integer.valueOf(br.readLine());
-                    tvMoney.setText("Монет: " + money);
+                    Pet.setMoney(Integer.valueOf(br.readLine()));
+                    tvMoney.setText("Монет: " + Pet.getMoney());
                     br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -215,7 +160,7 @@ public class Room extends Activity implements View.OnClickListener {
     private void GetLastPetIndex(String fileName){
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(fileName)));
-            petIndex = Integer.valueOf(br.readLine());
+            Pet.setPetIndex(Integer.valueOf(br.readLine()));
             br.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -225,7 +170,7 @@ public class Room extends Activity implements View.OnClickListener {
     private void WriteLastPetIndex(String fileName){
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
-            bw.write(String.valueOf(petIndex));
+            bw.write(String.valueOf(Pet.getPetIndex()));
             bw.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -236,38 +181,30 @@ public class Room extends Activity implements View.OnClickListener {
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name", name);
-        cv.put("PetType", kind);
-        cv.put("RoomColor", roomColor);
-        cv.put("money", money);
-        db.update("myDataTable", cv, "id = ?", new String[]{petIndex+""});
+        cv.put("name", Pet.getName());
+        cv.put("PetType", Pet.getKind());
+        cv.put("RoomColor", Pet.getRoom());
+        cv.put("money", Pet.getMoney());
+        db.update("PetTable", cv, "id = ?", new String[]{Pet.getPetIndex()+""});
         dbHelper.close();
     }
 
     private void CheckStatus(){
-        if (satiety >= 11)
-            IsPetSatiety = true;
-        else {
-            IsPetSatiety = false;
+        if (Pet.getSatiety() < 11)
             SendNotification("Мой любимый питомец", "Я хочу кушать!", R.drawable.home);
-        }
-        if (caress >= 100) {
-            caress = 100;//Пользователь может гладить питомца без ограничеий, поэтому делаю так
-            IsPerCaress = true;
-        }
-        if (caress < 12){
-            IsPerCaress = false;
+        if (Pet.getCaress() > 100)
+            Pet.setCaress(100);//Пользователь может гладить питомца без ограничеий, поэтому делаю так
+        else if (Pet.getCaress() < 12)
             SendNotification("Мой любимый питомец", "Поиграй со мной!", R.drawable.home);
-        }
     }
 
-    private String GetPetStatus(){
-        return null;
+    private void ShowPetStatus(){
+        Toast.makeText(getApplicationContext(), "Сытость: " + Pet.getSatiety() + " Настроение: " + Pet.getCaress(), Toast.LENGTH_LONG).show();
     }
 
     private void StartTimer(){
-        timer = new Timer();
-        timerTask = new MyTimerTask();
+        Timer timer = new Timer();
+        MyTimerTask timerTask = new MyTimerTask();
         timer.schedule(timerTask, 0, 1000*60);
     }
 
@@ -298,7 +235,6 @@ public class Room extends Activity implements View.OnClickListener {
     }
 
     private class MyTimerTask extends TimerTask{
-
         @Override
         public void run() {
             runOnUiThread(new Runnable() {
@@ -307,9 +243,9 @@ public class Room extends Activity implements View.OnClickListener {
                     if (countDeadMessage > 5) {
                         PetDead();
                     }else {
-                        if (satiety-1 > 10 && caress-2 > 10) {
-                            satiety -= 1;
-                            caress -= 2;
+                        if (Pet.getSatiety()-1 > 10 && Pet.getCaress()-2 > 10) {
+                            Pet.setSatiety(Pet.getCaress() - 1);
+                            Pet.setCaress(Pet.getCaress() - 2);
                             CheckStatus();
                         }else
                             countDeadMessage++;

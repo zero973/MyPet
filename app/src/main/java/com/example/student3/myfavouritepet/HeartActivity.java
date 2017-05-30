@@ -62,12 +62,12 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent;
-        SceneView.WhoCalled = 1;
+        SceneView.WhoCalled = SceneView.EWhoCalled.Caress;
         switch (v.getId()) {
             case R.id.plusBall:
-                if (Room.money - 100 > -1) {
+                if (Pet.getMoney() - 100 > -1) {
                     IsBallBought = true;
-                    Room.money -= 100;
+                    Pet.setMoney(Pet.getMoney() - 100);
                     purchMass[0] = 1;
                     SavePurchases("HealthPurch");
                     IBPlusBall.setVisibility(View.INVISIBLE);
@@ -76,9 +76,9 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     StorageActivity.ShowToast("Не хватает монет!", this);
                 break;
             case R.id.plusMusic:
-                if (Room.money - 20 > -1) {
+                if (Pet.getMoney() - 20 > -1) {
                     IsMusicBought = true;
-                    Room.money -= 20;
+                    Pet.setMoney(Pet.getMoney() - 20);
                     purchMass[1] = 1;
                     SavePurchases("HealthPurch");
                     IBPlusMusic.setVisibility(View.INVISIBLE);

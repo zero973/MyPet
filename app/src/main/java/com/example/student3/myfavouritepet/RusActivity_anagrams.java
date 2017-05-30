@@ -68,7 +68,7 @@ public class RusActivity_anagrams extends AppCompatActivity {
                         SendNotification("Мой любимый питомец", "Покорми меня", R.drawable.home);
                     if (trueWord.toLowerCase().equals(UserWord.getText().toString().toLowerCase())) {
                         countRightAnswers++;
-                        Room.money += 2;
+                        Pet.IncreaseMoney(2);
                         CountRightAnswers.setText("Правильных ответов: " + countRightAnswers + " из 20");
                     GoPlayAnagram();
                     } else if (countTryFalse == 3){
