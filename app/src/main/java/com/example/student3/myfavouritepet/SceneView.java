@@ -39,6 +39,7 @@ public class SceneView extends View {
         Caress, Food
     }
     private byte elementCount = 120, elementId = 0;
+    private byte[] cost = {5, 15};
 
     public SceneView(Context context) {
         super(context);
@@ -54,8 +55,12 @@ public class SceneView extends View {
         CreatePathAnimation(bmSpritePoints);
 
         MinusFood();
-        if (WhoCalled == EWhoCalled.Food)
+        if (WhoCalled == EWhoCalled.Food) {
             Toast.makeText(context, "Очень вкусно!", Toast.LENGTH_SHORT).show();
+            IncreaseStatus(Status.Satiety, StorageActivity.foodCosts[elementId]);
+        }
+        else
+            IncreaseStatus(Status.Caress, cost[indexArmOrBall]);
     }
 
     private void SetBackgroundSizeAndPetPoints() {
@@ -131,8 +136,8 @@ public class SceneView extends View {
     private void SwitchFoodIndex() {
         bmSprite = BitmapFactory.decodeResource(context.getResources(), StorageActivity.FoodInfo.FoodId);
         int index = StorageActivity.FoodInfo.FoodIndex;
-        elementCount = StorageActivity.foodCounts[index-1];
-        elementId = (byte)(index-1);
+        elementCount = StorageActivity.foodCounts[index];
+        elementId = (byte)(index);
     }
 
     private void SetAnimationForFood(){
@@ -211,7 +216,6 @@ public class SceneView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        byte[] cost = {5, 15};
         if (WhoCalled == EWhoCalled.Food && elementCount > 0) {
             if (IncreaseStatus(Status.Satiety, StorageActivity.foodCosts[elementId]))
                 ShowThankForEat();

@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class StorageActivity extends Activity implements View.OnClickListener{
 
     static class FoodInfo{
-        static int FoodId = 0, FoodIndex;
+        static int FoodId = 0, FoodIndex = 0;
     }
 
     private TextView tvCountWatermelon, tvCountPear, tvCountStrawberry, tvCountApple, tvCountLemon, tvCountMorkov, tvCountPotato, tvCountIcecream;
@@ -24,7 +24,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
 
     private int countLinesInDB = 0;
     private String[] MassOfFoodNames = {"Watermelon", "Pear", "Strawberry", "Apple", "Lemon", "Morkov", "Potato", "Icecream"};
-    private int[] foodsId = {R.drawable.watermelon, R.drawable.pear, R.drawable.strawberry, R.drawable.apple, R.drawable.lemon, R.drawable.morkovka, R.drawable.potato, R.drawable.icecream};
+    private int[] foodsImageButtonId = {R.drawable.watermelon, R.drawable.pear, R.drawable.strawberry, R.drawable.apple, R.drawable.lemon, R.drawable.morkovka, R.drawable.potato, R.drawable.icecream};
 
     private Context c = this;
     private Intent intent = null;
@@ -87,8 +87,8 @@ public class StorageActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        SceneView.WhoCalled = SceneView.EWhoCalled.Food;
         intent = null;
+        SceneView.WhoCalled = SceneView.EWhoCalled.Food;
         FindElement(v.getId());
         switch (v.getId()) {
             case R.id.plusWaterMelon: BuyFood(0); break;
@@ -195,7 +195,8 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     private void CheckOnZeroCount(int index){
         if (foodCounts[index] > 0) {
             intent = new Intent(this, CaressActivity.class);
-            FoodInfo.FoodId = foodsId[index];
+            FoodInfo.FoodId = foodsImageButtonId[index];
+            FoodInfo.FoodIndex = index;
         }else
             ShowToast("Сначала купите еду!", c);
     }
