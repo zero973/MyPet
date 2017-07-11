@@ -1,10 +1,12 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.Activityes;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.student3.myfavouritepet.R;
 
 public class RusActivity extends AppCompatActivity implements View.OnClickListener{
 

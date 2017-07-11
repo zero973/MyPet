@@ -1,4 +1,4 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.Activityes;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,18 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.example.student3.myfavouritepet.HelpClasses.Service.Pet;
+import com.example.student3.myfavouritepet.R;
+
 import java.util.Random;
 
 public class EnglishActivity extends AppCompatActivity implements View.OnClickListener{
 
-    byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB, typeActivity;
-    Random random = new Random();
-    String[] answers, questions, trueAnswers;
+    private byte countRightAnswers = 0, index = 0, numTrueCB, numUserCB, typeActivity;
+    private Random random = new Random();
+    private String[] answers, questions, trueAnswers;
 
-    TextView tvCountRight, tvQuestion;
-    Button checkBut;
-    CheckBox cb1;
-    CheckBox cb2;
+    private TextView tvCountRight, tvQuestion;
+    private Button checkBut;
+    private CheckBox cb1;
+    private CheckBox cb2;
 
 
     @Override
@@ -67,7 +71,7 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    void Play(){
+    private void Play(){
         cb1.setChecked(false);
         cb2.setChecked(false);
         if (index == answers.length) {
@@ -125,33 +129,33 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    void EngActivity(){
+    private void EngActivity(){
         questions = getResources().getStringArray(R.array.englishQuestions);
         answers = getResources().getStringArray(R.array.englishQuestions_Answers);
         trueAnswers = getResources().getStringArray(R.array.englishQuestions_True_Answers);
     }
 
-    void HimActivity(){
+    private void HimActivity(){
         questions = getResources().getStringArray(R.array.himiyaQuestions);
         answers = getResources().getStringArray(R.array.himiyaQuestions_Answers);
         trueAnswers = getResources().getStringArray(R.array.himiyaQuestions_True_Answers);
         setTitle("Химия");
     }
 
-    void BioActivity(){
+    private void BioActivity(){
         questions = getResources().getStringArray(R.array.biologiyaQuestions);
         answers = getResources().getStringArray(R.array.biologiyaQuestions_Answers);
         trueAnswers = getResources().getStringArray(R.array.biologiyaQuestions_True_Answers);
         setTitle("Биология");
     }
 
-    void GramActivity(){
+    private void GramActivity(){
         answers = getResources().getStringArray(R.array.rusQuestions_How_True);
         trueAnswers = getResources().getStringArray(R.array.rusQuestions_Answers_How_True);
         setTitle("Грамматика");
     }
 
-    void UdarActivity(){
+    private void UdarActivity(){
         answers = getResources().getStringArray(R.array.rusQuestions_Udarenie);
         trueAnswers = getResources().getStringArray(R.array.rusQuestions_Answers_Udarenie);
         setTitle("Ударение");
@@ -180,7 +184,7 @@ public class EnglishActivity extends AppCompatActivity implements View.OnClickLi
         return result;
     }
 
-    String[] randomMass(String[] answers, String[] true_answers){
+    private String[] randomMass(String[] answers, String[] true_answers){
         Answers = new String[answers.length]; True_answers = new String[true_answers.length];
         String[] result = new String[answers.length];
         boolean[] isUsed = new boolean[answers.length];

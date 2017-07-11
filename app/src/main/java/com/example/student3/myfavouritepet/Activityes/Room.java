@@ -1,4 +1,4 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.Activityes;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -15,6 +15,16 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.student3.myfavouritepet.HelpClasses.Exceptions.TiredException;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Apple;
+import com.example.student3.myfavouritepet.HelpClasses.Service.DBHelper;
+import com.example.student3.myfavouritepet.HelpClasses.Service.Pet;
+import com.example.student3.myfavouritepet.HelpClasses.States.BaseState;
+import com.example.student3.myfavouritepet.HelpClasses.States.Solicitude;
+import com.example.student3.myfavouritepet.HelpClasses.States.Feed;
+import com.example.student3.myfavouritepet.HelpClasses.States.Play;
+import com.example.student3.myfavouritepet.R;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -25,15 +35,19 @@ import java.util.TimerTask;
 
 public class Room extends Activity implements View.OnClickListener {
 
+    public static BaseState[] states;
+
     private int countDeadMessage = 0;
     private static final int NOTIFY_ID = 101;
 
-    private RelativeLayout room;
+    private RelativeLayout layout;
     private ImageButton IBPet;
     private TextView tvPetName, tvMoney;
 
     private void main(){
         setContentView(R.layout.activity_room);
+        Context c = getApplicationContext();
+        states = new BaseState[]{new Feed(c, new Apple()), new Solicitude(c), new Play(c)};
         IBPet = (ImageButton) findViewById(R.id.imageButtonPet);
         IBPet.setOnClickListener(this);
         ImageButton IBFood = (ImageButton) findViewById(R.id.imageButtonFood);
@@ -46,7 +60,7 @@ public class Room extends Activity implements View.OnClickListener {
         btnChangePet.setOnClickListener(this);
         tvPetName = (TextView) findViewById(R.id.textViewNamePet);
         tvMoney = (TextView) findViewById(R.id.textViewMoney);
-        room = (RelativeLayout)findViewById(R.id.room);
+        layout = (RelativeLayout)findViewById(R.id.room);
     }
 
     @Override
@@ -59,7 +73,7 @@ public class Room extends Activity implements View.OnClickListener {
             startActivity(intent);
         } else {
             GetLastPetIndex("PetIndex");
-            MoneyReadWrite(Opertion.Read, "PetMoney");
+            MoneyReadWrite(Operation.Read, "PetMoney");
             CheckStatus();
             StartTimer();
             ShowPetStatus();
@@ -71,7 +85,7 @@ public class Room extends Activity implements View.OnClickListener {
         super.onPause();
         UpdateDataBase();
         WriteLastPetIndex("PetIndex");
-        MoneyReadWrite(Opertion.Write, "PetMoney");
+        MoneyReadWrite(Operation.Write, "PetMoney");
     }
 
     @Override
@@ -109,7 +123,7 @@ public class Room extends Activity implements View.OnClickListener {
     }
 
     private void RecolorRoom() {
-        room.setBackgroundResource(Pet.getRoom());
+        layout.setBackgroundResource(Pet.getRoom());
         IBPet.setBackgroundResource(Pet.getKind());
     }
 
@@ -129,12 +143,12 @@ public class Room extends Activity implements View.OnClickListener {
         }
     }
 
-    private enum Opertion {
+    private enum Operation {
         Write, Read
     }
 
-    private void MoneyReadWrite(Opertion opertion, String fileName) {
-        switch (opertion) {
+    private void MoneyReadWrite(Operation operation, String fileName) {
+        switch (operation) {
             case Write:
                 try {
                     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(openFileOutput(fileName, MODE_PRIVATE)));
@@ -190,16 +204,17 @@ public class Room extends Activity implements View.OnClickListener {
     }
 
     private void CheckStatus(){
-        if (Pet.getSatiety() < 11)
-            SendNotification("Мой любимый питомец", "Я хочу кушать!", R.drawable.home);
-        if (Pet.getCaress() > 100)
-            Pet.setCaress(100);//Пользователь может гладить питомца без ограничеий, поэтому делаю так
-        else if (Pet.getCaress() < 12)
-            SendNotification("Мой любимый питомец", "Поиграй со мной!", R.drawable.home);
+        for (int i = 0 ; i < states.length; i++){
+            if (states[i].getFullness() < 10)
+                SendNotification("Мой любимый питомец", states[i].getNotifyMsg(), R.drawable.home);
+        }
     }
 
     private void ShowPetStatus(){
-        Toast.makeText(getApplicationContext(), "Сытость: " + Pet.getSatiety() + " Настроение: " + Pet.getCaress(), Toast.LENGTH_LONG).show();
+        String msg = "";
+        for(int i = 0; i < states.length; i++)
+            msg += states[i].getName() + states[i].getFullness() + "\n";
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
     private void StartTimer(){
@@ -243,15 +258,24 @@ public class Room extends Activity implements View.OnClickListener {
                     if (countDeadMessage > 5) {
                         PetDead();
                     }else {
-                        if (Pet.getSatiety()-1 > 10 && Pet.getCaress()-2 > 10) {
-                            Pet.setSatiety(Pet.getCaress() - 1);
-                            Pet.setCaress(Pet.getCaress() - 2);
-                            CheckStatus();
-                        }else
-                            countDeadMessage++;
+                        for (int i = 0; i < states.length; i++){
+                            if (states[i].getFullness() - 1 > 10)
+                                SetFullness(i);
+                            else {
+                                countDeadMessage++;
+                                break;
+                            }
+                        }
                     }
                 }
             });
+        }
+
+        private void SetFullness(int i){
+            try {
+                states[i].setFullness(BaseState.Operation.Minus);
+            }catch (TiredException e) {}
+            CheckStatus();
         }
     }
 }

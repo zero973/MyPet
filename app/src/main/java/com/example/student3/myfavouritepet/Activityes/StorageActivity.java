@@ -1,4 +1,4 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.Activityes;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -12,21 +12,34 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StorageActivity extends Activity implements View.OnClickListener{
+import com.example.student3.myfavouritepet.HelpClasses.Animation.PrepareForAnimation;
+import com.example.student3.myfavouritepet.HelpClasses.Exceptions.ZeroCountFoodException;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Apple;
+import com.example.student3.myfavouritepet.HelpClasses.Food.BaseFood;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Carrot;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Icecream;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Lemon;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Pear;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Potato;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Strawberry;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Watermelon;
+import com.example.student3.myfavouritepet.HelpClasses.Service.DBHelper;
+import com.example.student3.myfavouritepet.HelpClasses.Service.Pet;
+import com.example.student3.myfavouritepet.HelpClasses.States.BaseState;
+import com.example.student3.myfavouritepet.HelpClasses.States.Feed;
+import com.example.student3.myfavouritepet.R;
 
-    static class FoodInfo{
-        static int FoodId = 0, FoodIndex = 0;
-    }
+import java.util.ArrayList;
+
+public class StorageActivity extends Activity implements View.OnClickListener{
 
     private TextView tvCountWatermelon, tvCountPear, tvCountStrawberry, tvCountApple, tvCountLemon, tvCountMorkov, tvCountPotato, tvCountIcecream;
 
-    public static byte[] foodCounts = new byte[8], foodCosts = {15, 5, 8, 3, 10, 10, 7, 25};
+    private ArrayList<BaseFood> foodList = new ArrayList<>();
 
     private int countLinesInDB = 0;
-    private String[] MassOfFoodNames = {"Watermelon", "Pear", "Strawberry", "Apple", "Lemon", "Morkov", "Potato", "Icecream"};
-    private int[] foodsImageButtonId = {R.drawable.watermelon, R.drawable.pear, R.drawable.strawberry, R.drawable.apple, R.drawable.lemon, R.drawable.morkovka, R.drawable.potato, R.drawable.icecream};
 
-    private Context c = this;
+    private Context cnt = this;
     private Intent intent = null;
 
     private void main(){
@@ -77,6 +90,8 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         main();
+
+        FillFoodList();
         countLinesInDB = GetCountLinesInDBTable();
         if (countLinesInDB < Pet.getPetIndex())
             AddNewFoodCountsToDBTable();
@@ -88,36 +103,25 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         intent = null;
-        SceneView.WhoCalled = SceneView.EWhoCalled.Food;
-        FindElement(v.getId());
         switch (v.getId()) {
-            case R.id.plusWaterMelon: BuyFood(0); break;
-            case R.id.plusPear: BuyFood(1);break;
-            case R.id.plusStrawberry: BuyFood(2);break;
-            case R.id.plusApple: BuyFood(3);break;
-            case R.id.plusLemon: BuyFood(4);break;
-            case R.id.plusMorkov: BuyFood(5);break;
-            case R.id.plusPotato: BuyFood(6); break;
-            case R.id.plusIcecream: BuyFood(7); break;
-            case R.id.Watermelon: CheckOnZeroCount(0); break;
-            case R.id.Pear: CheckOnZeroCount(1); break;
-            case R.id.Strawberry: CheckOnZeroCount(2); break;
-            case R.id.Apple: CheckOnZeroCount(3); break;
-            case R.id.Lemon: CheckOnZeroCount(4); break;
-            case R.id.Morkov: CheckOnZeroCount(5); break;
-            case R.id.Potato: CheckOnZeroCount(6); break;
-            case R.id.Icecream: CheckOnZeroCount(7); break;
+            case R.id.plusWaterMelon: BuyFood(foodList.get(0)); break;
+            case R.id.plusPear: BuyFood(foodList.get(1));break;
+            case R.id.plusStrawberry: BuyFood(foodList.get(2));break;
+            case R.id.plusApple: BuyFood(foodList.get(3));break;
+            case R.id.plusLemon: BuyFood(foodList.get(4));break;
+            case R.id.plusMorkov: BuyFood(foodList.get(5));break;
+            case R.id.plusPotato: BuyFood(foodList.get(6)); break;
+            case R.id.plusIcecream: BuyFood(foodList.get(7)); break;
+            case R.id.Watermelon: CheckOnZeroCount(foodList.get(0)); break;
+            case R.id.Pear: CheckOnZeroCount(foodList.get(1)); break;
+            case R.id.Strawberry: CheckOnZeroCount(foodList.get(2)); break;
+            case R.id.Apple: CheckOnZeroCount(foodList.get(3)); break;
+            case R.id.Lemon: CheckOnZeroCount(foodList.get(4)); break;
+            case R.id.Morkov: CheckOnZeroCount(foodList.get(5)); break;
+            case R.id.Potato:  CheckOnZeroCount(foodList.get(6)); break;
+            case R.id.Icecream: CheckOnZeroCount(foodList.get(7)); break;
         }
-        SetAction();
         if (intent != null) startActivity(intent);
-    }
-
-    private void FindElement(int elementId){
-
-    }
-
-    private void SetAction(){
-
     }
 
     @Override
@@ -136,10 +140,22 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             AddNewFoodCountsToDBTable();
     }
 
+    private void FillFoodList(){
+        foodList.add(new Watermelon());
+        foodList.add(new Pear());
+        foodList.add(new Strawberry());
+        foodList.add(new Apple());
+        foodList.add(new Lemon());
+        foodList.add(new Carrot());
+        foodList.add(new Potato());
+        foodList.add(new Icecream());
+    }
+
     private void ReadFoodCounts(){
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c;
+        BaseFood food;
         try {
             c = db.query("FoodTable", null, null, null, null, null, null);
         }catch (Exception e){
@@ -147,20 +163,30 @@ public class StorageActivity extends Activity implements View.OnClickListener{
             return;
         }
         if (c.moveToFirst()) {
-            for (int i = 1;  i < Pet.getPetIndex(); i++)
+            for (int i = 1; i < Pet.getPetIndex(); i++)
                 c.moveToNext();
-            for (int i = 0; i < MassOfFoodNames.length; i++)
-                foodCounts[i] = (byte) c.getInt(c.getColumnIndex(MassOfFoodNames[i]));
+            for (int i = 0; i < foodList.size(); i++) {
+                food = foodList.get(i);
+                try {
+                    food.setCurrentCount((byte) c.getInt(c.getColumnIndex(foodList.get(i).getFoodName())));
+                } catch (ZeroCountFoodException e) {}
+                foodList.set(i, food);
+            }
         }
     }
 
     private void AddNewFoodCountsToDBTable(){
-        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        DBHelper dbHelper = new DBHelper(this);
         ContentValues cv = new ContentValues();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        for (int i = 0; i < MassOfFoodNames.length; i++) {
-            cv.put(MassOfFoodNames[i], 0);
-            foodCounts[i] = 0;
+        BaseFood food;
+        for (int i = 0; i < foodList.size(); i++) {
+            cv.put(foodList.get(i).getFoodName(), 0);
+            food = foodList.get(i);
+            try {
+                food.setCurrentCount((byte) 0);
+            } catch (ZeroCountFoodException e) {}
+            foodList.set(i, food);
         }
         db.insert("FoodTable", null, cv);
         dbHelper.close();
@@ -186,49 +212,62 @@ public class StorageActivity extends Activity implements View.OnClickListener{
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        for (int i = 0; i < MassOfFoodNames.length; i++)
-            cv.put(MassOfFoodNames[i], foodCounts[i]);
+        for (int i = 0; i < foodList.size(); i++)
+            cv.put(foodList.get(i).getFoodName(), foodList.get(i).getCurrentCount());
         db.update("FoodTable", cv, "id = ?", new String[]{Pet.getPetIndex()+""});
         dbHelper.close();
     }
 
-    private void CheckOnZeroCount(int index){
-        if (foodCounts[index] > 0) {
-            intent = new Intent(this, CaressActivity.class);
-            FoodInfo.FoodId = foodsImageButtonId[index];
-            FoodInfo.FoodIndex = index;
-        }else
-            ShowToast("Сначала купите еду!", c);
+    private void CheckOnZeroCount(BaseFood food){
+        if (food.getCurrentCount() > 0) {
+            PrepareForAnimation PFA = new PrepareForAnimation();
+            SetFood(food);
+            PFA.setState(Room.states[0]);
+            intent = new Intent(this, PFA.getClass());
+        }
+        else
+            ShowToast("Сначала купите еду!", cnt);
     }
 
-    private void BuyFood(int FoodIndex){
-        if (Pet.getMoney() - foodCosts[FoodIndex] > -1)
-            if (CheckFoodOnOverflow(FoodIndex))
-                Pet.setMoney(Pet.getMoney() - foodCosts[FoodIndex]);
+    private void BuyFood(BaseFood food){
+        if (Pet.getMoney() - food.getCost() > -1)
+            if (CheckFoodOnOverflow(food)) {
+                Pet.setMoney(Pet.getMoney() - food.getCost());
+                ChangeCountFoodInList(food);
+            }
             else
                 ShowToast("На складе больше не помещается!", this);
         else
             ShowToast("Не хватает монет!", this);
-
         ChangeTVCounts();
     }
 
-    private void ChangeTVCounts(){
-        tvCountWatermelon.setText(""+foodCounts[0]);
-        tvCountPear.setText(""+foodCounts[1]);
-        tvCountStrawberry.setText(""+foodCounts[2]);
-        tvCountApple.setText(""+foodCounts[3]);
-        tvCountLemon.setText(""+foodCounts[4]);
-        tvCountMorkov.setText(""+foodCounts[5]);
-        tvCountPotato.setText(""+foodCounts[6]);
-        tvCountIcecream.setText(""+foodCounts[7]);
+    private void ChangeCountFoodInList(BaseFood food){
+        int index = foodList.indexOf(food);
+        try {
+            food.setCurrentCount((byte) (food.getCurrentCount()+1));
+            foodList.set(index, food);
+        } catch (ZeroCountFoodException e) {}
     }
 
-    private boolean CheckFoodOnOverflow(int foodIndex){
-        if(foodCounts[foodIndex]+1 < 101) {
-            foodCounts[foodIndex]++;
+    private void ChangeTVCounts(){
+        tvCountWatermelon.setText(""+foodList.get(0).getCurrentCount());
+        tvCountPear.setText(""+foodList.get(1).getCurrentCount());
+        tvCountStrawberry.setText(""+foodList.get(2).getCurrentCount());
+        tvCountApple.setText(""+foodList.get(3).getCurrentCount());
+        tvCountLemon.setText(""+foodList.get(4).getCurrentCount());
+        tvCountMorkov.setText(""+foodList.get(5).getCurrentCount());
+        tvCountPotato.setText(""+foodList.get(6).getCurrentCount());
+        tvCountIcecream.setText(""+foodList.get(7).getCurrentCount());
+    }
+
+    private void SetFood(BaseFood food){
+        Room.states[0].setFood(food);
+    }
+
+    private boolean CheckFoodOnOverflow(BaseFood food){
+        if(food.getCurrentCount()+1 < 101)
             return true;
-        }
         else
             return false;
     }
@@ -236,5 +275,4 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     public static void ShowToast(String text, Context context){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
-
 }

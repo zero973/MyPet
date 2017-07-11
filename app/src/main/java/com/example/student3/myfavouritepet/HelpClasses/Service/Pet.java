@@ -1,9 +1,9 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.HelpClasses.Service;
 
 public class Pet {
 
     private static String name = "250801250801";
-    private static int money = 100, petIndex = -1, satiety = 50, caress = 50, room, kind;
+    private static int money = 100, petIndex = -1, room, kind;
 
     public static void setName(String name) {
         Pet.name = name;
@@ -15,14 +15,6 @@ public class Pet {
 
     public static void setPetIndex(int petIndex) {
         Pet.petIndex = petIndex;
-    }
-
-    public static void setSatiety(int satiety) {
-        Pet.satiety = satiety;
-    }
-
-    public static void setCaress(int caress) {
-        Pet.caress = caress;
     }
 
     public static String getName() {
@@ -53,14 +45,6 @@ public class Pet {
 
     public static int getPetIndex() {
         return petIndex;
-    }
-
-    public static int getSatiety() {
-        return satiety;
-    }
-
-    public static int getCaress() {
-        return caress;
     }
 
     public static void IncreaseMoney(){

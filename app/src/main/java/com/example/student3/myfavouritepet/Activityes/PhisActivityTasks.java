@@ -1,4 +1,4 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.Activityes;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,30 +10,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.student3.myfavouritepet.HelpClasses.Service.Pet;
+import com.example.student3.myfavouritepet.R;
+
 import java.util.Random;
 
-public class MathActivityDescrim extends AppCompatActivity {
+public class PhisActivityTasks extends AppCompatActivity {
 
-    TextView tvExample, tvCountRightAnswersDescrim;
+    TextView tvExample, tvCountRightAnswersExample;
     EditText edUserAnswer;
     Button check;
 
     String[] examples, trueAnswers;
-    String trueAnswer, userAnswer;
+    String userAnswer, trueAnswer;
     int countTry = 0;
     byte index = 0, countRightAnswers = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.math_activity_descrim);
-        tvExample = (TextView)findViewById(R.id.textViewExampleDescrim);
-        tvCountRightAnswersDescrim = (TextView)findViewById(R.id.textViewCountRightAnswersDescrim);
-        edUserAnswer = (EditText)findViewById(R.id.editTextUserAnswerDescrim);
-        check = (Button)findViewById(R.id.buttonCheckDescrim);
+        setContentView(R.layout.phis_activity_tasks);
 
-        examples = getResources().getStringArray(R.array.mathExamplesDiscriminant);
-        trueAnswers = getResources().getStringArray(R.array.mathExamplesDiscriminantAnswers);
+        tvExample = (TextView)findViewById(R.id.textViewExampleExamplePhis);
+        tvCountRightAnswersExample = (TextView)findViewById(R.id.textViewCountRightAnswersExamplePhis);
+        edUserAnswer = (EditText)findViewById(R.id.editTextUserAnswerExamplePhis);
+        check = (Button)findViewById(R.id.buttonCheckExamplePhis);
+
+        examples = getResources().getStringArray(R.array.phisTasks);
+        trueAnswers = getResources().getStringArray(R.array.phisTasks_Answers);
 
         examples = randomMass(examples, trueAnswers);
 
@@ -44,15 +48,16 @@ public class MathActivityDescrim extends AppCompatActivity {
             public void onClick(View v) {
                 userAnswer = edUserAnswer.getText().toString();
                 if (userAnswer.equals(trueAnswer)){
-                    Pet.IncreaseMoney(2);
                     countRightAnswers++;
                     countTry++;
+                    Pet.IncreaseMoney(2);
+                    edUserAnswer.setText("");
                     Start();
                 }else {
                     countTry++;
                     Toast.makeText(getApplicationContext(), "Неправильный  ответ!", Toast.LENGTH_SHORT).show();
                 }
-                tvCountRightAnswersDescrim.setText("Правильных ответов: " + countRightAnswers + " из 20");
+                tvCountRightAnswersExample.setText("Правильных ответов: " + countRightAnswers + " из " + countTry);
             }
         });
     }
@@ -63,14 +68,15 @@ public class MathActivityDescrim extends AppCompatActivity {
     }
 
     void Start(){
-        if (index < 20) {
+        if (index < 6) {
             tvExample.setText(examples[index]);
             trueAnswer = trueAnswers[index];
             index++;
         }else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MathActivityDescrim.this);
+            index = 0;
+            AlertDialog.Builder builder = new AlertDialog.Builder(PhisActivityTasks.this);
             builder.setTitle("Игра окончена!")
-                    .setMessage("Правильных ответов: " + countRightAnswers + " из 20")
+                    .setMessage("Правильных ответов: " + countRightAnswers + " из " + countTry)
                     .setCancelable(false)
                     .setNegativeButton("Закончить игру",
                             new DialogInterface.OnClickListener() {
@@ -85,7 +91,6 @@ public class MathActivityDescrim extends AppCompatActivity {
     }
 
     public String[] randomMass(String[] questions, String[] true_answers){
-        trueAnswers = new String[true_answers.length];
         String[] result = new String[questions.length];
         boolean[] isUsed = new boolean[questions.length];
         for(int i = 0; i < questions.length; i++)
@@ -99,8 +104,7 @@ public class MathActivityDescrim extends AppCompatActivity {
                 result[i] = questions[index];
                 trueAnswers[i] = true_answers[index];
                 isUsed[index] = true;
-            }
-            else i--;
+            } else i--;
         }
         return result;
     }

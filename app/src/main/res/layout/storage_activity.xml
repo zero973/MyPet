@@ -196,7 +196,7 @@
                 <ImageButton
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/morkovka"
+                    android:background="@drawable/carrot"
                     android:id="@+id/Morkov"/>
                 <TextView
                     android:layout_marginLeft="5dp"

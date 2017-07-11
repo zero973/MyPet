@@ -8,26 +8,26 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Room" android:label="Мой любимый питомец">
+        <activity android:name=".Activityes.Room" android:label="Мой любимый питомец">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".School" android:label="Школа"></activity>
-        <activity android:name=".MainActivity" android:label="Создание питомца"></activity>
-        <activity android:name=".MathActivity" android:label="Математика"></activity>
-        <activity android:name=".PhisActivityFirstLevel" android:label="Физика"></activity>
-        <activity android:name=".EnglishActivity" android:label="Английский язык"></activity>
-        <activity android:name=".RusActivity_anagrams" android:label="Анаграммы"></activity>
-        <activity android:name=".MathActivityDescrim" android:label="Математика"></activity>
-        <activity android:name=".PhisActivityTasks" android:label="Задачи"></activity>
-        <activity android:name=".RusActivity" android:label="Русский язык"></activity>
-        <activity android:name=".PhisActivity" android:label="Физика"></activity>
-        <activity android:name=".MathActivityExamples" android:label="Математика"></activity>
-        <activity android:name=".StorageActivity" android:label="Склад"></activity>
-        <activity android:name=".HeartActivity" android:label="Склад"></activity>
-        <activity android:name=".CaressActivity"></activity>
+        <activity android:name=".Activityes.School" android:label="Школа"></activity>
+        <activity android:name=".Activityes.MainActivity" android:label="Создание питомца"></activity>
+        <activity android:name=".Activityes.MathActivity" android:label="Математика"></activity>
+        <activity android:name=".Activityes.PhisActivityFirstLevel" android:label="Физика"></activity>
+        <activity android:name=".Activityes.EnglishActivity" android:label="Английский язык"></activity>
+        <activity android:name=".Activityes.RusActivity_anagrams" android:label="Анаграммы"></activity>
+        <activity android:name=".Activityes.MathActivityDescrim" android:label="Математика"></activity>
+        <activity android:name=".Activityes.PhisActivityTasks" android:label="Задачи"></activity>
+        <activity android:name=".Activityes.RusActivity" android:label="Русский язык"></activity>
+        <activity android:name=".Activityes.PhisActivity" android:label="Физика"></activity>
+        <activity android:name=".Activityes.MathActivityExamples" android:label="Математика"></activity>
+        <activity android:name=".Activityes.StorageActivity" android:label="Склад"></activity>
+        <activity android:name=".Activityes.HeartActivity" android:label="Склад"></activity>
+        <activity android:name=".HelpClasses.Animation.PrepareForAnimation"></activity>
     </application>
 
 </manifest>

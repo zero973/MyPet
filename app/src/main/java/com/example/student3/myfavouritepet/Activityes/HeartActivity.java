@@ -1,14 +1,18 @@
-package com.example.student3.myfavouritepet;
+package com.example.student3.myfavouritepet.Activityes;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.student3.myfavouritepet.HelpClasses.Animation.PrepareForAnimation;
+import com.example.student3.myfavouritepet.HelpClasses.Service.Pet;
+import com.example.student3.myfavouritepet.HelpClasses.States.Solicitude;
+import com.example.student3.myfavouritepet.HelpClasses.States.Play;
+import com.example.student3.myfavouritepet.R;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,7 +26,6 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     private ImageButton IBPlusBall, IBPlusMusic, IBArm, IBBall, IBMusic;
     private TextView tvBallCost, tvMusicCost;
     private boolean IsBallBought = false, IsMusicBought = false;
-    public static byte ArmOrBall = 0;
 
     public static MediaPlayer mp;
     private ThreadMusic tm = new ThreadMusic();
@@ -30,9 +33,7 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     private byte[] purchMass = new byte[2];
     private boolean IsMusicPlay = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void main(){
         setContentView(R.layout.heart_activity);
         IBPlusBall = (ImageButton) findViewById(R.id.plusBall);
         IBPlusBall.setOnClickListener(this);
@@ -46,7 +47,12 @@ public class HeartActivity extends Activity implements View.OnClickListener {
         IBMusic.setOnClickListener(this);
         tvBallCost = (TextView) findViewById(R.id.TextViewBallCost);
         tvMusicCost = (TextView) findViewById(R.id.TextViewMusicCost);
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        main();
         ReadPurch("HealthPurch");
         if (purchMass[0] == 1) {
             IsBallBought = true;
@@ -62,7 +68,6 @@ public class HeartActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent;
-        SceneView.WhoCalled = SceneView.EWhoCalled.Caress;
         switch (v.getId()) {
             case R.id.plusBall:
                 if (Pet.getMoney() - 100 > -1) {
@@ -87,14 +92,14 @@ public class HeartActivity extends Activity implements View.OnClickListener {
                     StorageActivity.ShowToast("Не хватает монет!", this);
                 break;
             case R.id.arm:
-                intent = new Intent(this, CaressActivity.class);
-                ArmOrBall = 0;
+                intent = new Intent(this, PrepareForAnimation.class);
+                PrepareForAnimation.setState(Room.states[1]);
                 startActivity(intent);
                 break;
             case R.id.ball:
                 if (IsBallBought) {
-                    intent = new Intent(this, CaressActivity.class);
-                    ArmOrBall = 1;
+                    intent = new Intent(this, PrepareForAnimation.class);
+                    PrepareForAnimation.setState(Room.states[2]);
                     startActivity(intent);
                 } else
                     StorageActivity.ShowToast("Купите мяч!", this);
