@@ -25,7 +25,7 @@
         android:shadowDx="1"
         android:shadowColor="@color/black"/>
 
-    <com.example.student3.myfavouritepet.HelpClasses.ButtonStrokeText
+    <Button
         android:text="Грамматика"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,11 +35,9 @@
         android:layout_marginTop="33dp"
         android:id="@+id/buttonGramm"
         android:textStyle="italic"
-        android:background="@drawable/beautiful_button"
-        app:textStrokeColor="@color/WhiteColor"
-        app:textStrokeWidth="3sp"/>
+        android:background="@drawable/beautiful_button"/>
 
-    <com.example.student3.myfavouritepet.HelpClasses.ButtonStrokeText
+    <Button
         android:text="Ударение"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,11 +47,9 @@
         android:textStyle="italic"
         android:padding="4pt"
         android:layout_marginTop="45dp"
-        android:id="@+id/buttonUdarenie"
-        app:textStrokeColor="@color/WhiteColor"
-        app:textStrokeWidth="3sp"/>
+        android:id="@+id/buttonUdarenie"/>
 
-    <com.example.student3.myfavouritepet.HelpClasses.ButtonStrokeText
+    <Button
         android:text="Анаграммы"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,8 +59,6 @@
         android:id="@+id/buttonAnagrams"
         android:layout_below="@+id/buttonUdarenie"
         android:layout_centerHorizontal="true"
-        android:padding="4pt"
-        app:textStrokeColor="@color/WhiteColor"
-        app:textStrokeWidth="3sp"/>
+        android:padding="4pt"/>
 
 </RelativeLayout>

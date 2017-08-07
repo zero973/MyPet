@@ -20,8 +20,10 @@ public class Feed extends BaseState {
         this.food = food;
         name = "Сытость: ";
         wordsOfGratitude = new String[]{"Спасибо!", "Очень вкусно!", "Благодарю!", "Мням, мням!"};
-        bitmapId = food.getFoodBitmapId();
-        cost = food.getCost();
+        if (food != null) {
+            bitmapId = food.getFoodBitmapId();
+            cost = food.getCost();
+        }
     }
 
     @Override

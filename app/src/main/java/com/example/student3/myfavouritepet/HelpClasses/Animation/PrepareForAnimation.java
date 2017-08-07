@@ -35,10 +35,6 @@ public class PrepareForAnimation extends AppCompatActivity {
     private List<PointF> bmSpritePoints = new ArrayList();
     private int iMaxAnimationStep = 75;
 
-    public PrepareForAnimation(){
-        //context = activity.getApplicationContext();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

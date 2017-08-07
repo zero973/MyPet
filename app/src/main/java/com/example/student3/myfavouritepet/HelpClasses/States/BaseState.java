@@ -72,8 +72,4 @@ public abstract class BaseState {
     public String getName() {
         return name;
     }
-
-    public void setFood(BaseFood food){
-        this.food = food;
-    }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.student3.myfavouritepet.HelpClasses.Exceptions.TiredException;
 import com.example.student3.myfavouritepet.HelpClasses.Food.Apple;
+import com.example.student3.myfavouritepet.HelpClasses.Food.Icecream;
 import com.example.student3.myfavouritepet.HelpClasses.Service.DBHelper;
 import com.example.student3.myfavouritepet.HelpClasses.Service.Pet;
 import com.example.student3.myfavouritepet.HelpClasses.States.BaseState;
@@ -47,7 +48,7 @@ public class Room extends Activity implements View.OnClickListener {
     private void main(){
         setContentView(R.layout.activity_room);
         Context c = getApplicationContext();
-        states = new BaseState[]{new Feed(c, new Apple()), new Solicitude(c), new Play(c)};
+        states = new BaseState[]{new Feed(c, new Icecream()), new Solicitude(c), new Play(c)};
         IBPet = (ImageButton) findViewById(R.id.imageButtonPet);
         IBPet.setOnClickListener(this);
         ImageButton IBFood = (ImageButton) findViewById(R.id.imageButtonFood);

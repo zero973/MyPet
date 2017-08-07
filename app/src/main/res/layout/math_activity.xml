@@ -25,7 +25,7 @@
         android:shadowDx="1"
         android:shadowColor="@color/black"/>
 
-    <com.example.student3.myfavouritepet.HelpClasses.ButtonStrokeText
+    <Button
         android:text="Примеры"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         app:textStrokeColor="@color/WhiteColor"
         app:textStrokeWidth="3sp"/>
 
-    <com.example.student3.myfavouritepet.HelpClasses.ButtonStrokeText
+    <Button
         android:text="Дискриминант"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,9 +49,7 @@
         android:textStyle="italic"
         android:background="@drawable/beautiful_button"
         android:layout_below="@+id/buttonExamplesMath"
-        android:layout_centerHorizontal="true"
-        app:textStrokeColor="@color/WhiteColor"
-        app:textStrokeWidth="3sp"/>
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

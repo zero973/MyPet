@@ -37,6 +37,8 @@ public class StorageActivity extends Activity implements View.OnClickListener{
 
     private ArrayList<BaseFood> foodList = new ArrayList<>();
 
+    private PrepareForAnimation PFA = new PrepareForAnimation();
+
     private int countLinesInDB = 0;
 
     private Context cnt = this;
@@ -220,9 +222,7 @@ public class StorageActivity extends Activity implements View.OnClickListener{
 
     private void CheckOnZeroCount(BaseFood food){
         if (food.getCurrentCount() > 0) {
-            PrepareForAnimation PFA = new PrepareForAnimation();
             SetFood(food);
-            PFA.setState(Room.states[0]);
             intent = new Intent(this, PFA.getClass());
         }
         else
@@ -262,7 +262,8 @@ public class StorageActivity extends Activity implements View.OnClickListener{
     }
 
     private void SetFood(BaseFood food){
-        Room.states[0].setFood(food);
+        Room.states[0] = new Feed(cnt, food);
+        PFA.setState(Room.states[0]);
     }
 
     private boolean CheckFoodOnOverflow(BaseFood food){
